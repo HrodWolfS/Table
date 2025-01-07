@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Check, Medal, Timer, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { checkBadgeUnlock, getBadges, saveBadges } from "../../utils/badges";
 import { saveTestResult } from "../../utils/localStorage";
 import BackButton from "../ui/BackButton";
@@ -27,6 +27,7 @@ const TestMode = () => {
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [fadeIn, setFadeIn] = useState(true);
   const [newBadgesEarned, setNewBadgesEarned] = useState(null);
+  const inputRef = useRef(null);
 
   const endTest = () => {
     const result = {
@@ -126,6 +127,10 @@ const TestMode = () => {
         } else {
           setCurrentQuestion(generateQuestion());
           setFadeIn(true);
+          // Focus après le changement de question
+          if (inputRef.current) {
+            inputRef.current.focus();
+          }
         }
       }, 300);
     }, 1000);
@@ -201,7 +206,9 @@ const TestMode = () => {
           {/* Formulaire de réponse */}
           <form onSubmit={checkAnswer} className="space-y-4">
             <input
+              ref={inputRef}
               type="number"
+              inputMode="numeric"
               value={userAnswer}
               onChange={(e) => setUserAnswer(e.target.value)}
               className={`w-full p-4 text-2xl text-center border-2 rounded-lg transition-all duration-300
