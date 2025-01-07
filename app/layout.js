@@ -1,4 +1,7 @@
+import AuthWrapper from "@/app/components/auth/AuthWrapper";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Footer } from "./components/home/Footer";
+import Header from "./components/home/Header";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,11 +21,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="fr">
+      <body className={`flex flex-col min-h-screen`}>
+        <Header />
+        <AuthWrapper className="flex-grow">{children}</AuthWrapper>
+        <Footer />
       </body>
     </html>
   );

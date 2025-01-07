@@ -2,9 +2,11 @@
 
 import { AlertCircle, Check, Medal, Timer, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { checkBadgeUnlock, getBadges, saveBadges } from "../../utils/badges";
 import { saveTestResult } from "../../utils/localStorage";
 import BackButton from "../ui/BackButton";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
+import DynamicIcon from "../ui/DynamicIcon";
 import Navigation from "../ui/Navigation";
 
 const TestMode = () => {
@@ -12,7 +14,7 @@ const TestMode = () => {
   const [testConfig, setTestConfig] = useState({
     selectedTables: [],
     timeLimit: 60,
-    numberOfQuestions: 20,
+    numberOfQuestions: 10,
   });
 
   // États pour le test en cours
@@ -24,10 +26,11 @@ const TestMode = () => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [fadeIn, setFadeIn] = useState(true);
+  const [newBadgesEarned, setNewBadgesEarned] = useState(null);
 
   const endTest = () => {
     const result = {
-      score: Math.round((score / testConfig.numberOfQuestions) * 100),
+      score: Math.round((score / questionsAnswered) * 100),
       selectedTables: testConfig.selectedTables,
       timeLimit: testConfig.timeLimit,
       timeLeft: timeLeft,
@@ -36,7 +39,22 @@ const TestMode = () => {
     };
 
     saveTestResult(result);
+
+    // Vérification des badges
+    const existingBadges = getBadges();
+    const newBadges = checkBadgeUnlock(result, existingBadges);
+
+    if (newBadges.length > 0) {
+      const updatedBadges = [...existingBadges, ...newBadges.map((b) => b.id)];
+      saveBadges(updatedBadges);
+    }
+
     setTestState("completed");
+
+    // Si nouveaux badges, les afficher
+    if (newBadges.length > 0) {
+      setNewBadgesEarned(newBadges);
+    }
   };
 
   // Générer une question aléatoire
@@ -389,7 +407,24 @@ const TestMode = () => {
                 ))}
               </div>
             </div>
-
+            {newBadgesEarned?.length > 0 && (
+              <div className="mt-6 p-4 bg-yellow-50 rounded-lg">
+                <h3 className="font-bold text-yellow-700 mb-2">
+                  Nouveaux badges débloqués !
+                </h3>
+                <div className="flex gap-4">
+                  {newBadgesEarned.map((badge) => (
+                    <div key={badge.id} className="flex items-center">
+                      <DynamicIcon
+                        name={badge.icon}
+                        className="text-yellow-500 mr-2"
+                      />
+                      <span>{badge.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             {/* Boutons d'action */}
             <div className="flex gap-4 mt-6">
               <button

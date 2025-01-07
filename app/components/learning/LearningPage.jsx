@@ -106,7 +106,7 @@ const LearningPage = () => {
   };
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="p-6">
       <header className="mb-8">
         <div className="mb-4">
           <BackButton href="/" label="Retour à l'accueil" />

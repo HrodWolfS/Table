@@ -13,10 +13,25 @@ const ExerciseMode = ({ tableNumber }) => {
   const [feedback, setFeedback] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [exerciseComplete, setExerciseComplete] = useState(false);
+  const [remainingMultipliers, setRemainingMultipliers] = useState([
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+  ]);
 
   // Générer une nouvelle question
+
   const generateQuestion = () => {
-    const multiplier = Math.floor(Math.random() * 10) + 1;
+    let updatedMultipliers = [...remainingMultipliers];
+
+    if (updatedMultipliers.length === 0) {
+      updatedMultipliers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    }
+
+    const randomIndex = Math.floor(Math.random() * updatedMultipliers.length);
+    const multiplier = updatedMultipliers[randomIndex];
+    updatedMultipliers = updatedMultipliers.filter((m) => m !== multiplier);
+
+    setRemainingMultipliers(updatedMultipliers);
+
     return {
       multiplier,
       answer: tableNumber * multiplier,
@@ -57,7 +72,7 @@ const ExerciseMode = ({ tableNumber }) => {
 
     // Vérifier si l'exercice est terminé
     if (newQuestionsCount >= TOTAL_QUESTIONS) {
-      const finalScore = (newScore / TOTAL_QUESTIONS) * 100;
+      const finalScore = (newScore / newQuestionsCount) * 100;
       setTimeout(() => {
         setExerciseComplete(true);
       }, 2000);
@@ -99,7 +114,13 @@ const ExerciseMode = ({ tableNumber }) => {
                 : "Encore un peu d'entraînement et vous y arriverez !"}
             </p>
             <button
-              onClick={() => window.location.reload()}
+              onClick={() => {
+                setExerciseComplete(false);
+                setQuestionsCount(0);
+                setScore(0);
+                setCurrentQuestion(generateQuestion());
+                setShowFeedback(false);
+              }}
               className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Recommencer

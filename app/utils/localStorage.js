@@ -1,20 +1,22 @@
+import { getCurrentUser } from "./auth";
 // Clé pour le localStorage
 const STORAGE_KEY = "multiplication-test-results";
+
 
 // Sauvegarder un nouveau résultat de test
 export const saveTestResult = (result) => {
   try {
-    // Récupérer les résultats existants
+    const currentUser = getCurrentUser();
     const existingResults = getTestResults();
 
-    // Ajouter le nouveau résultat avec un timestamp
+    // Ajouter le nouveau résultat avec un timestamp et l'ID utilisateur
     const newResult = {
       ...result,
       date: new Date().toISOString(),
-      id: Date.now(), // Identifiant unique basé sur le timestamp
+      id: Date.now(),
+      userId: currentUser.id // Ajout de l'ID utilisateur
     };
 
-    // Sauvegarder le tableau mis à jour
     localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify([newResult, ...existingResults])
@@ -27,20 +29,22 @@ export const saveTestResult = (result) => {
   }
 };
 
-// Récupérer tous les résultats
-export const getTestResults = () => {
+// Récupérer tous les résultats d'un utilisateur spécifique
+export const getUserTestResults = () => {
   try {
+    const currentUser = getCurrentUser();
     const results = localStorage.getItem(STORAGE_KEY);
-    return results ? JSON.parse(results) : [];
+    const allResults = results ? JSON.parse(results) : [];
+    return allResults.filter(result => result.userId === currentUser.id);
   } catch (error) {
     console.error("Erreur lors de la récupération des résultats:", error);
     return [];
   }
 };
 
-// Calculer les statistiques globales
+// Calculer les statistiques pour l'utilisateur actuel
 export const getGlobalStats = () => {
-  const results = getTestResults();
+  const results = getUserTestResults();
 
   if (results.length === 0) {
     return {
@@ -53,13 +57,10 @@ export const getGlobalStats = () => {
     };
   }
 
-  // Compteur pour chaque table
   const tableCounts = {};
 
-  // Calcul des statistiques
   const stats = results.reduce(
     (acc, result) => {
-      // Compter l'utilisation des tables
       result.selectedTables.forEach((table) => {
         tableCounts[table] = (tableCounts[table] || 0) + 1;
       });
@@ -74,7 +75,6 @@ export const getGlobalStats = () => {
     { totalTests: 0, totalScore: 0, bestScore: 0, totalTime: 0 }
   );
 
-  // Trouver la table la plus testée
   const mostTestedTable = Object.entries(tableCounts).sort(
     ([, a], [, b]) => b - a
   )[0]?.[0];
@@ -89,10 +89,35 @@ export const getGlobalStats = () => {
   };
 };
 
+// Fonction utilitaire pour récupérer tous les résultats (pour la rétrocompatibilité)
+export const getTestResults = () => {
+  try {
+    const results = localStorage.getItem(STORAGE_KEY);
+    return results ? JSON.parse(results) : [];
+  } catch (error) {
+    console.error("Erreur lors de la récupération des résultats:", error);
+    return [];
+  }
+};
+
 // Supprimer tous les résultats
 export const clearTestResults = () => {
   try {
     localStorage.removeItem(STORAGE_KEY);
+    return true;
+  } catch (error) {
+    console.error("Erreur lors de la suppression des résultats:", error);
+    return false;
+  }
+};
+
+// Nouvelle fonction pour supprimer les résultats d'un utilisateur spécifique
+export const clearUserTestResults = () => {
+  try {
+    const currentUser = getCurrentUser();
+    const allResults = getTestResults();
+    const filteredResults = allResults.filter(result => result.userId !== currentUser.id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(filteredResults));
     return true;
   } catch (error) {
     console.error("Erreur lors de la suppression des résultats:", error);
