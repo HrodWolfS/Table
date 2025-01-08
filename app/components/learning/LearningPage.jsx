@@ -2,7 +2,6 @@
 
 import { Star } from "lucide-react";
 import { useState } from "react";
-import BackButton from "../ui/BackButton";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
 import ExerciseMode from "./ExerciseMode";
 import LearningNavigation from "./LearningNavigation";
@@ -18,7 +17,7 @@ const LearningPage = () => {
       {tables.map((number) => (
         <Card
           key={number}
-          className="cursor-pointer hover:shadow-lg transition-all transform hover:scale-105"
+          className="cursor-pointer  hover:shadow-lg transition-all transform hover:scale-105 bg-gradient-to-r from-green-200 to-blue-200"
           onClick={() => {
             setSelectedTable(number);
             setCurrentStep("learning");
@@ -43,11 +42,11 @@ const LearningPage = () => {
 
     return (
       <div className="space-y-6">
-        <Card>
+        <Card className="bg-gradient-to-r from-blue-200 to-purple-200">
           <CardHeader className="bg-blue-500">
-            <CardTitle className="flex items-center justify-between">
+            <CardTitle className="flex items-center justify-between text-white">
               <span>Table de {selectedTable}</span>
-              <Star className="text-yellow-500" size={24} />
+              <Star className="text-yellow-400" size={24} />
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
@@ -55,9 +54,9 @@ const LearningPage = () => {
               {tableContent.map((item) => (
                 <div
                   key={item.multiplier}
-                  className="p-4 border border-gray-50 rounded-lg flex items-center justify-between hover:scale-105 transition-all"
+                  className="p-4 border border-gray-50 rounded-lg flex items-center justify-between hover:scale-105 transition-all bg-white"
                 >
-                  <div className="text-xl">
+                  <div className="text-xl text-gray-600">
                     {item.multiplicand} × {item.multiplier} =
                   </div>
                   <div className="text-2xl font-bold text-blue-600">
@@ -70,9 +69,11 @@ const LearningPage = () => {
         </Card>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Exercice pratique</CardTitle>
+          <Card className="bg-gradient-to-r from-green-200 to-yellow-200">
+            <CardHeader className="bg-green-300">
+              <CardTitle className="text-green-800">
+                Exercice pratique
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-600">
@@ -88,9 +89,11 @@ const LearningPage = () => {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Astuces de mémorisation</CardTitle>
+          <Card className="bg-gradient-to-r from-purple-200 to-pink-200">
+            <CardHeader className="bg-purple-300">
+              <CardTitle className="text-purple-800">
+                Astuces de mémorisation
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="list-disc list-inside space-y-2 text-gray-600">
@@ -106,11 +109,8 @@ const LearningPage = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-gradient-to-b from-yellow-100 via-pink-100 to-blue-100 flex-grow">
       <header className="mb-8">
-        <div className="mb-4">
-          <BackButton href="/" label="Retour à l'accueil" />
-        </div>
         <LearningNavigation
           currentStep={currentStep}
           selectedTable={selectedTable}

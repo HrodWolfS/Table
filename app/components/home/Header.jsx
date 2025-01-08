@@ -33,19 +33,19 @@ const Header = () => {
   };
 
   return (
-    <header className="mb-8 shadow-sm p-4 ">
+    <header className="shadow-sm p-4 bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300">
       <div className="max-w-6xl mx-auto">
         <div className="h-20 flex justify-between items-center">
           {/* Logo et titre */}
           <Link href="/">
-            <div className="flex-1 flex items-center justify-start gap-3 cursor-pointer">
-              <Logo size={48} />
+            <div className="flex-1 flex items-center justify-start gap-1 cursor-pointer">
+              <Logo size={48} className="text-yellow-500" />
               <div>
-                <h1 className="text-4xl font-black tracking-tight text-gray-900 font-display">
+                <h1 className="text-3xl md:text-4xl font-black tracking-tight text-white font-display">
                   MultiTab
-                  <span className="text-blue-600">.</span>
+                  <span className="text-yellow-400">!</span>
                 </h1>
-                <p className="text-sm font-medium text-gray-500 tracking-wide">
+                <p className="text-xs md:text-sm font-medium text-white tracking-wide">
                   Apprendre en s'amusant !
                 </p>
               </div>
@@ -57,7 +57,7 @@ const Header = () => {
             <div className="relative" ref={menuRef}>
               <button
                 onClick={() => setShowMenu(!showMenu)}
-                className="flex items-center gap-3 p-2 border border-gray-200 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex items-center gap-3 p-2 border border-gray-200 rounded-lg bg-yellow-100 hover:bg-yellow-200 transition-colors"
               >
                 <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
                   <User className="h-6 w-6 text-blue-600" />

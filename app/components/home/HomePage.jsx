@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { getGlobalStats } from "../../utils/localStorage";
 import DynamicIcon from "../ui/DynamicIcon";
 
-const HomePage = () => {
+export default function HomePage() {
   const [stats, setStats] = useState({
     totalTests: 0,
     averageScore: 0,
@@ -45,19 +45,19 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center flex-grow">
+    <div className="flex flex-col justify-center items-center min-h-full w-full  p-4">
       {/* Boutons principaux */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto w-full mb-8">
         <Link href="/learn">
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer ">
-            <CardHeader className="bg-green-50">
-              <CardTitle className="flex items-center justify-center text-green-700">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer bg-green-200">
+            <CardHeader className="bg-green-300">
+              <CardTitle className="flex items-center justify-center text-green-800">
                 <BookOpen className="mr-2" size={24} />
                 Apprentissage
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-center">
+              <p className="text-green-700">
                 Découvre et pratique les tables à ton rythme
               </p>
             </CardContent>
@@ -65,15 +65,15 @@ const HomePage = () => {
         </Link>
 
         <Link href="/test">
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-            <CardHeader className="bg-blue-50">
-              <CardTitle className="flex items-center justify-center text-blue-700">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer bg-blue-200">
+            <CardHeader className="bg-blue-300">
+              <CardTitle className="flex items-center justify-center text-blue-800">
                 <Brain className="mr-2" size={24} />
                 Test
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-center">
+              <p className="text-blue-700">
                 Vérifie tes connaissances avec des exercices
               </p>
             </CardContent>
@@ -81,15 +81,15 @@ const HomePage = () => {
         </Link>
 
         <Link href="/profile">
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-            <CardHeader className="bg-purple-50">
-              <CardTitle className="flex items-center justify-center text-purple-700">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer bg-purple-200">
+            <CardHeader className="bg-purple-300">
+              <CardTitle className="flex items-center justify-center text-purple-800">
                 <User className="mr-2" size={24} />
-                Mon Profil
+                Mes Résultats
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-center">
+              <p className="text-purple-700">
                 Consulte ta progression et tes statistiques
               </p>
             </CardContent>
@@ -99,37 +99,41 @@ const HomePage = () => {
 
       {/* Résumé des progrès */}
       <section className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold  mb-4">Tes progrès</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card>
-            <CardHeader className="bg-yellow-50">
-              <CardTitle className="flex items-center justify-center text-yellow-500">
-                <Trophy className=" mr-2" size={24} />
+        <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-pink-600">
+          Tes progrès
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <Card className="bg-yellow-200">
+            <CardHeader className="bg-yellow-300">
+              <CardTitle className="flex items-center justify-center text-yellow-800">
+                <Trophy className="mr-2" size={24} />
                 Points totaux
               </CardTitle>
             </CardHeader>
             <CardContent className="flex items-center justify-center h-24">
-              <p className="text-2xl text-center font-bold">
+              <p className="text-2xl font-bold text-yellow-700">
                 {stats.totalScore}
               </p>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="bg-rose-50">
-              <CardTitle className="flex items-center justify-center text-rose-500">
-                <Star className=" mr-2" size={24} />
-                La plus travaillé
+          <Card className="bg-rose-200">
+            <CardHeader className="bg-rose-300">
+              <CardTitle className="flex items-center justify-center text-rose-800">
+                <Star className="mr-2" size={24} />
+                Table préférée
               </CardTitle>
             </CardHeader>
             <CardContent className="flex items-center justify-center h-24">
-              <p className="text-2xl  font-bold">{stats.mostTestedTable}</p>
+              <p className="text-2xl font-bold text-rose-700">
+                {stats.mostTestedTable}
+              </p>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="bg-lime-50">
-              <CardTitle className="flex items-center justify-center text-lime-500">
+          <Card className="col-span-2 md:col-span-1 mx-auto bg-lime-200">
+            <CardHeader className="bg-lime-300">
+              <CardTitle className="flex items-center justify-center text-lime-800">
                 <BookOpen className="mr-2" size={24} />
                 Dernier badge
               </CardTitle>
@@ -142,7 +146,7 @@ const HomePage = () => {
                     size={32}
                     className="text-yellow-500 mr-2"
                   />
-                  <p className="font-bold">{lastBadge.name}</p>
+                  <p className="font-bold text-lime-700">{lastBadge.name}</p>
                 </>
               ) : (
                 <p className="text-gray-600">Aucun badge gagné</p>
@@ -153,6 +157,4 @@ const HomePage = () => {
       </section>
     </div>
   );
-};
-
-export default HomePage;
+}

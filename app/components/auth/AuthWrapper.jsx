@@ -4,7 +4,7 @@ import { getCurrentUser } from "@/app/utils/auth";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function AuthWrapper({ children }) {
+export default function AuthWrapper({ children, className }) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -15,5 +15,5 @@ export default function AuthWrapper({ children }) {
     }
   }, [pathname]);
 
-  return children;
+  return <div className={className}>{children}</div>;
 }

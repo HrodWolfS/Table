@@ -9,7 +9,6 @@ import {
 import { Activity, Clock, Target, Trophy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import BackButton from "../ui/BackButton";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
 import DynamicIcon from "../ui/DynamicIcon";
 
@@ -82,9 +81,9 @@ const ProfilePage = () => {
 
   const renderBadges = () => {
     return (
-      <Card className="mt-6">
+      <Card className="mt-6 bg-gradient-to-r from-yellow-200 to-pink-200">
         <CardHeader>
-          <CardTitle>Badges obtenus</CardTitle>
+          <CardTitle className="text-purple-600">Badges obtenus</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -112,7 +111,9 @@ const ProfilePage = () => {
                         isUnlocked ? "text-yellow-500" : "text-gray-400"
                       }
                     />
-                    <h3 className="font-semibold mt-2">{badge.name}</h3>
+                    <h3 className="font-semibold mt-2 text-purple-600">
+                      {badge.name}
+                    </h3>
                     <p className="text-sm text-gray-600">{badge.description}</p>
                   </div>
                 </div>
@@ -126,37 +127,41 @@ const ProfilePage = () => {
 
   const renderOverview = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      <Card>
+      <Card className="bg-gradient-to-r from-blue-200 to-green-200">
         <CardContent className="pt-6">
           <div className="flex items-center">
             <Activity className="text-blue-500 mr-3" size={24} />
             <div>
               <p className="text-sm text-gray-600">Tests complétés</p>
-              <p className="text-2xl font-bold">{stats.totalTests}</p>
+              <p className="text-2xl font-bold text-purple-600">
+                {stats.totalTests}
+              </p>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="bg-gradient-to-r from-green-200 to-yellow-200">
         <CardContent className="pt-6">
           <div className="flex items-center">
             <Target className="text-green-500 mr-3" size={24} />
             <div>
               <p className="text-sm text-gray-600">Score moyen</p>
-              <p className="text-2xl font-bold">{stats.averageScore}%</p>
+              <p className="text-2xl font-bold text-purple-600">
+                {stats.averageScore}%
+              </p>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="bg-gradient-to-r from-yellow-200 to-pink-200">
         <CardContent className="pt-6">
           <div className="flex items-center">
             <Trophy className="text-yellow-500 mr-3" size={24} />
             <div>
               <p className="text-sm text-gray-600">Meilleure table</p>
-              <p className="text-2xl font-bold">
+              <p className="text-2xl font-bold text-purple-600">
                 {stats.mostTestedTable
                   ? `Table de ${stats.mostTestedTable}`
                   : "Aucune"}
@@ -166,13 +171,13 @@ const ProfilePage = () => {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="bg-gradient-to-r from-pink-200 to-blue-200">
         <CardContent className="pt-6">
           <div className="flex items-center">
             <Clock className="text-purple-500 mr-3" size={24} />
             <div>
               <p className="text-sm text-gray-600">Temps total</p>
-              <p className="text-2xl font-bold">
+              <p className="text-2xl font-bold text-purple-600">
                 {formatTime(stats.totalTime)}
               </p>
             </div>
@@ -183,9 +188,9 @@ const ProfilePage = () => {
   );
 
   const renderRecentTests = () => (
-    <Card className="mt-6">
+    <Card className="mt-6 bg-gradient-to-r from-blue-200 to-green-200">
       <CardHeader>
-        <CardTitle>Tests récents</CardTitle>
+        <CardTitle className="text-purple-600">Tests récents</CardTitle>
       </CardHeader>
       <CardContent>
         {recentTests.length === 0 ? (
@@ -197,13 +202,13 @@ const ProfilePage = () => {
             {recentTests.map((test) => (
               <div
                 key={test.id}
-                className="flex items-center justify-between p-4 border border-gray-50 rounded-lg"
+                className="flex items-center justify-between p-4 border border-gray-50 rounded-lg bg-white"
               >
                 <div>
-                  <p className="font-bold">
+                  <p className="font-bold text-purple-600">
                     Tables {test.selectedTables.join(", ")}
                   </p>
-                  <p className="text-sm">
+                  <p className="text-sm text-gray-600">
                     {test.questionsAnswered} questions,{" "}
                     {formatTime(test.timeLimit - test.timeLeft)}
                   </p>
@@ -240,9 +245,11 @@ const ProfilePage = () => {
     });
 
     return (
-      <Card className="mt-6">
+      <Card className="mt-6 bg-gradient-to-r from-purple-200 to-pink-200">
         <CardHeader>
-          <CardTitle>Progression par table</CardTitle>
+          <CardTitle className="text-purple-600">
+            Progression par table
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
@@ -260,9 +267,11 @@ const ProfilePage = () => {
               return (
                 <div
                   key={tableNumber}
-                  className="p-4 text-center border rounded-lg"
+                  className="p-4 text-center border rounded-lg bg-white"
                 >
-                  <p className="text-lg font-bold">Table de {tableNumber}</p>
+                  <p className="text-lg font-bold text-purple-600">
+                    Table de {tableNumber}
+                  </p>
                   <p className="text-2xl font-bold text-blue-600 mt-2">
                     {averageScore}%
                   </p>
@@ -279,12 +288,9 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-gradient-to-b from-yellow-50 via-pink-100 to-blue-100 min-h-screen">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-6">
-          <BackButton href="/" label="Retour à l'accueil" />
-        </div>
-        <h1 className="text-3xl font-bold mb-6">Mon Profil</h1>
+        <h1 className="text-3xl font-bold text-blue-600 mb-6">Mes Résultats</h1>
         {renderOverview()}
         {renderBadges()}
         {renderRecentTests()}

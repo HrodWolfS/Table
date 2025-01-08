@@ -93,7 +93,7 @@ const ExerciseMode = ({ tableNumber }) => {
     const passed = finalScore >= PASSING_SCORE;
 
     return (
-      <Card className="w-full max-w-xl mx-auto">
+      <Card className="w-full max-w-xl mx-auto bg-gradient-to-r from-green-200 to-blue-200">
         <CardContent className="pt-6">
           <div className="text-center space-y-4">
             <Trophy
@@ -102,10 +102,10 @@ const ExerciseMode = ({ tableNumber }) => {
                 passed ? "text-yellow-500 mx-auto" : "text-gray-400 mx-auto"
               }
             />
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-2xl font-bold text-purple-600">
               {passed ? "Félicitations !" : "Continuez vos efforts !"}
             </h2>
-            <p className="text-lg">
+            <p className="text-lg text-purple-600">
               Vous avez obtenu un score de {finalScore}%
             </p>
             <p className="text-gray-600">
@@ -121,7 +121,7 @@ const ExerciseMode = ({ tableNumber }) => {
                 setCurrentQuestion(generateQuestion());
                 setShowFeedback(false);
               }}
-              className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
             >
               Recommencer
             </button>
@@ -132,9 +132,9 @@ const ExerciseMode = ({ tableNumber }) => {
   }
 
   return (
-    <Card className="w-full max-w-xl mx-auto">
+    <Card className="w-full max-w-xl mx-auto bg-gradient-to-r from-yellow-100 to-pink-100">
       <CardHeader>
-        <CardTitle className="flex justify-between items-center">
+        <CardTitle className="flex justify-between items-center text-purple-600">
           <span>Exercice - Table de {tableNumber}</span>
           <span className="text-sm font-normal">
             Question {questionsCount + 1}/{TOTAL_QUESTIONS}
@@ -144,26 +144,26 @@ const ExerciseMode = ({ tableNumber }) => {
       <CardContent>
         <div className="space-y-6">
           {/* Barre de progression */}
-          <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div className="w-full bg-gray-300 rounded-full h-2.5">
             <div
-              className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
+              className="bg-purple-600 h-2.5 rounded-full transition-all duration-300"
               style={{ width: `${(questionsCount / TOTAL_QUESTIONS) * 100}%` }}
             ></div>
           </div>
 
           {/* Score */}
           <div className="flex justify-between items-center text-sm">
-            <span className="text-gray-600">
+            <span className="text-purple-600">
               Score: {score}/{questionsCount}
             </span>
-            <span className="text-gray-600">
+            <span className="text-purple-600">
               {calculateScorePercentage()}% (Objectif: {PASSING_SCORE}%)
             </span>
           </div>
 
           {/* Question */}
           <div className="text-center py-4">
-            <p className="text-3xl font-bold text-blue-600">
+            <p className="text-3xl font-bold text-purple-600">
               {tableNumber} × {currentQuestion?.multiplier} = ?
             </p>
           </div>
@@ -174,13 +174,13 @@ const ExerciseMode = ({ tableNumber }) => {
               type="number"
               value={userAnswer}
               onChange={(e) => setUserAnswer(e.target.value)}
-              className="w-full p-4 text-2xl text-center border-2 border-gray-200 rounded-lg bg-transparent focus:border-blue-500 focus:outline-none"
+              className="w-full p-4 text-2xl text-center text-blue-600 border-2 border-gray-200 rounded-lg bg-transparent focus:border-purple-500 focus:outline-none"
               placeholder="Ta réponse..."
               autoFocus
             />
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
+              className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors"
               disabled={!userAnswer}
             >
               Vérifier
