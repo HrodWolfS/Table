@@ -14,8 +14,13 @@ const WorldMap = () => {
     // Récupérer les nouvelles régions du localStorage
     const storedNewRegions = localStorage.getItem("newUnlockedRegions");
     if (storedNewRegions) {
-      setNewRegions(JSON.parse(storedNewRegions));
+      const newUnlockedRegions = JSON.parse(storedNewRegions);
+      setNewRegions(newUnlockedRegions);
       localStorage.removeItem("newUnlockedRegions");
+
+      // Mettre à jour currentProgress avec les dernières données
+      const latestProgress = getProgress();
+      setCurrentProgress(latestProgress);
     }
   }, []);
 
@@ -24,8 +29,10 @@ const WorldMap = () => {
   };
 
   const handleQuestComplete = (updatedProgress) => {
+    console.log("Mise à jour de la progression:", updatedProgress);
+
     // Mettre à jour l'état local avec la nouvelle progression
-    setCurrentProgress(updatedProgress);
+    setCurrentProgress({ ...updatedProgress });
 
     // Sauvegarder dans le localStorage
     saveProgress(updatedProgress);

@@ -156,7 +156,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER,
         objectives: {
           table: 3,
-          questionsCount: 5,
+          questionsCount: 1,
         },
         rewards: {
           xp: 200,
@@ -171,7 +171,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 3,
-          questionsCount: 10,
+          questionsCount: 1,
           timeLimit: 120,
         },
         rewards: {
@@ -187,7 +187,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 3,
-          questionsCount: 10,
+          questionsCount: 1,
           timeLimit: 60,
         },
         rewards: {
@@ -203,7 +203,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           tables: [1, 2, 3],
-          questionsCount: 20,
+          questionsCount: 2,
           timeLimit: 120,
         },
         rewards: {

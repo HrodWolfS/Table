@@ -13,20 +13,58 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
   const [showNextRegion, setShowNextRegion] = useState(false);
   const router = useRouter();
 
+  // Fonction pour obtenir la table correspondant à la région
+  const getRegionTable = (regionId) => {
+    switch (regionId) {
+      case "vallee_debuts":
+        return [1];
+      case "foret_multiplications":
+        return [2];
+      case "collines_multiplicateur":
+        return [3];
+      case "marais_quatrak":
+        return [4];
+      case "desert_infini":
+        return [5];
+      case "riviere_cristalline":
+        return [6];
+      case "cite_septoria":
+        return [7];
+      case "grottes_huitra":
+        return [8];
+      case "pics_neuflame":
+        return [9];
+      case "chateau_dividix":
+        return [10];
+      default:
+        return null;
+    }
+  };
+
   const isRegionComplete = () => {
-    const regionQuests = QUESTS_CONFIG[quest.regionId]?.quests || [];
+    const regionConfig = QUESTS_CONFIG[quest.regionId];
+    if (!regionConfig) return false;
+
     const completedQuests =
       userProgress?.regions?.[quest.regionId]?.completedQuests || [];
 
     console.log("Vérification région complète:");
     console.log("- Région:", quest.regionId);
-    console.log("- Quêtes totales:", regionQuests.length);
+    console.log("- Quêtes disponibles:", regionConfig.quests.length);
     console.log("- Quêtes complétées:", completedQuests.length);
-    console.log("- Quêtes complétées:", completedQuests);
-
-    return (
-      regionQuests.length > 0 && regionQuests.length === completedQuests.length
+    console.log("- Liste des quêtes complétées:", completedQuests);
+    console.log(
+      "- Liste des quêtes requises:",
+      regionConfig.quests.map((q) => q.id)
     );
+
+    // Vérifier que toutes les quêtes de la région sont complétées
+    const allQuestsCompleted = regionConfig.quests.every((quest) =>
+      completedQuests.includes(quest.id)
+    );
+
+    console.log("Toutes les quêtes sont complétées:", allQuestsCompleted);
+    return allQuestsCompleted;
   };
 
   const unlockNewRegion = () => {
@@ -60,22 +98,13 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
           highScores: {},
           bestTimes: {},
         };
-        console.log(
-          "Initialisation de la progression pour la région:",
-          newRegionId
-        );
       }
 
       // Sauvegarder les changements
       saveProgress(progress);
 
       // Stocker l'ID de la nouvelle région pour l'animation
-      const newUnlockedRegions = [newRegionId];
-      localStorage.setItem(
-        "newUnlockedRegions",
-        JSON.stringify(newUnlockedRegions)
-      );
-      console.log("Région débloquée et sauvegardée:", newRegionId);
+      localStorage.setItem("newUnlockedRegions", JSON.stringify([newRegionId]));
     }
   };
 
@@ -88,28 +117,39 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
       if (rewards.newRegions?.length > 0) {
         setShowArtifact(false);
         setShowNextRegion(true);
-        unlockNewRegion(); // Débloquer la nouvelle région ici
+        unlockNewRegion();
       } else {
         router.push("/game");
         onClose();
       }
     } else if (showNextRegion) {
       router.push("/game");
-      onClose();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } else {
       if (regionComplete && rewards.isFirstCompletion) {
         setShowArtifact(true);
+      } else if (rewards.newRegions?.length > 0) {
+        setShowNextRegion(true);
+        unlockNewRegion();
       } else {
         onClose();
       }
     }
   };
 
-  const artifact = quest.objectives.table
-    ? ARTIFACT_PIECES[`TABLE_${quest.objectives.table}`]
-    : quest.objectives.tables
-    ? ARTIFACT_PIECES[`TABLE_${quest.objectives.tables[0]}`]
+  // Sélectionner l'artefact en fonction de la région
+  const regionTable = getRegionTable(quest.regionId);
+  const artifact = regionTable
+    ? ARTIFACT_PIECES[`TABLE_${regionTable[0]}`]
     : null;
+
+  console.log("Sélection de l'artefact:", {
+    region: quest.regionId,
+    table: regionTable,
+    artifact: artifact?.name,
+  });
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">

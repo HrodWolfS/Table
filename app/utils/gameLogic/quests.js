@@ -1,9 +1,20 @@
 import { getItemByRegion } from "@/app/data/inventory";
+import { QUESTS_CONFIG } from "@/app/data/quests";
 import { REGIONS } from "@/app/data/regions";
 import { getProgress } from "@/app/utils/localStorage";
-import { checkRegionUnlock } from "./progression";
 
 export const calculateQuestRewards = (quest, score, timeSpent) => {
+  console.log("Calcul des récompenses:", {
+    questId: quest.id,
+    regionId: quest.regionId,
+    isFirstCompletion: !getProgress()?.regions?.[
+      quest.regionId
+    ]?.completedQuests?.includes(quest.id),
+    isRegionComplete: false,
+    completedQuests:
+      getProgress()?.regions?.[quest.regionId]?.completedQuests || [],
+  });
+
   const rewards = {
     xp: quest.rewards.xp,
     coins: quest.rewards.coins,
@@ -18,47 +29,43 @@ export const calculateQuestRewards = (quest, score, timeSpent) => {
   // Vérifier si c'est la première complétion
   const userProgress = getProgress();
   const regionProgress = userProgress?.regions?.[quest.regionId] || {};
-  const questProgress = regionProgress[quest.id];
-  rewards.isFirstCompletion = !questProgress?.completed;
+  rewards.isFirstCompletion = !regionProgress.completedQuests?.includes(
+    quest.id
+  );
 
   // Vérifier si la région est complétée
   if (rewards.isFirstCompletion) {
-    const region = REGIONS[quest.regionId];
-    const regionQuests = region.quests;
-    const completedQuests = regionProgress.completedQuests || [];
-    const willBeCompleted = [...completedQuests, quest.id];
+    const regionConfig = QUESTS_CONFIG[quest.regionId];
+    if (regionConfig) {
+      const completedQuests = [
+        ...(regionProgress.completedQuests || []),
+        quest.id,
+      ];
+      rewards.isRegionComplete = regionConfig.quests.every((q) =>
+        completedQuests.includes(q.id)
+      );
 
-    // Vérifier si toutes les quêtes de la région sont complétées
-    rewards.isRegionComplete = regionQuests.every((questId) =>
-      willBeCompleted.includes(questId)
-    );
+      if (rewards.isRegionComplete) {
+        // Ajouter l'item de la région comme récompense
+        const regionItem = getItemByRegion(quest.regionId);
+        if (regionItem) {
+          rewards.item = regionItem;
+        }
 
-    if (rewards.isRegionComplete) {
-      // Ajouter l'item de la région comme récompense
-      const regionItem = getItemByRegion(quest.regionId);
-      if (regionItem) {
-        rewards.item = regionItem;
+        // Débloquer les nouvelles régions
+        const unlockedRegions = userProgress?.unlockedRegions || [];
+        const newRegions = Object.entries(REGIONS)
+          .filter(([regionId, region]) => {
+            if (unlockedRegions.includes(regionId)) return false;
+            return region.unlockedBy.includes(quest.regionId);
+          })
+          .map(([regionId, region]) => ({
+            id: regionId,
+            ...region,
+          }));
+
+        rewards.newRegions = newRegions;
       }
-
-      // Débloquer les nouvelles régions
-      const unlockedRegions = userProgress?.unlockedRegions || [];
-      const newRegions = Object.entries(REGIONS)
-        .filter(([regionId, region]) => {
-          // Vérifier si la région n'est pas déjà débloquée
-          if (unlockedRegions.includes(regionId)) return false;
-
-          // Vérifier les prérequis
-          return checkRegionUnlock(regionId, {
-            ...userProgress,
-            unlockedRegions: [...unlockedRegions, quest.regionId],
-          });
-        })
-        .map(([regionId, region]) => ({
-          id: regionId,
-          ...region,
-        }));
-
-      rewards.newRegions = newRegions;
     }
   }
 

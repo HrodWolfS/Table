@@ -1,3 +1,5 @@
+import { getItemByRegion } from "@/app/data/inventory";
+import { QUESTS_CONFIG } from "@/app/data/quests";
 import { getProgress, saveProgress } from "@/app/utils/localStorage";
 import { REGIONS } from "../../data/regions";
 
@@ -82,6 +84,47 @@ export const updateProgress = (quest, rewards) => {
     !userProgress.regions[quest.regionId].completedQuests.includes(quest.id)
   ) {
     userProgress.regions[quest.regionId].completedQuests.push(quest.id);
+  }
+
+  // Vérifier si la région est complétée
+  const regionConfig = QUESTS_CONFIG[quest.regionId];
+  if (regionConfig) {
+    const completedQuests =
+      userProgress.regions[quest.regionId].completedQuests;
+    const allQuestsCompleted = regionConfig.quests.every((q) =>
+      completedQuests.includes(q.id)
+    );
+
+    // Si toutes les quêtes sont complétées, ajouter l'item de la région suivante
+    if (allQuestsCompleted) {
+      const nextRegionId = Object.keys(REGIONS).find((id) =>
+        REGIONS[id].unlockedBy.includes(quest.regionId)
+      );
+
+      if (nextRegionId) {
+        const nextRegionItem = getItemByRegion(nextRegionId);
+        if (nextRegionItem) {
+          if (!userProgress.inventory) {
+            userProgress.inventory = [];
+          }
+
+          // Vérifier si l'item n'est pas déjà dans l'inventaire
+          if (
+            !userProgress.inventory.some(
+              (item) => item.id === nextRegionItem.id
+            )
+          ) {
+            console.log(
+              "Ajout de l'item",
+              nextRegionItem.id,
+              "pour la région",
+              nextRegionId
+            );
+            userProgress.inventory.push(nextRegionItem);
+          }
+        }
+      }
+    }
   }
 
   // Mettre à jour l'XP et les pièces si des récompenses sont fournies

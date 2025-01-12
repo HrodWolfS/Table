@@ -1,33 +1,57 @@
 "use client";
 
 import { ITEMS } from "@/app/data/inventory";
-import { checkRegionUnlock } from "@/app/utils/gameLogic/progression";
-import { getProgress } from "@/app/utils/localStorage";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 
-const Region = ({ region, onClick, isActive, isNew }) => {
-  const userProgress = getProgress();
-  const isUnlocked = checkRegionUnlock(region.id, userProgress);
-  const hasRequiredItems = region.requiredItems.every((itemId) =>
-    userProgress?.inventory?.some((item) => item.id === itemId)
-  );
+const Region = ({ region, onClick, isActive, isNew, userProgress }) => {
+  const isUnlocked = () => {
+    // Si pas de conditions de déverrouillage, la région est déverrouillée
+    if (!region.unlockedBy || region.unlockedBy.length === 0) {
+      return true;
+    }
+
+    // Vérifier si la région est dans la liste des régions déverrouillées
+    if (!userProgress?.unlockedRegions) {
+      return false;
+    }
+
+    return userProgress.unlockedRegions.includes(region.id);
+  };
+
+  const hasRequiredItems = () => {
+    if (!region.requiredItems || region.requiredItems.length === 0) {
+      return true;
+    }
+
+    return region.requiredItems.every((itemId) =>
+      userProgress?.inventory?.some((item) => item.id === itemId)
+    );
+  };
 
   const handleClick = () => {
-    if (isUnlocked && hasRequiredItems) {
+    const unlocked = isUnlocked();
+    const hasItems = hasRequiredItems();
+    console.log("État de la région:", {
+      id: region.id,
+      unlocked,
+      hasItems,
+      userProgress,
+    });
+
+    if (unlocked && hasItems) {
       onClick(region);
     }
   };
 
-  const requiredItemsList = region.requiredItems.map(
-    (itemId) => ITEMS[itemId.toUpperCase()]
-  );
+  const regionUnlocked = isUnlocked();
+  const hasItems = hasRequiredItems();
 
   return (
     <motion.div
-      whileHover={isUnlocked && hasRequiredItems ? { scale: 1.05 } : {}}
+      whileHover={regionUnlocked && hasItems ? { scale: 1.05 } : {}}
       className={`relative rounded-lg overflow-hidden cursor-pointer transition-transform ${
-        isUnlocked && hasRequiredItems
+        regionUnlocked && hasItems
           ? "hover:shadow-lg"
           : "cursor-not-allowed opacity-75"
       } ${isActive ? "ring-4 ring-blue-500" : ""}`}
@@ -53,7 +77,7 @@ const Region = ({ region, onClick, isActive, isNew }) => {
         <p className="text-gray-200 text-sm">{region.description}</p>
       </div>
 
-      {!isUnlocked && (
+      {!regionUnlocked && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="text-center p-4">
             <LockClosedIcon className="h-12 w-12 text-white/80 mx-auto mb-2" />
@@ -64,24 +88,31 @@ const Region = ({ region, onClick, isActive, isNew }) => {
         </div>
       )}
 
-      {isUnlocked && !hasRequiredItems && (
+      {regionUnlocked && !hasItems && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="text-center p-4">
             <h4 className="text-white font-bold mb-2">Items requis :</h4>
             <div className="flex flex-col items-center gap-2">
-              {requiredItemsList.map((item) => (
-                <div
-                  key={item.id}
-                  className={`flex items-center gap-2 rounded-lg p-2 ${
-                    userProgress?.inventory?.some((i) => i.id === item.id)
-                      ? "bg-green-500/20 border border-green-500/50"
-                      : "bg-red-500/20 border border-red-500/50"
-                  }`}
-                >
-                  <img src={item.image} alt={item.name} className="w-6 h-6" />
-                  <span className="text-white text-sm">{item.name}</span>
-                </div>
-              ))}
+              {region.requiredItems.map((itemId) => {
+                const item = ITEMS[itemId.toUpperCase()];
+                const hasItem = userProgress?.inventory?.some(
+                  (i) => i.id === itemId
+                );
+
+                return (
+                  <div
+                    key={itemId}
+                    className={`flex items-center gap-2 rounded-lg p-2 ${
+                      hasItem
+                        ? "bg-green-500/20 border border-green-500/50"
+                        : "bg-red-500/20 border border-red-500/50"
+                    }`}
+                  >
+                    <img src={item.image} alt={item.name} className="w-6 h-6" />
+                    <span className="text-white text-sm">{item.name}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
