@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définition des gradients -->
+  <defs>
+    <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#CD853F"/>
+      <stop offset="50%" style="stop-color:#DEB887"/>
+      <stop offset="100%" style="stop-color:#CD853F"/>
+    </linearGradient>
+    <radialGradient id="magie" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#87CEEB;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Corps de la gourde -->
+  <ellipse cx="100" cy="120" rx="40" ry="50" fill="url(#metal)" stroke="#8B4513" stroke-width="2"/>
+  
+  <!-- Goulot -->
+  <path d="M90 70 L90 50 Q100 40 110 50 L110 70" fill="url(#metal)" stroke="#8B4513" stroke-width="2"/>
+  
+  <!-- Bouchon -->
+  <rect x="90" y="45" width="20" height="5" fill="#8B4513"/>
+  
+  <!-- Effet magique -->
+  <circle cx="100" cy="120" r="35" fill="url(#magie)" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Symboles magiques -->
+  <path d="M80 100 L120 100" stroke="#4169E1" stroke-width="1" opacity="0.6">
+    <animate attributeName="y" values="100;110;100" dur="3s" repeatCount="indefinite"/>
+  </path>
+  <path d="M90 90 L110 90" stroke="#4169E1" stroke-width="1" opacity="0.6">
+    <animate attributeName="y" values="90;100;90" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Étoiles -->
+  <path d="M70 120 L75 115 L80 120 L75 125 Z" fill="#FFD700" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.5s" repeatCount="indefinite"/>
+  </path>
+  <path d="M120 120 L125 115 L130 120 L125 125 Z" fill="#FFD700" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.5s" repeatCount="indefinite"/>
+  </path>
+</svg> 

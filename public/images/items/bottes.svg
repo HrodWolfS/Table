@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définition des gradients -->
+  <defs>
+    <linearGradient id="cuir" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#654321"/>
+      <stop offset="50%" style="stop-color:#8B4513"/>
+      <stop offset="100%" style="stop-color:#654321"/>
+    </linearGradient>
+    <radialGradient id="magie" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#4169E1;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#4169E1;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Botte gauche -->
+  <path d="M60 120 L60 80 Q60 60 80 60 L90 60 L90 140 L70 140 Q60 140 60 120" 
+        fill="url(#cuir)" stroke="#3D2B1F" stroke-width="2"/>
+  <path d="M60 120 L90 120" stroke="#3D2B1F" stroke-width="2"/>
+  
+  <!-- Botte droite -->
+  <path d="M110 120 L110 80 Q110 60 130 60 L140 60 L140 140 L120 140 Q110 140 110 120" 
+        fill="url(#cuir)" stroke="#3D2B1F" stroke-width="2"/>
+  <path d="M110 120 L140 120" stroke="#3D2B1F" stroke-width="2"/>
+
+  <!-- Effet magique -->
+  <circle cx="75" cy="100" r="20" fill="url(#magie)" opacity="0.5"/>
+  <circle cx="125" cy="100" r="20" fill="url(#magie)" opacity="0.5"/>
+
+  <!-- Gouttes d'eau qui glissent -->
+  <circle cx="70" cy="90" r="2" fill="#4169E1" opacity="0.8"/>
+  <circle cx="80" cy="110" r="2" fill="#4169E1" opacity="0.8"/>
+  <circle cx="120" cy="90" r="2" fill="#4169E1" opacity="0.8"/>
+  <circle cx="130" cy="110" r="2" fill="#4169E1" opacity="0.8"/>
+</svg> 

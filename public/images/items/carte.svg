@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définition des gradients et filtres -->
+  <defs>
+    <linearGradient id="parchemin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5DEB3"/>
+      <stop offset="50%" style="stop-color:#DEB887"/>
+      <stop offset="100%" style="stop-color:#D2B48C"/>
+    </linearGradient>
+    <filter id="texture">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise"/>
+      <feColorMatrix type="saturate" values="0.1" in="noise" result="tex"/>
+      <feBlend in="SourceGraphic" in2="tex" mode="multiply"/>
+    </filter>
+    <filter id="ombre-carte">
+      <feDropShadow dx="2" dy="2" stdDeviation="1" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Fond de la carte -->
+  <rect x="40" y="40" width="120" height="120" rx="5" 
+        fill="url(#parchemin)" filter="url(#texture)" stroke="#8B4513" stroke-width="2"/>
+  
+  <!-- Coins cornés -->
+  <path d="M40 40 L50 45 L45 50 Z" fill="#D2B48C"/>
+  <path d="M160 40 L150 45 L155 50 Z" fill="#D2B48C"/>
+  <path d="M40 160 L50 155 L45 150 Z" fill="#D2B48C"/>
+  <path d="M160 160 L150 155 L155 150 Z" fill="#D2B48C"/>
+  
+  <!-- Éléments de la carte -->
+  <path d="M60 70 Q100 60 140 70 Q130 100 140 130 Q100 140 60 130 Q70 100 60 70" 
+        fill="none" stroke="#8B4513" stroke-width="1"/>
+  
+  <!-- Points d'intérêt -->
+  <circle cx="80" cy="90" r="3" fill="#8B4513"/>
+  <circle cx="120" cy="90" r="3" fill="#8B4513"/>
+  <circle cx="100" cy="110" r="3" fill="#8B4513"/>
+  
+  <!-- Chemins -->
+  <path d="M80 90 Q100 95 120 90" 
+        fill="none" stroke="#8B4513" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M100 110 Q110 100 120 90" 
+        fill="none" stroke="#8B4513" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M80 90 Q90 100 100 110" 
+        fill="none" stroke="#8B4513" stroke-width="1" stroke-dasharray="2,2"/>
+  
+  <!-- Boussole -->
+  <circle cx="140" cy="140" r="10" fill="none" stroke="#8B4513" stroke-width="1"/>
+  <path d="M140 130 L140 150 M130 140 L150 140" stroke="#8B4513" stroke-width="1"/>
+  <text x="138" y="138" fill="#8B4513" font-size="8">N</text>
+  
+  <!-- Légende -->
+  <path d="M50 150 L60 150" stroke="#8B4513" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="65" y="153" fill="#8B4513" font-size="6">Chemins</text>
+  
+  <!-- Effet de brillance -->
+  <rect x="40" y="40" width="120" height="120" rx="5" 
+        fill="white" opacity="0.1" filter="url(#ombre-carte)">
+    <animate attributeName="opacity" values="0.1;0.05;0.1" dur="3s" repeatCount="indefinite"/>
+  </rect>
+</svg> 

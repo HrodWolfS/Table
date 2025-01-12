@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ciel -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4682B4"/>
+      <stop offset="100%" stop-color="#B0C4DE"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#skyGradient)"/>
+
+  <!-- Lune -->
+  <circle cx="150" cy="40" r="15" fill="#E6E6FA"/>
+  <circle cx="150" cy="40" r="20" fill="#E6E6FA" opacity="0.3"/>
+
+  <!-- Tours principales -->
+  <g transform="translate(40, 60)">
+    <!-- Tour 1 -->
+    <rect x="0" y="0" width="30" height="120" fill="#4F6F8F"/>
+    <path d="M0 0 L15 -20 L30 0" fill="#5F7F9F"/>
+    <rect x="10" y="20" width="10" height="15" fill="#E6E6FA"/>
+    <rect x="10" y="50" width="10" height="15" fill="#E6E6FA"/>
+    <rect x="10" y="80" width="10" height="15" fill="#E6E6FA"/>
+  </g>
+
+  <g transform="translate(90, 40)">
+    <!-- Tour 2 (plus haute) -->
+    <rect x="0" y="0" width="40" height="140" fill="#5F7F9F"/>
+    <path d="M0 0 L20 -30 L40 0" fill="#6F8FAF"/>
+    <rect x="15" y="20" width="10" height="15" fill="#E6E6FA"/>
+    <rect x="15" y="50" width="10" height="15" fill="#E6E6FA"/>
+    <rect x="15" y="80" width="10" height="15" fill="#E6E6FA"/>
+    <rect x="15" y="110" width="10" height="15" fill="#E6E6FA"/>
+  </g>
+
+  <g transform="translate(150, 70)">
+    <!-- Tour 3 -->
+    <rect x="0" y="0" width="25" height="110" fill="#4F6F8F"/>
+    <path d="M0 0 L12.5 -15 L25 0" fill="#5F7F9F"/>
+    <rect x="8" y="20" width="9" height="12" fill="#E6E6FA"/>
+    <rect x="8" y="45" width="9" height="12" fill="#E6E6FA"/>
+    <rect x="8" y="70" width="9" height="12" fill="#E6E6FA"/>
+  </g>
+
+  <!-- Ponts entre les tours -->
+  <path d="M70 100 L90 90" stroke="#4F6F8F" stroke-width="5"/>
+  <path d="M130 80 L150 100" stroke="#4F6F8F" stroke-width="5"/>
+
+  <!-- Base de la cité -->
+  <path d="M0 180 L200 180 L200 200 L0 200 Z" fill="#2F4F4F"/>
+  <path d="M20 180 L40 170 L60 180" stroke="#4F6F8F" stroke-width="2" fill="none"/>
+  <path d="M80 180 L100 165 L120 180" stroke="#4F6F8F" stroke-width="2" fill="none"/>
+  <path d="M140 180 L160 175 L180 180" stroke="#4F6F8F" stroke-width="2" fill="none"/>
+
+  <!-- Étoiles -->
+  <circle cx="20" cy="30" r="1" fill="white" opacity="0.8"/>
+  <circle cx="50" cy="20" r="1" fill="white" opacity="0.6"/>
+  <circle cx="100" cy="25" r="1" fill="white" opacity="0.7"/>
+  <circle cx="180" cy="35" r="1" fill="white" opacity="0.5"/>
+</svg> 

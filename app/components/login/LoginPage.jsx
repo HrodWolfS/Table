@@ -33,9 +33,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-6 bg-gradient-to-b from-yellow-50 via-pink-100 to-blue-100">
       <div className="max-w-md mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-8">Qui es-tu ?</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-blue-600">
+          Qui es-tu ?
+        </h1>
 
         {/* Liste des profils */}
         <div className="grid gap-4 mb-8">
@@ -43,11 +45,11 @@ const LoginPage = () => {
             <Card
               key={user.id}
               onClick={() => handleLogin(user.id)}
-              className="cursor-pointer hover:shadow-lg transition-shadow"
+              className="cursor-pointer hover:shadow-lg transition-shadow transform hover:scale-105 bg-gradient-to-r from-green-200 to-blue-200"
             >
               <CardContent className="flex items-center p-4">
                 <div>
-                  <h3 className="font-bold">{user.name}</h3>
+                  <h3 className="font-bold text-purple-600">{user.name}</h3>
                   <p className="text-sm text-gray-600">{user.age} ans</p>
                 </div>
               </CardContent>
@@ -59,19 +61,19 @@ const LoginPage = () => {
         {!showAddForm ? (
           <button
             onClick={() => setShowAddForm(true)}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
+            className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors"
           >
             Nouveau profil
           </button>
         ) : (
-          <Card>
+          <Card className="bg-gradient-to-r from-yellow-200 to-pink-200">
             <CardHeader>
-              <CardTitle>Nouveau profil</CardTitle>
+              <CardTitle className="text-purple-600">Nouveau profil</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleAddUser} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">
+                  <label className="block text-sm font-medium mb-1 text-purple-600">
                     Prénom
                   </label>
                   <input
@@ -80,19 +82,21 @@ const LoginPage = () => {
                     onChange={(e) =>
                       setNewUser((prev) => ({ ...prev, name: e.target.value }))
                     }
-                    className="w-full p-2 border rounded"
+                    className="w-full p-2 border-2 border-gray-200 rounded focus:border-purple-500 text-purple-600 focus:outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Âge</label>
+                  <label className="block text-sm font-medium mb-1 text-purple-600">
+                    Âge
+                  </label>
                   <input
                     type="number"
                     value={newUser.age}
                     onChange={(e) =>
                       setNewUser((prev) => ({ ...prev, age: e.target.value }))
                     }
-                    className="w-full p-2 border rounded"
+                    className="w-full p-2 border-2 border-gray-200 rounded focus:border-purple-500 text-purple-600 focus:outline-none"
                     required
                     min="3"
                     max="80"
@@ -101,14 +105,14 @@ const LoginPage = () => {
                 <div className="flex gap-2">
                   <button
                     type="submit"
-                    className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700"
+                    className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 transition-colors"
                   >
                     Ajouter
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowAddForm(false)}
-                    className="flex-1 bg-gray-200 text-gray-800 py-2 rounded hover:bg-gray-300"
+                    className="flex-1 bg-gray-200 text-gray-800 py-2 rounded hover:bg-gray-300 transition-colors"
                   >
                     Annuler
                   </button>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad9" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#bfdbfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow9">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Fragment de base (nonagone) -->
+  <path d="M100 20L150 35L180 70L190 115L175 155L140 180L100 185L60 180L25 155L10 115L20 70L50 35L100 20Z" 
+        fill="url(#grad9)" 
+        stroke="#1e40af" 
+        stroke-width="2"
+        filter="url(#glow9)"/>
+  
+  <!-- Spirale dorée -->
+  <path d="M100 100C100 90 110 90 110 100C110 120 90 120 90 100C90 70 120 70 120 100C120 140 80 140 80 100C80 50 130 50 130 100" 
+        fill="none" 
+        stroke="#1e40af" 
+        stroke-width="2"
+        transform="rotate(45 100 100)"/>
+  
+  <!-- Symbole du chiffre 9 -->
+  <path d="M115 90C115 75 85 75 85 90C85 105 115 105 115 120C115 135 85 135 85 120" 
+        stroke="#1e40af" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        fill="none"/>
+  
+  <!-- Points lumineux -->
+  <circle cx="100" cy="30" r="3" fill="white" filter="url(#glow9)"/>
+  <circle cx="145" cy="45" r="3" fill="white" filter="url(#glow9)"/>
+  <circle cx="175" cy="75" r="3" fill="white" filter="url(#glow9)"/>
+  <circle cx="185" cy="115" r="3" fill="white" filter="url(#glow9)"/>
+  <circle cx="170" cy="150" r="3" fill="white" filter="url(#glow9)"/>
+  <circle cx="135" cy="175" r="3" fill="white" filter="url(#glow9)"/>
+  <circle cx="100" cy="180" r="3" fill="white" filter="url(#glow9)"/>
+  <circle cx="65" cy="175" r="3" fill="white" filter="url(#glow9)"/>
+  <circle cx="30" cy="150" r="3" fill="white" filter="url(#glow9)"/>
+</svg> 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définitions des gradients -->
+  <defs>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFE0BD"/>
+      <stop offset="100%" style="stop-color:#FFD1A1"/>
+    </linearGradient>
+    <linearGradient id="hair-brown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513"/>
+      <stop offset="100%" style="stop-color:#654321"/>
+    </linearGradient>
+    <linearGradient id="hair-blonde" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="100%" style="stop-color:#DAA520"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Garçon -->
+  <g transform="translate(50, 50)">
+    <!-- Cheveux bruns -->
+    <path d="M25,20 C25,10 35,0 45,0 C55,0 65,10 65,20 L65,40 C65,45 60,50 55,50 L35,50 C30,50 25,45 25,40 Z" fill="url(#hair-brown)"/>
+    <!-- Visage -->
+    <circle cx="45" cy="35" r="20" fill="url(#skin)"/>
+    <!-- Yeux -->
+    <circle cx="38" cy="30" r="2" fill="#4B3621"/>
+    <circle cx="52" cy="30" r="2" fill="#4B3621"/>
+    <!-- Sourire -->
+    <path d="M40,40 Q45,45 50,40" fill="none" stroke="#4B3621" stroke-width="2" stroke-linecap="round"/>
+    <!-- Corps -->
+    <rect x="35" y="55" width="20" height="30" fill="#8B4513"/>
+    <!-- Bras -->
+    <rect x="25" y="55" width="10" height="25" fill="#8B4513"/>
+    <rect x="55" y="55" width="10" height="25" fill="#8B4513"/>
+    <!-- Jambes -->
+    <rect x="35" y="85" width="8" height="25" fill="#654321"/>
+    <rect x="47" y="85" width="8" height="25" fill="#654321"/>
+  </g>
+
+  <!-- Fille -->
+  <g transform="translate(100, 50)">
+    <!-- Cheveux blonds -->
+    <path d="M25,20 C25,10 35,0 45,0 C55,0 65,10 65,20 L65,45 C65,50 60,55 55,55 L35,55 C30,55 25,50 25,45 Z" fill="url(#hair-blonde)"/>
+    <!-- Visage -->
+    <circle cx="45" cy="35" r="20" fill="url(#skin)"/>
+    <!-- Yeux -->
+    <circle cx="38" cy="30" r="2" fill="#4B3621"/>
+    <circle cx="52" cy="30" r="2" fill="#4B3621"/>
+    <!-- Sourire -->
+    <path d="M40,40 Q45,45 50,40" fill="none" stroke="#4B3621" stroke-width="2" stroke-linecap="round"/>
+    <!-- Robe -->
+    <path d="M35,55 L55,55 L60,90 L30,90 Z" fill="#FF69B4"/>
+    <!-- Bras -->
+    <rect x="25" y="55" width="10" height="25" fill="#FFB6C1"/>
+    <rect x="55" y="55" width="10" height="25" fill="#FFB6C1"/>
+    <!-- Jambes -->
+    <rect x="35" y="90" width="8" height="20" fill="#FFB6C1"/>
+    <rect x="47" y="90" width="8" height="20" fill="#FFB6C1"/>
+  </g>
+</svg> 

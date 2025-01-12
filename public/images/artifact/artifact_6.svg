@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fee2e2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow6">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Fragment de base (hexagone) -->
+  <path d="M100 20L170 50L170 150L100 180L30 150L30 50L100 20Z" 
+        fill="url(#grad6)" 
+        stroke="#7f1d1d" 
+        stroke-width="2"
+        filter="url(#glow6)"/>
+  
+  <!-- Motifs hexagonaux intérieurs -->
+  <path d="M100 40L150 60L150 140L100 160L50 140L50 60L100 40Z" 
+        fill="none" 
+        stroke="#7f1d1d" 
+        stroke-width="2"/>
+  <path d="M100 60L130 75L130 125L100 140L70 125L70 75L100 60Z" 
+        fill="none" 
+        stroke="#7f1d1d" 
+        stroke-width="2"/>
+  
+  <!-- Symbole du chiffre 6 -->
+  <path d="M115 70C115 55 85 55 85 70C85 85 115 85 115 100C115 115 85 115 85 100C85 85 115 85 115 70" 
+        stroke="#7f1d1d" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        fill="none"/>
+  
+  <!-- Points lumineux -->
+  <circle cx="100" cy="30" r="3" fill="white" filter="url(#glow6)"/>
+  <circle cx="160" cy="60" r="3" fill="white" filter="url(#glow6)"/>
+  <circle cx="160" cy="140" r="3" fill="white" filter="url(#glow6)"/>
+  <circle cx="100" cy="170" r="3" fill="white" filter="url(#glow6)"/>
+  <circle cx="40" cy="140" r="3" fill="white" filter="url(#glow6)"/>
+  <circle cx="40" cy="60" r="3" fill="white" filter="url(#glow6)"/>
+</svg> 

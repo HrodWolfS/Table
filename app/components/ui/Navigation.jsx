@@ -9,10 +9,10 @@ const Navigation = ({ steps, currentStep, onStepClick }) => {
           <React.Fragment key={step.id}>
             <button
               onClick={() => onStepClick(step.id)}
-              className={`flex items-center px-3 py-1 rounded-lg transition-all ${
+              className={`flex items-center px-3 py-1 rounded-lg transition-all transform hover:scale-105 ${
                 currentStep === step.id
-                  ? "text-blue-600 font-semibold bg-blue-50"
-                  : "text-gray-500 hover:text-blue-600 hover:bg-blue-50"
+                  ? "text-white font-semibold bg-purple-600"
+                  : "text-purple-600 hover:text-white hover:bg-purple-400"
               }`}
             >
               {step.label}
@@ -21,7 +21,7 @@ const Navigation = ({ steps, currentStep, onStepClick }) => {
               )}
             </button>
             {index < steps.length - 1 && (
-              <ChevronRight size={16} className="text-gray-400" />
+              <ChevronRight size={16} className="text-purple-400" />
             )}
           </React.Fragment>
         ))}

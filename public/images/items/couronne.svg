@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définition des gradients et filtres -->
+  <defs>
+    <linearGradient id="or" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="50%" style="stop-color:#FFA500"/>
+      <stop offset="100%" style="stop-color:#FFD700"/>
+    </linearGradient>
+    <radialGradient id="rubis" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#FF0000"/>
+      <stop offset="100%" style="stop-color:#8B0000"/>
+    </radialGradient>
+    <radialGradient id="brillance" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0"/>
+    </radialGradient>
+    <filter id="ombre">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Base de la couronne -->
+  <path d="M50 100 L60 80 L80 90 L100 70 L120 90 L140 80 L150 100 L150 120 L50 120 Z" 
+        fill="url(#or)" stroke="#DAA520" stroke-width="2" filter="url(#ombre)"/>
+  
+  <!-- Pointes de la couronne -->
+  <path d="M60 80 L65 60 L70 80" fill="none" stroke="#DAA520" stroke-width="2"/>
+  <path d="M100 70 L100 50 L100 70" fill="none" stroke="#DAA520" stroke-width="2"/>
+  <path d="M140 80 L135 60 L130 80" fill="none" stroke="#DAA520" stroke-width="2"/>
+  
+  <!-- Joyaux -->
+  <circle cx="65" cy="85" r="5" fill="url(#rubis)">
+    <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="100" cy="75" r="6" fill="url(#rubis)">
+    <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="135" cy="85" r="5" fill="url(#rubis)">
+    <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Ornements -->
+  <path d="M70 110 Q100 115 130 110" 
+        fill="none" stroke="#DAA520" stroke-width="1"/>
+  <path d="M75 105 L85 105 M95 105 L105 105 M115 105 L125 105" 
+        stroke="#DAA520" stroke-width="1"/>
+  
+  <!-- Effets de brillance -->
+  <circle cx="65" cy="85" r="3" fill="url(#brillance)">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="100" cy="75" r="3" fill="url(#brillance)">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="135" cy="85" r="3" fill="url(#brillance)">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Aura royale -->
+  <circle cx="100" cy="95" r="40" fill="url(#brillance)" opacity="0.2">
+    <animate attributeName="r" values="40;45;40" dur="3s" repeatCount="indefinite"/>
+  </circle>
+</svg> 

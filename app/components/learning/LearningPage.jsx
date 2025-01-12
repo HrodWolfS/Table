@@ -12,6 +12,19 @@ const LearningPage = () => {
 
   const tables = Array.from({ length: 10 }, (_, i) => i + 1);
 
+  const memorizationTips = {
+    1: "Tout nombre multiplié par 1 reste identique. Exemple : 1 × 7 = 7.",
+    2: "Multiplier par 2 revient à additionner le nombre à lui-même. Exemple : 2 × 4 = 4 + 4 = 8.",
+    3: "Pense à compter en sautant de 3 en 3. Exemple : 3, 6, 9, 12….",
+    4: "Multiplier par 4, c’est doubler deux fois. Exemple : 4 × 3 = (3 + 3) + (3 + 3) = 12.",
+    5: "Les résultats finissent toujours par 0 ou 5, en alternance. Exemple : 5, 10, 15, 20….",
+    6: "Combine les astuces de la table de 5 et ajoute une fois le nombre. Exemple : 6 × 3 = (5 × 3) + 3 = 18.",
+    7: "Utilise des phrases mnémotechniques pour mémoriser les résultats difficiles, comme 7 × 7 = 49 (pense à “7 nains, presque 50”).",
+    8: "Double trois fois. Exemple : 8 × 2 = (2 + 2) + (2 + 2) + (2 + 2) + (2 + 2) = 16.",
+    9: "La somme des chiffres du résultat est toujours 9. Exemple : 9 × 4 = 36 (3 + 6 = 9). Une autre astuce : les dizaines augmentent de 1 et les unités diminuent de 1. Exemple : 09, 18, 27, 36….",
+    10: "Il suffit d’ajouter un zéro au bout du nombre. Exemple : 10 × 7 = 70.",
+  };
+
   const renderTableSelection = () => (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
       {tables.map((number) => (
@@ -25,7 +38,7 @@ const LearningPage = () => {
         >
           <CardContent className="p-6 text-center">
             <div className="text-3xl font-bold text-blue-600">
-              Table de {number}
+              Table de <span className="text-green-500">{number}</span>
             </div>
           </CardContent>
         </Card>
@@ -97,9 +110,7 @@ const LearningPage = () => {
             </CardHeader>
             <CardContent>
               <ul className="list-disc list-inside space-y-2 text-gray-600">
-                <li>Repère les résultats qui se répètent</li>
-                <li>Utilise les nombres pairs et impairs</li>
-                <li>Fais le lien avec les tables que tu connais déjà</li>
+                <li>{memorizationTips[selectedTable]}</li>
               </ul>
             </CardContent>
           </Card>

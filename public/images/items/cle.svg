@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définition des gradients -->
+  <defs>
+    <linearGradient id="metal-ancien" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8B4513"/>
+      <stop offset="50%" style="stop-color:#CD853F"/>
+      <stop offset="100%" style="stop-color:#8B4513"/>
+    </linearGradient>
+    <filter id="rouille">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+      <feFlood flood-color="#A0522D" flood-opacity="0.5" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Anneau de la clé -->
+  <circle cx="100" cy="70" r="25" 
+          fill="none" stroke="url(#metal-ancien)" stroke-width="8"
+          filter="url(#rouille)"/>
+  
+  <!-- Tige de la clé -->
+  <rect x="95" y="95" width="10" height="60" 
+        fill="url(#metal-ancien)" filter="url(#rouille)"/>
+  
+  <!-- Dents de la clé -->
+  <path d="M95 140 L85 140 L85 150 L95 150" 
+        fill="url(#metal-ancien)" filter="url(#rouille)"/>
+  <path d="M105 130 L115 130 L115 140 L105 140" 
+        fill="url(#metal-ancien)" filter="url(#rouille)"/>
+  <path d="M95 120 L85 120 L85 130 L95 130" 
+        fill="url(#metal-ancien)" filter="url(#rouille)"/>
+  
+  <!-- Ornements -->
+  <path d="M90 60 Q100 50 110 60" 
+        fill="none" stroke="url(#metal-ancien)" stroke-width="2"/>
+  <path d="M90 80 Q100 90 110 80" 
+        fill="none" stroke="url(#metal-ancien)" stroke-width="2"/>
+  
+  <!-- Symboles anciens -->
+  <path d="M95 65 L105 65" stroke="#8B4513" stroke-width="2"/>
+  <path d="M95 75 L105 75" stroke="#8B4513" stroke-width="2"/>
+  <circle cx="100" cy="70" r="3" fill="#8B4513"/>
+</svg> 

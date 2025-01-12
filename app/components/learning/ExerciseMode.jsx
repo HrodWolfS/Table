@@ -172,6 +172,7 @@ const ExerciseMode = ({ tableNumber }) => {
           <form onSubmit={checkAnswer} className="space-y-4">
             <input
               type="number"
+              inputMode="numeric"
               value={userAnswer}
               onChange={(e) => setUserAnswer(e.target.value)}
               className="w-full p-4 text-2xl text-center text-blue-600 border-2 border-gray-200 rounded-lg bg-transparent focus:border-purple-500 focus:outline-none"

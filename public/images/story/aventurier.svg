@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définitions -->
+  <defs>
+    <radialGradient id="aura" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFE0BD"/>
+      <stop offset="100%" style="stop-color:#FFD1A1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Aura magique -->
+  <circle cx="100" cy="100" r="80" fill="url(#aura)">
+    <animate attributeName="r" values="80;85;80" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0.8;0.6" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Aventurier -->
+  <g transform="translate(60, 40)">
+    <!-- Tête -->
+    <circle cx="40" cy="40" r="20" fill="url(#skin)"/>
+    <!-- Cheveux -->
+    <path d="M20,40 C20,20 60,20 60,40" fill="#8B4513"/>
+    <!-- Yeux -->
+    <circle cx="33" cy="35" r="2" fill="#4B3621"/>
+    <circle cx="47" cy="35" r="2" fill="#4B3621"/>
+    <!-- Sourire -->
+    <path d="M35,45 Q40,48 45,45" stroke="#4B3621" fill="none"/>
+    
+    <!-- Corps -->
+    <path d="M30,60 h20 l5,40 h-30 l5,-40" fill="#1E90FF"/>
+    <!-- Bras -->
+    <path d="M30,60 l-10,30 l-5,-2 l10,-30" fill="#FFE0BD"/>
+    <path d="M50,60 l10,30 l5,-2 l-10,-30" fill="#FFE0BD"/>
+    <!-- Jambes -->
+    <path d="M25,100 l-5,30 h10 l-3,-30" fill="#4B0082"/>
+    <path d="M55,100 l5,30 h-10 l3,-30" fill="#4B0082"/>
+  </g>
+
+  <!-- Étoiles magiques -->
+  <g fill="#FFD700">
+    <circle cx="50" cy="50" r="2">
+      <animate attributeName="opacity" values="1;0;1" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="150" cy="70" r="2">
+      <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="130" cy="150" r="2">
+      <animate attributeName="opacity" values="1;0;1" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="40" cy="130" r="2">
+      <animate attributeName="opacity" values="1;0;1" dur="1.3s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg> 

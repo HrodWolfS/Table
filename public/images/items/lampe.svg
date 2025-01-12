@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définition des gradients -->
+  <defs>
+    <radialGradient id="lueur" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#B8860B"/>
+      <stop offset="50%" style="stop-color:#DAA520"/>
+      <stop offset="100%" style="stop-color:#B8860B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Lueur de la lampe -->
+  <circle cx="100" cy="80" r="60" fill="url(#lueur)" opacity="0.5"/>
+
+  <!-- Corps de la lampe -->
+  <path d="M70 100 Q100 60 130 100 L120 140 L80 140 Z" fill="url(#metal)" stroke="#8B4513" stroke-width="2"/>
+  
+  <!-- Base de la lampe -->
+  <rect x="75" y="140" width="50" height="10" fill="url(#metal)" stroke="#8B4513" stroke-width="2"/>
+  <path d="M85 150 Q100 160 115 150" fill="none" stroke="#8B4513" stroke-width="4"/>
+
+  <!-- Flamme -->
+  <path d="M95 80 Q100 60 105 80 Q100 90 95 80" fill="#FFA500"/>
+  <path d="M97 75 Q100 65 103 75 Q100 80 97 75" fill="#FFD700"/>
+</svg> 

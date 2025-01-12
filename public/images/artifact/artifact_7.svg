@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fed7aa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fb923c;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow7">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Fragment de base (heptagone) -->
+  <path d="M100 20L160 45L180 100L160 155L100 180L40 155L20 100L40 45L100 20Z" 
+        fill="url(#grad7)" 
+        stroke="#9a3412" 
+        stroke-width="2"
+        filter="url(#glow7)"/>
+  
+  <!-- Motifs heptagonaux intérieurs -->
+  <path d="M100 40L145 60L160 100L145 140L100 160L55 140L40 100L55 60L100 40Z" 
+        fill="none" 
+        stroke="#9a3412" 
+        stroke-width="2"/>
+  <path d="M100 60L130 75L140 100L130 125L100 140L70 125L60 100L70 75L100 60Z" 
+        fill="none" 
+        stroke="#9a3412" 
+        stroke-width="2"/>
+  
+  <!-- Symbole du chiffre 7 -->
+  <path d="M80 60H120L90 140" 
+        stroke="#9a3412" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        fill="none"/>
+  
+  <!-- Points lumineux -->
+  <circle cx="100" cy="30" r="3" fill="white" filter="url(#glow7)"/>
+  <circle cx="155" cy="50" r="3" fill="white" filter="url(#glow7)"/>
+  <circle cx="175" cy="100" r="3" fill="white" filter="url(#glow7)"/>
+  <circle cx="155" cy="150" r="3" fill="white" filter="url(#glow7)"/>
+  <circle cx="100" cy="170" r="3" fill="white" filter="url(#glow7)"/>
+  <circle cx="45" cy="150" r="3" fill="white" filter="url(#glow7)"/>
+  <circle cx="25" cy="100" r="3" fill="white" filter="url(#glow7)"/>
+</svg> 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définitions -->
+  <defs>
+    <linearGradient id="parchemin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5DEB3"/>
+      <stop offset="100%" style="stop-color:#DEB887"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 1   0 1 0 0 1   0 0 1 0 0  0 0 0 0.5 0"/>
+    </filter>
+  </defs>
+
+  <!-- Fond de la carte -->
+  <rect x="30" y="30" width="140" height="140" rx="10" fill="url(#parchemin)" stroke="#8B4513" stroke-width="2"/>
+
+  <!-- Éléments de la carte -->
+  <g stroke="#8B4513" stroke-width="1" fill="none">
+    <!-- Montagnes -->
+    <path d="M50,120 L70,80 L90,120" />
+    <path d="M100,110 L120,70 L140,110" />
+    <!-- Rivière -->
+    <path d="M60,50 Q90,70 60,90 Q30,110 60,130" stroke="#4682B4" stroke-dasharray="2,2"/>
+    <!-- Forêt -->
+    <circle cx="110" cy="100" r="5" fill="#228B22"/>
+    <circle cx="130" cy="90" r="5" fill="#228B22"/>
+    <circle cx="120" cy="110" r="5" fill="#228B22"/>
+  </g>
+
+  <!-- Points lumineux -->
+  <g fill="#FFD700" filter="url(#glow)">
+    <circle cx="70" cy="80" r="3">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="120" cy="70" r="3">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="60" cy="130" r="3">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Boussole -->
+  <g transform="translate(150,50)">
+    <circle cx="0" cy="0" r="10" fill="none" stroke="#8B4513"/>
+    <path d="M0,-8 L0,8 M-8,0 L8,0" stroke="#8B4513"/>
+    <circle cx="0" cy="-6" r="2" fill="#FF0000"/>
+  </g>
+
+  <!-- Légende -->
+  <g transform="translate(40,160)">
+    <line x1="0" y1="0" x2="20" y2="0" stroke="#8B4513" stroke-dasharray="2,2"/>
+    <text x="25" y="5" font-size="8" fill="#8B4513">Chemin magique</text>
+  </g>
+
+  <!-- Effet de brillance -->
+  <rect x="30" y="30" width="140" height="140" rx="10" fill="white" opacity="0.1">
+    <animate attributeName="opacity" values="0.1;0.2;0.1" dur="3s" repeatCount="indefinite"/>
+  </rect>
+</svg> 

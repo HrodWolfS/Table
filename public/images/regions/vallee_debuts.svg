@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ciel -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#E0F6FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#skyGradient)"/>
+
+  <!-- Soleil -->
+  <circle cx="150" cy="40" r="20" fill="#FFD700"/>
+  <circle cx="150" cy="40" r="25" fill="#FFD700" opacity="0.3"/>
+
+  <!-- Collines -->
+  <path d="M0 100 Q50 70 100 100 T200 100 V200 H0 Z" fill="#90BD90"/>
+  <path d="M0 120 Q50 90 100 120 T200 120 V200 H0 Z" fill="#7AB07A"/>
+  <path d="M0 140 Q50 110 100 140 T200 140 V200 H0 Z" fill="#67A267"/>
+
+  <!-- Chemin -->
+  <path
+    d="M20 200 C50 180 80 190 100 170 S150 160 180 180"
+    stroke="#D2B48C"
+    stroke-width="8"
+    fill="none"
+  />
+
+  <!-- Fleurs -->
+  <g transform="translate(30, 150)">
+    <line x1="0" y1="0" x2="0" y2="10" stroke="#558855" stroke-width="1"/>
+    <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+  </g>
+  <g transform="translate(50, 160)">
+    <line x1="0" y1="0" x2="0" y2="10" stroke="#558855" stroke-width="1"/>
+    <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+  </g>
+  <g transform="translate(70, 155)">
+    <line x1="0" y1="0" x2="0" y2="10" stroke="#558855" stroke-width="1"/>
+    <circle cx="0" cy="0" r="2" fill="#FFD700"/>
+  </g>
+</svg>

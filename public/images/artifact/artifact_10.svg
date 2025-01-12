@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad10" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#93c5fd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow10">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Fragment de base (décagone) -->
+  <path d="M100 20L145 30L180 60L195 100L190 140L165 170L125 185L75 185L35 170L10 140L5 100L20 60L55 30L100 20Z" 
+        fill="url(#grad10)" 
+        stroke="#1e3a8a" 
+        stroke-width="2"
+        filter="url(#glow10)"/>
+  
+  <!-- Étoile à dix branches -->
+  <path d="M100 40L110 70L140 70L115 90L125 120L100 105L75 120L85 90L60 70L90 70L100 40Z" 
+        fill="none" 
+        stroke="#1e3a8a" 
+        stroke-width="2"
+        transform="scale(1.2) translate(-20 -20)"/>
+  
+  <!-- Symbole du chiffre 10 -->
+  <path d="M85 70L85 130M115 70C115 55 85 55 85 70C85 85 115 85 115 100C115 115 85 115 85 100" 
+        stroke="#1e3a8a" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        fill="none"/>
+  
+  <!-- Points lumineux -->
+  <circle cx="100" cy="30" r="3" fill="white" filter="url(#glow10)"/>
+  <circle cx="140" cy="40" r="3" fill="white" filter="url(#glow10)"/>
+  <circle cx="175" cy="65" r="3" fill="white" filter="url(#glow10)"/>
+  <circle cx="190" cy="100" r="3" fill="white" filter="url(#glow10)"/>
+  <circle cx="185" cy="135" r="3" fill="white" filter="url(#glow10)"/>
+  <circle cx="160" cy="165" r="3" fill="white" filter="url(#glow10)"/>
+  <circle cx="120" cy="180" r="3" fill="white" filter="url(#glow10)"/>
+  <circle cx="80" cy="180" r="3" fill="white" filter="url(#glow10)"/>
+  <circle cx="40" cy="165" r="3" fill="white" filter="url(#glow10)"/>
+  <circle cx="15" cy="135" r="3" fill="white" filter="url(#glow10)"/>
+</svg> 

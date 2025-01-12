@@ -1,46 +1,37 @@
 // utils/auth.js
-export const USERS_KEY = "multiplication-users";
-export const CURRENT_USER_KEY = "multiplication-current-user";
+const USER_KEY = "multiTabUser";
 
-export const getUsers = () => {
-  try {
-    return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
-  } catch {
-    return [];
-  }
+export const saveUser = (user) => {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(USER_KEY, JSON.stringify(user));
 };
 
 export const getCurrentUser = () => {
+  if (typeof window === "undefined") return null;
   try {
-    return JSON.parse(localStorage.getItem(CURRENT_USER_KEY));
-  } catch {
+    const user = localStorage.getItem(USER_KEY);
+    const playerName = localStorage.getItem("playerName");
+    if (playerName) {
+      return { name: playerName };
+    }
+    return user ? JSON.parse(user) : null;
+  } catch (error) {
+    console.error("Erreur lors de la récupération de l'utilisateur:", error);
     return null;
   }
 };
 
-export const addUser = (name, age) => {
-  const users = getUsers();
-  const newUser = {
-    id: Date.now().toString(),
-    name,
-    age,
-    createdAt: new Date().toISOString(),
-  };
-  users.push(newUser);
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
-  return newUser;
-};
-
-export const login = (userId) => {
-  const users = getUsers();
-  const user = users.find((u) => u.id === userId);
-  if (user) {
-    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
-    return user;
-  }
-  return null;
-};
-
 export const logout = () => {
-  localStorage.removeItem(CURRENT_USER_KEY);
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(USER_KEY);
+  localStorage.removeItem("playerName");
+  // Optionnel : supprimer aussi la progression
+  localStorage.removeItem("multiTabProgress");
+  window.location.reload();
+};
+
+export const isAuthenticated = () => {
+  const user = getCurrentUser();
+  const playerName = localStorage.getItem("playerName");
+  return !!user || !!playerName;
 };

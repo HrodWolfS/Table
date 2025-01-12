@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ciel du désert -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#FFD700"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFF" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#FFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#skyGradient)"/>
+
+  <!-- Soleil brûlant -->
+  <circle cx="100" cy="40" r="20" fill="#FFF"/>
+  <circle cx="100" cy="40" r="30" fill="url(#sunGlow)"/>
+
+  <!-- Dunes de sable -->
+  <path d="M0 120 Q50 100 100 120 T200 120 V200 H0 Z" fill="#DAA520"/>
+  <path d="M0 140 Q50 120 100 140 T200 140 V200 H0 Z" fill="#B8860B"/>
+  <path d="M0 160 Q50 140 100 160 T200 160 V200 H0 Z" fill="#8B4513"/>
+
+  <!-- Pyramides -->
+  <path d="M40 160 L70 100 L100 160 Z" fill="#D2691E"/>
+  <path d="M65 160 L100 80 L135 160 Z" fill="#8B4513"/>
+  <path d="M120 160 L150 110 L180 160 Z" fill="#A0522D"/>
+
+  <!-- Ombres des pyramides -->
+  <path d="M70 160 L90 160 L70 140 Z" fill="rgba(0,0,0,0.2)"/>
+  <path d="M100 160 L120 160 L100 140 Z" fill="rgba(0,0,0,0.2)"/>
+  <path d="M150 160 L170 160 L150 140 Z" fill="rgba(0,0,0,0.2)"/>
+
+  <!-- Chaleur ondulante -->
+  <path d="M20 90 Q30 85 40 90 T60 90 T80 90" stroke="white" stroke-width="1" fill="none" opacity="0.3"/>
+  <path d="M100 80 Q110 75 120 80 T140 80 T160 80" stroke="white" stroke-width="1" fill="none" opacity="0.3"/>
+</svg> 

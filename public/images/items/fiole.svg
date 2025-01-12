@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définition des gradients -->
+  <defs>
+    <linearGradient id="verre" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#B0E0E6;stop-opacity:0.8"/>
+      <stop offset="50%" style="stop-color:#E0FFFF;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#B0E0E6;stop-opacity:0.8"/>
+    </linearGradient>
+    <radialGradient id="eau" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#00BFFF;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#87CEEB;stop-opacity:0.4"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Corps de la fiole -->
+  <path d="M90 60 L90 40 Q100 30 110 40 L110 60 Q130 90 130 120 Q130 150 100 150 Q70 150 70 120 Q70 90 90 60" 
+        fill="url(#verre)" stroke="#87CEEB" stroke-width="2"/>
+  
+  <!-- Eau magique -->
+  <path d="M75 120 Q100 140 125 120 Q125 145 100 145 Q75 145 75 120" 
+        fill="url(#eau)">
+    <animate attributeName="d" 
+             values="M75 120 Q100 140 125 120 Q125 145 100 145 Q75 145 75 120;
+                     M75 120 Q100 130 125 120 Q125 145 100 145 Q75 145 75 120;
+                     M75 120 Q100 140 125 120 Q125 145 100 145 Q75 145 75 120"
+             dur="3s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Reflets -->
+  <path d="M80 80 L85 75" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M90 70 L95 65" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  
+  <!-- Bulles -->
+  <circle cx="95" cy="110" r="2" fill="white" opacity="0.8">
+    <animate attributeName="cy" values="110;90;110" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="105" cy="115" r="1.5" fill="white" opacity="0.8">
+    <animate attributeName="cy" values="115;95;115" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+</svg> 

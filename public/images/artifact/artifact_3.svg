@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#bbf7d0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4ade80;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow3">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Fragment de base (triangle) -->
+  <path d="M100 20L180 160H20L100 20Z" 
+        fill="url(#grad3)" 
+        stroke="#166534" 
+        stroke-width="2"
+        filter="url(#glow3)"/>
+  
+  <!-- Motifs triangulaires intérieurs -->
+  <path d="M100 50L150 140H50L100 50Z" 
+        fill="none" 
+        stroke="#166534" 
+        stroke-width="2"/>
+  <path d="M100 80L130 130H70L100 80Z" 
+        fill="none" 
+        stroke="#166534" 
+        stroke-width="2"/>
+  
+  <!-- Symbole du chiffre 3 -->
+  <path d="M85 70C85 60 95 55 100 55C105 55 115 60 115 70C115 80 100 85 100 90C100 95 115 100 115 110C115 120 105 125 100 125C95 125 85 120 85 110" 
+        stroke="#166534" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        fill="none"/>
+  
+  <!-- Points lumineux -->
+  <circle cx="100" cy="30" r="3" fill="white" filter="url(#glow3)"/>
+  <circle cx="170" cy="150" r="3" fill="white" filter="url(#glow3)"/>
+  <circle cx="30" cy="150" r="3" fill="white" filter="url(#glow3)"/>
+</svg> 

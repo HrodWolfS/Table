@@ -1,7 +1,12 @@
+import { QUESTS_CONFIG } from "../data/quests";
 import { getCurrentUser } from "./auth";
+
 // Clé pour le localStorage
 const STORAGE_KEY = "multiplication-test-results";
 
+const STORAGE_KEYS = {
+  USER_PROGRESS: "multitab-user-progress",
+};
 
 // Sauvegarder un nouveau résultat de test
 export const saveTestResult = (result) => {
@@ -14,7 +19,7 @@ export const saveTestResult = (result) => {
       ...result,
       date: new Date().toISOString(),
       id: Date.now(),
-      userId: currentUser.id // Ajout de l'ID utilisateur
+      userId: currentUser.id, // Ajout de l'ID utilisateur
     };
 
     localStorage.setItem(
@@ -35,7 +40,7 @@ export const getUserTestResults = () => {
     const currentUser = getCurrentUser();
     const results = localStorage.getItem(STORAGE_KEY);
     const allResults = results ? JSON.parse(results) : [];
-    return allResults.filter(result => result.userId === currentUser.id);
+    return allResults.filter((result) => result.userId === currentUser.id);
   } catch (error) {
     console.error("Erreur lors de la récupération des résultats:", error);
     return [];
@@ -44,48 +49,67 @@ export const getUserTestResults = () => {
 
 // Calculer les statistiques pour l'utilisateur actuel
 export const getGlobalStats = () => {
-  const results = getUserTestResults();
+  const progress = getProgress();
+  const defaultStats = {
+    totalXP: 0,
+    totalCoins: 0,
+    averageScore: 0,
+    completedQuests: 0,
+    totalQuests: 0,
+    completionRate: 0,
+    totalScore: 0,
+    bestScore: 0,
+    totalTests: 0,
+    mostTestedTable: null,
+  };
 
-  if (results.length === 0) {
-    return {
-      totalTests: 0,
-      averageScore: 0,
-      bestScore: 0,
-      totalScore: 0,
-      totalTime: 0,
-      mostTestedTable: null,
-    };
-  }
+  if (!progress) return defaultStats;
 
+  let totalQuests = 0;
+  let completedQuests = 0;
+  let totalScore = 0;
+  let questCount = 0;
+  let bestScore = 0;
   const tableCounts = {};
 
-  const stats = results.reduce(
-    (acc, result) => {
-      result.selectedTables.forEach((table) => {
-        tableCounts[table] = (tableCounts[table] || 0) + 1;
-      });
+  Object.values(progress.regions).forEach((region) => {
+    Object.values(region.highScores).forEach((score) => {
+      totalScore += score;
+      bestScore = Math.max(bestScore, score);
+      questCount++;
+    });
+    completedQuests += region.completedQuests.length;
+  });
 
-      return {
-        totalTests: acc.totalTests + 1,
-        totalScore: acc.totalScore + result.score,
-        bestScore: Math.max(acc.bestScore, result.score),
-        totalTime: acc.totalTime + (result.timeLimit - result.timeLeft),
-      };
-    },
-    { totalTests: 0, totalScore: 0, bestScore: 0, totalTime: 0 }
-  );
+  // Compter les tables les plus testées
+  Object.values(progress.regions).forEach((region) => {
+    region.completedQuests.forEach((questId) => {
+      const [regionId] = questId.split("Q");
+      const quest = QUESTS_CONFIG[regionId]?.quests?.find(
+        (q) => q.id === questId
+      );
+      if (quest?.objectives?.table) {
+        tableCounts[quest.objectives.table] =
+          (tableCounts[quest.objectives.table] || 0) + 1;
+      }
+    });
+  });
 
   const mostTestedTable = Object.entries(tableCounts).sort(
     ([, a], [, b]) => b - a
   )[0]?.[0];
 
   return {
-    totalTests: stats.totalTests,
-    averageScore: Math.round(stats.totalScore / stats.totalTests),
-    bestScore: stats.bestScore,
-    totalScore: stats.totalScore,
-    totalTime: stats.totalTime,
-    mostTestedTable: Number(mostTestedTable),
+    totalXP: progress.totalXP || 0,
+    totalCoins: progress.totalCoins || 0,
+    averageScore: questCount > 0 ? Math.round(totalScore / questCount) : 0,
+    completedQuests,
+    totalQuests,
+    completionRate: totalQuests > 0 ? (completedQuests / totalQuests) * 100 : 0,
+    totalScore,
+    bestScore,
+    totalTests: questCount,
+    mostTestedTable: mostTestedTable ? Number(mostTestedTable) : null,
   };
 };
 
@@ -116,11 +140,84 @@ export const clearUserTestResults = () => {
   try {
     const currentUser = getCurrentUser();
     const allResults = getTestResults();
-    const filteredResults = allResults.filter(result => result.userId !== currentUser.id);
+    const filteredResults = allResults.filter(
+      (result) => result.userId !== currentUser.id
+    );
     localStorage.setItem(STORAGE_KEY, JSON.stringify(filteredResults));
     return true;
   } catch (error) {
     console.error("Erreur lors de la suppression des résultats:", error);
     return false;
   }
+};
+
+export const resetProgress = () => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("userProgress");
+  }
+};
+
+export const saveProgress = (progress) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("userProgress", JSON.stringify(progress));
+  }
+};
+
+export const getProgress = () => {
+  if (typeof window !== "undefined") {
+    const progress = localStorage.getItem("userProgress");
+    return progress ? JSON.parse(progress) : null;
+  }
+  return null;
+};
+
+export const updateQuestProgress = (regionId, questId, score, timeSpent) => {
+  const currentProgress = getProgress() || {
+    regions: {
+      vallee_debuts: {
+        completedQuests: [],
+        highScores: {},
+        bestTimes: {},
+      },
+    },
+    completedQuests: [],
+    unlockedRegions: ["vallee_debuts"],
+    totalXP: 0,
+    totalCoins: 0,
+  };
+
+  // Mettre à jour la progression de la région
+  if (!currentProgress.regions[regionId]) {
+    currentProgress.regions[regionId] = {
+      completedQuests: [],
+      highScores: {},
+      bestTimes: {},
+    };
+  }
+
+  const regionProgress = currentProgress.regions[regionId];
+
+  // Mettre à jour les scores et temps
+  regionProgress.highScores[questId] = Math.max(
+    score,
+    regionProgress.highScores[questId] || 0
+  );
+
+  if (timeSpent) {
+    regionProgress.bestTimes[questId] = Math.min(
+      timeSpent,
+      regionProgress.bestTimes[questId] || Infinity
+    );
+  }
+
+  // Ajouter la quête aux quêtes complétées si ce n'est pas déjà fait
+  if (!regionProgress.completedQuests.includes(questId)) {
+    regionProgress.completedQuests.push(questId);
+    if (!currentProgress.completedQuests.includes(questId)) {
+      currentProgress.completedQuests.push(questId);
+    }
+  }
+
+  saveProgress(currentProgress);
+  return currentProgress;
 };

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ciel -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#00BFFF"/>
+    </linearGradient>
+    <linearGradient id="waterGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00CED1"/>
+      <stop offset="100%" stop-color="#4169E1"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#skyGradient)"/>
+
+  <!-- Montagnes -->
+  <path d="M0 100 L50 40 L100 90 L150 30 L200 80 V200 H0 Z" fill="#A9A9A9"/>
+  <path d="M0 120 L40 70 L80 100 L120 50 L160 90 L200 60 V200 H0 Z" fill="#808080"/>
+
+  <!-- Cascade principale -->
+  <path d="M80 60 L120 60 L120 200 L80 200 Z" fill="url(#waterGradient)" opacity="0.8"/>
+  
+  <!-- Écume de la cascade -->
+  <path d="M80 80 Q100 85 120 80" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M80 100 Q100 105 120 100" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M80 120 Q100 125 120 120" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M80 140 Q100 145 120 140" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M80 160 Q100 165 120 160" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M80 180 Q100 185 120 180" stroke="white" stroke-width="2" fill="none" opacity="0.6"/>
+
+  <!-- Petites cascades -->
+  <path d="M40 100 L60 100 L60 200 L40 200 Z" fill="url(#waterGradient)" opacity="0.6"/>
+  <path d="M140 90 L160 90 L160 200 L140 200 Z" fill="url(#waterGradient)" opacity="0.6"/>
+
+  <!-- Brume -->
+  <path d="M70 140 Q100 130 130 140" fill="white" opacity="0.3"/>
+  <path d="M30 160 Q60 150 90 160" fill="white" opacity="0.3"/>
+  <path d="M110 170 Q140 160 170 170" fill="white" opacity="0.3"/>
+
+  <!-- Reflets -->
+  <circle cx="90" cy="90" r="1" fill="white" opacity="0.8"/>
+  <circle cx="110" cy="110" r="1" fill="white" opacity="0.8"/>
+  <circle cx="95" cy="130" r="1" fill="white" opacity="0.8"/>
+  <circle cx="105" cy="150" r="1" fill="white" opacity="0.8"/>
+</svg> 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ciel brumeux -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2F4F4F"/>
+      <stop offset="100%" stop-color="#3D5B5B"/>
+    </linearGradient>
+    <filter id="fogFilter">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+    </filter>
+  </defs>
+  <rect width="200" height="200" fill="url(#skyGradient)"/>
+
+  <!-- Brume de fond -->
+  <path d="M0 100 Q50 90 100 100 T200 100" fill="#ffffff20" filter="url(#fogFilter)"/>
+  <path d="M0 120 Q50 110 100 120 T200 120" fill="#ffffff15" filter="url(#fogFilter)"/>
+  <path d="M0 140 Q50 130 100 140 T200 140" fill="#ffffff10" filter="url(#fogFilter)"/>
+
+  <!-- Eau du marais -->
+  <path d="M0 160 Q30 155 60 160 T120 160 T180 160 T240 160 V200 H0 Z" fill="#2F4F4F"/>
+  <path d="M0 170 Q30 165 60 170 T120 170 T180 170 T240 170 V200 H0 Z" fill="#3D5B5B"/>
+
+  <!-- Végétation du marais -->
+  <g transform="translate(30, 150)">
+    <path d="M0 0 C-5 -10 5 -20 0 -30" stroke="#2E8B57" stroke-width="2" fill="none"/>
+    <path d="M0 0 C5 -10 -5 -20 0 -30" stroke="#2E8B57" stroke-width="2" fill="none"/>
+  </g>
+
+  <g transform="translate(80, 140)">
+    <path d="M0 0 C-8 -15 8 -30 0 -45" stroke="#3CB371" stroke-width="2" fill="none"/>
+    <path d="M0 0 C8 -15 -8 -30 0 -45" stroke="#3CB371" stroke-width="2" fill="none"/>
+  </g>
+
+  <g transform="translate(150, 155)">
+    <path d="M0 0 C-6 -12 6 -24 0 -36" stroke="#2E8B57" stroke-width="2" fill="none"/>
+    <path d="M0 0 C6 -12 -6 -24 0 -36" stroke="#2E8B57" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- Lucioles -->
+  <circle cx="40" cy="130" r="1" fill="#FFFF00" opacity="0.8"/>
+  <circle cx="90" cy="110" r="1" fill="#FFFF00" opacity="0.6"/>
+  <circle cx="160" cy="120" r="1" fill="#FFFF00" opacity="0.7"/>
+  <circle cx="120" cy="140" r="1" fill="#FFFF00" opacity="0.5"/>
+
+  <!-- Brume supplémentaire -->
+  <rect width="200" height="200" fill="white" opacity="0.1" filter="url(#fogFilter)"/>
+</svg> 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fecaca;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f87171;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow5">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Fragment de base (pentagone) -->
+  <path d="M100 20L180 80L150 170H50L20 80L100 20Z" 
+        fill="url(#grad5)" 
+        stroke="#991b1b" 
+        stroke-width="2"
+        filter="url(#glow5)"/>
+  
+  <!-- Motif pentagonal intérieur -->
+  <path d="M100 40L160 85L135 155H65L40 85L100 40Z" 
+        fill="none" 
+        stroke="#991b1b" 
+        stroke-width="2"/>
+  <path d="M100 60L140 90L120 140H80L60 90L100 60Z" 
+        fill="none" 
+        stroke="#991b1b" 
+        stroke-width="2"/>
+  
+  <!-- Symbole du chiffre 5 -->
+  <path d="M115 60H85V90C85 90 115 85 115 105C115 125 85 125 85 105" 
+        stroke="#991b1b" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        fill="none"/>
+  
+  <!-- Points lumineux -->
+  <circle cx="100" cy="30" r="3" fill="white" filter="url(#glow5)"/>
+  <circle cx="170" cy="85" r="3" fill="white" filter="url(#glow5)"/>
+  <circle cx="145" cy="160" r="3" fill="white" filter="url(#glow5)"/>
+  <circle cx="55" cy="160" r="3" fill="white" filter="url(#glow5)"/>
+  <circle cx="30" cy="85" r="3" fill="white" filter="url(#glow5)"/>
+</svg> 

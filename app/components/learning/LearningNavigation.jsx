@@ -1,5 +1,5 @@
-import React from "react";
 import { ChevronRight } from "lucide-react";
+import React from "react";
 
 const LearningNavigation = ({ currentStep, selectedTable, onStepClick }) => {
   // Détermine les étapes à afficher en fonction de l'étape actuelle
@@ -28,21 +28,21 @@ const LearningNavigation = ({ currentStep, selectedTable, onStepClick }) => {
           <React.Fragment key={step.id}>
             <button
               onClick={() => onStepClick(step.id)}
-              className={`flex items-center px-3 py-1 rounded-lg transition-all ${
+              className={`flex items-center px-3 py-1 rounded-lg transition-all transform hover:scale-105 ${
                 currentStep === step.id
-                  ? "text-blue-600 font-semibold bg-blue-50"
-                  : "text-gray-500 hover:text-blue-600 hover:bg-blue-50"
+                  ? "text-white font-semibold bg-blue-600"
+                  : "text-blue-600 hover:text-white hover:bg-blue-400"
               }`}
             >
               {step.label}
-              {step.id !== "selection" && (
-                <span className="ml-2 text-gray-600">
+              {step.id !== "selection" && selectedTable && (
+                <span className="ml-2 text-purple-400">
                   (Table de {selectedTable})
                 </span>
               )}
             </button>
             {index < visibleSteps.length - 1 && (
-              <ChevronRight size={16} className="text-gray-400" />
+              <ChevronRight size={16} className="text-blue-400" />
             )}
           </React.Fragment>
         ))}

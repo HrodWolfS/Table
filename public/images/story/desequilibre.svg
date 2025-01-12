@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définition des gradients -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFB6C1"/>
+      <stop offset="100%" style="stop-color:#FF69B4"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Fond -->
+  <rect width="200" height="200" fill="url(#bg-gradient)"/>
+
+  <!-- Chiffres en désordre avec animation -->
+  <g filter="url(#glow)">
+    <text x="40" y="60" font-size="24" fill="#4B0082" opacity="0.8">
+      <animate attributeName="y" from="60" to="40" dur="2s" repeatCount="indefinite"/>
+      7 × 8
+    </text>
+    <text x="120" y="90" font-size="28" fill="#800080" opacity="0.7">
+      <animate attributeName="y" from="90" to="110" dur="1.5s" repeatCount="indefinite"/>
+      4 × 6
+    </text>
+    <text x="70" y="140" font-size="32" fill="#8B008B" opacity="0.9">
+      <animate attributeName="y" from="140" to="120" dur="2.5s" repeatCount="indefinite"/>
+      9 × 3
+    </text>
+    <text x="150" y="170" font-size="26" fill="#9400D3" opacity="0.8">
+      <animate attributeName="y" from="170" to="150" dur="1.8s" repeatCount="indefinite"/>
+      5 × 2
+    </text>
+  </g>
+
+  <!-- Symboles de multiplication flottants -->
+  <g fill="#4B0082">
+    <text x="30" y="100" font-size="36" opacity="0.6">
+      <animate attributeName="x" from="30" to="50" dur="3s" repeatCount="indefinite"/>
+      ×
+    </text>
+    <text x="160" y="60" font-size="30" opacity="0.5">
+      <animate attributeName="x" from="160" to="140" dur="2.5s" repeatCount="indefinite"/>
+      ×
+    </text>
+    <text x="100" y="180" font-size="40" opacity="0.7">
+      <animate attributeName="y" from="180" to="160" dur="2s" repeatCount="indefinite"/>
+      ×
+    </text>
+  </g>
+</svg> 

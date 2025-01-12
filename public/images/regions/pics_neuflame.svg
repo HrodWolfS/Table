@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ciel -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#B0E2FF"/>
+      <stop offset="100%" stop-color="#E0FFFF"/>
+    </linearGradient>
+    <radialGradient id="snowGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#skyGradient)"/>
+
+  <!-- Montagnes enneigées -->
+  <!-- Pic arrière -->
+  <path d="M0 120 L60 40 L120 140" fill="#A1C4FD"/>
+  <path d="M20 110 L60 50 L100 130" fill="#BFDFFF"/>
+  <path d="M40 100 L60 60 L80 120" fill="#FFFFFF"/>
+
+  <!-- Pic central -->
+  <path d="M80 140 L140 20 L200 160" fill="#A1C4FD"/>
+  <path d="M100 130 L140 30 L180 150" fill="#BFDFFF"/>
+  <path d="M120 120 L140 40 L160 140" fill="#FFFFFF"/>
+
+  <!-- Neige qui tombe -->
+  <circle cx="30" cy="40" r="1" fill="white"/>
+  <circle cx="70" cy="60" r="1" fill="white"/>
+  <circle cx="110" cy="30" r="1" fill="white"/>
+  <circle cx="150" cy="50" r="1" fill="white"/>
+  <circle cx="180" cy="40" r="1" fill="white"/>
+
+  <!-- Brume glaciale -->
+  <path d="M0 150 Q50 140 100 150 T200 150" fill="white" opacity="0.3"/>
+  <path d="M0 170 Q50 160 100 170 T200 170" fill="white" opacity="0.2"/>
+  <path d="M0 190 Q50 180 100 190 T200 190" fill="white" opacity="0.1"/>
+
+  <!-- Reflets glacés -->
+  <circle cx="60" cy="80" r="10" fill="url(#snowGlow)"/>
+  <circle cx="140" cy="60" r="15" fill="url(#snowGlow)"/>
+  <circle cx="100" cy="100" r="8" fill="url(#snowGlow)"/>
+
+  <!-- Cristaux de glace -->
+  <g transform="translate(40, 90)">
+    <path d="M0 0 L5 -10 L10 0 L5 10 Z" fill="#FFFFFF" opacity="0.6"/>
+  </g>
+  <g transform="translate(120, 70)">
+    <path d="M0 0 L8 -15 L16 0 L8 15 Z" fill="#FFFFFF" opacity="0.6"/>
+  </g>
+  <g transform="translate(160, 110)">
+    <path d="M0 0 L6 -12 L12 0 L6 12 Z" fill="#FFFFFF" opacity="0.6"/>
+  </g>
+
+  <!-- Base enneigée -->
+  <path d="M0 200 L200 200 L200 180 Q150 170 100 180 T0 180 Z" fill="#FFFFFF"/>
+</svg> 

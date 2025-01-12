@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" height="100%" viewBox="0 0 900 1600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Définition des motifs et gradients -->
+  <defs>
+    <!-- Texture de base du parchemin -->
+    <pattern id="paperTexture" patternUnits="userSpaceOnUse" width="100" height="100">
+      <rect width="100" height="100" fill="#f5e6d3"/>
+      <rect width="100" height="100" fill="#2c1810" opacity="0.02"/>
+    </pattern>
+    
+    <!-- Texture de grain -->
+    <filter id="paperGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise"/>
+      <feDiffuseLighting in="noise" lightingColor="#8b4513" surfaceScale="1">
+        <feDistantLight azimuth="45" elevation="60"/>
+      </feDiffuseLighting>
+    </filter>
+
+    <!-- Effet de vieillissement -->
+    <filter id="aging">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in2="SourceGraphic" mode="multiply"/>
+    </filter>
+  </defs>
+
+  <!-- Fond de base -->
+  <rect width="100%" height="100%" fill="url(#paperTexture)"/>
+  
+  <!-- Ajout du grain -->
+  <rect width="100%" height="100%" filter="url(#paperGrain)" opacity="0.1"/>
+  
+  <!-- Effet de vieillissement -->
+  <rect width="100%" height="100%" filter="url(#aging)" opacity="0.15"/>
+
+  <!-- Bordure décorative -->
+  <g fill="none" stroke="#8b4513" stroke-width="8">
+    <!-- Cadre principal -->
+    <rect x="40" y="40" width="820" height="1520" stroke-dasharray="2,2"/>
+    
+    <!-- Coins décoratifs -->
+    <path d="M30,30 L70,30 L70,70 L30,70 L30,30" stroke-width="4"/>
+    <path d="M830,30 L870,30 L870,70 L830,70 L830,30" stroke-width="4"/>
+    <path d="M30,1530 L70,1530 L70,1570 L30,1570 L30,1530" stroke-width="4"/>
+    <path d="M830,1530 L870,1530 L870,1570 L830,1570 L830,1530" stroke-width="4"/>
+  </g>
+
+  <!-- Taches de vieillissement verticales -->
+  <circle cx="200" cy="400" r="100" fill="#8b4513" opacity="0.03"/>
+  <circle cx="600" cy="800" r="150" fill="#8b4513" opacity="0.02"/>
+  <circle cx="400" cy="1200" r="120" fill="#8b4513" opacity="0.025"/>
+  
+  <!-- Décorations verticales supplémentaires -->
+  <path d="M450,50 L450,1550" stroke="#8b4513" stroke-width="2" stroke-dasharray="4,4" opacity="0.2"/>
+  <circle cx="450" cy="800" r="200" fill="#8b4513" opacity="0.01"/>
+</svg> 

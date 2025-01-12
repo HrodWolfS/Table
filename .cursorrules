@@ -1,0 +1,112 @@
+# Project: MultiTab - Les Terres des Multiplications Perdues
+
+## Project Overview
+Converting a multiplication learning app into a gamified RPG-style adventure.
+
+## Application Flow
+
+### 1. Mission Selection Screen
+**Primary Components:**
+- WorldMap.jsx: Interactive map interface
+- Region.jsx: Individual region display
+**Data & Logic:**
+- data/regions.js: Region static data
+- utils/gameLogic/progression.js: Region unlock logic
+
+### 2. Region Details Screen
+**Components:**
+- Region.jsx: Detailed region view
+- QuestMode.jsx: Mission initiation interface
+**Data & Logic:**
+- data/quests.js: Region-specific challenges
+- data/rewards.js: Region rewards
+
+### 3. Mission Mode (Challenges)
+**Components:**
+- QuestMode.jsx: Core mission logic
+- QuestDisplay.jsx: Challenge UI
+- QuestReward.jsx: Reward display
+**Logic:**
+- utils/gameLogic/progression.js: Progress tracking
+
+### 4. Rewards & Unlocking
+**Components:**
+- QuestReward.jsx: Reward animations
+- WorldMap.jsx: Updated map display
+**Logic:**
+- utils/gameLogic/rewards.js
+- utils/gameLogic/progression.js
+
+### 5. Inventory & Stats
+**Components:**
+- InventoryDisplay.jsx: User inventory
+- ItemCard.jsx: Individual item display
+- ProfileStats.jsx: User statistics
+
+## File Structure
+app/
+├── components/
+│   ├── game/
+│   │   ├── Map/
+│   │   │   ├── WorldMap.jsx
+│   │   │   └── Region.jsx
+│   │   ├── Quests/
+│   │   │   ├── QuestMode.jsx
+│   │   │   ├── QuestDisplay.jsx
+│   │   │   └── QuestReward.jsx
+│   │   └── Inventory/
+│   │       ├── InventoryDisplay.jsx
+│   │       └── ItemCard.jsx
+│   └── [existing components...]
+├── data/
+│   ├── regions.js
+│   ├── quests.js
+│   └── rewards.js
+└── utils/
+└── gameLogic/
+├── progression.js
+└── rewards.js
+Copy
+## Development Guidelines
+
+### State Management
+- Use localStorage for game progress
+- Track user progress per region
+- Maintain inventory state
+- Save quest completion status
+
+### Component Design
+- Implement modular components
+- Use props for component communication
+- Maintain clear component hierarchy
+- Follow atomic design principles
+
+### Game Logic
+- Clear progression system
+- Region unlock conditions
+- Reward distribution logic
+- Challenge generation and validation
+
+### User Experience
+- Responsive design
+- Clear feedback
+- Engaging animations
+- Intuitive navigation
+
+## Implementation Priorities
+1. Data structure setup
+2. Core game mechanics
+3. Basic UI components
+4. Region progression system
+5. Reward system
+6. Inventory management
+7. Statistics tracking
+8. Polish and optimization
+
+## Note for Cursor AI
+Focus on:
+- Component modularity
+- State management
+- Game logic separation
+- Performance optimization
+- Code organization

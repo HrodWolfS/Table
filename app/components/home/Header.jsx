@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Logo from "../ui/Logo";
 
+const USER_KEY = "multiTabUser";
+
 const Header = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -13,8 +15,22 @@ const Header = () => {
   const menuRef = useRef(null);
 
   useEffect(() => {
-    const currentUser = getCurrentUser();
-    setUser(currentUser);
+    // Vérifier l'utilisateur au chargement
+    const checkUser = () => {
+      const currentUser = getCurrentUser();
+      setUser(currentUser);
+    };
+
+    checkUser();
+
+    // Ajouter un écouteur pour les changements de localStorage
+    const handleStorageChange = (e) => {
+      if (e.key === "playerName" || e.key === USER_KEY) {
+        checkUser();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
 
     // Fermer le menu si on clique en dehors
     const handleClickOutside = (event) => {
@@ -24,7 +40,11 @@ const Header = () => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -66,7 +86,6 @@ const Header = () => {
                   <p className="text-sm font-medium text-gray-700">
                     {user.name}
                   </p>
-                  <p className="text-xs text-gray-500">{user.age} ans</p>
                 </div>
               </button>
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ciel nocturne -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A0000"/>
+      <stop offset="100%" stop-color="#400000"/>
+    </linearGradient>
+    <radialGradient id="windowGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FF4500" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FF0000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#skyGradient)"/>
+
+  <!-- Lune rouge sang -->
+  <circle cx="160" cy="40" r="20" fill="#8B0000"/>
+  <circle cx="160" cy="40" r="25" fill="#8B0000" opacity="0.3"/>
+
+  <!-- Tour principale -->
+  <path d="M60 40 L140 40 L140 180 L60 180 Z" fill="#2B0000"/>
+  <!-- Créneaux de la tour principale -->
+  <path d="M55 40 L65 30 L75 40 L85 30 L95 40 L105 30 L115 40 L125 30 L135 40 L145 30 L155 40" fill="#1A0000"/>
+
+  <!-- Tours latérales -->
+  <path d="M40 80 L60 80 L60 180 L40 180 Z" fill="#400000"/>
+  <path d="M140 80 L160 80 L160 180 L140 180 Z" fill="#400000"/>
+  <!-- Créneaux des tours latérales -->
+  <path d="M35 80 L45 70 L55 80 L65 70 L75 80" fill="#2B0000"/>
+  <path d="M135 80 L145 70 L155 80 L165 70 L175 80" fill="#2B0000"/>
+
+  <!-- Fenêtres gothiques -->
+  <g transform="translate(80, 60)">
+    <path d="M0 0 L10 0 L5 -10 Z" fill="#8B0000"/>
+    <rect x="2" y="0" width="6" height="15" fill="url(#windowGlow)"/>
+  </g>
+  <g transform="translate(110, 60)">
+    <path d="M0 0 L10 0 L5 -10 Z" fill="#8B0000"/>
+    <rect x="2" y="0" width="6" height="15" fill="url(#windowGlow)"/>
+  </g>
+
+  <!-- Grandes fenêtres -->
+  <g transform="translate(75, 100)">
+    <path d="M0 0 L20 0 L10 -20 Z" fill="#8B0000"/>
+    <rect x="5" y="0" width="10" height="30" fill="url(#windowGlow)"/>
+  </g>
+  <g transform="translate(105, 100)">
+    <path d="M0 0 L20 0 L10 -20 Z" fill="#8B0000"/>
+    <rect x="5" y="0" width="10" height="30" fill="url(#windowGlow)"/>
+  </g>
+
+  <!-- Porte -->
+  <path d="M90 140 L110 140 L110 180 L90 180 Z" fill="#8B0000"/>
+  <path d="M90 140 L100 130 L110 140" fill="#400000"/>
+
+  <!-- Base du château -->
+  <rect x="30" y="180" width="140" height="20" fill="#1A0000"/>
+
+  <!-- Gargouilles -->
+  <path d="M50 90 L40 95 L50 100" fill="#400000"/>
+  <path d="M150 90 L160 95 L150 100" fill="#400000"/>
+
+  <!-- Éclairs dans le ciel -->
+  <path d="M20 30 L30 40 L25 50 L35 60" stroke="#FF4500" stroke-width="1" opacity="0.6"/>
+  <path d="M170 20 L180 30 L175 40 L185 50" stroke="#FF4500" stroke-width="1" opacity="0.6"/>
+</svg> 

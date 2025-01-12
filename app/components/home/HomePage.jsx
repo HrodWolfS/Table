@@ -6,46 +6,45 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/components/ui/Card";
+import DynamicIcon from "@/app/components/ui/DynamicIcon";
 import { BADGES, getBadges } from "@/app/utils/badges";
-import { BookOpen, Brain, Star, Trophy, User } from "lucide-react";
+import { getGlobalStats } from "@/app/utils/localStorage";
+import { BookOpen, Brain, Gamepad2, Star, Trophy, User } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getGlobalStats } from "../../utils/localStorage";
-import DynamicIcon from "../ui/DynamicIcon";
 
 export default function HomePage() {
   const [stats, setStats] = useState({
-    totalTests: 0,
+    totalXP: 0,
+    totalCoins: 0,
     averageScore: 0,
-    bestScore: 0,
+    completedQuests: 0,
+    totalQuests: 0,
+    completionRate: 0,
     totalScore: 0,
-    totalTime: 0,
+    bestScore: 0,
+    totalTests: 0,
     mostTestedTable: null,
   });
 
-  const [recentTests, setRecentTests] = useState([]);
+  const [lastBadge, setLastBadge] = useState(null);
 
   // Charger les données au montage du composant
   useEffect(() => {
     const globalStats = getGlobalStats();
     setStats(globalStats);
-  }, []);
 
-  const [lastBadge, setLastBadge] = useState(null);
-
-  // Ajoutez un useEffect pour charger le dernier badge
-  useEffect(() => {
+    // Charger le dernier badge
     const badges = getBadges();
     if (badges && badges.length > 0) {
       const lastBadgeId = badges[badges.length - 1];
-      // On cherche le badge dans les valeurs de BADGES
       const badge = Object.values(BADGES).find((b) => b.id === lastBadgeId);
       setLastBadge(badge);
     }
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-full w-full  p-4">
+    <div className="flex flex-col justify-center items-center min-h-full w-full p-4">
       {/* Boutons principaux */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto w-full mb-8">
         <Link href="/learn">
@@ -95,10 +94,26 @@ export default function HomePage() {
             </CardContent>
           </Card>
         </Link>
+
+        <Link href="/game">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer bg-pink-200">
+            <CardHeader className="bg-pink-300">
+              <CardTitle className="flex items-center justify-center text-pink-800">
+                <Gamepad2 className="mr-2" size={24} />
+                Jeu
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-pink-700">
+                Partez à l'aventure et découvrez les tables de multiplication
+              </p>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
 
       {/* Résumé des progrès */}
-      <section className="max-w-4xl mx-auto">
+      <section className="max-w-4xl mx-auto w-full">
         <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-pink-600">
           Tes progrès
         </h2>
@@ -107,12 +122,12 @@ export default function HomePage() {
             <CardHeader className="bg-yellow-300">
               <CardTitle className="flex items-center justify-center text-yellow-800">
                 <Trophy className="mr-2" size={24} />
-                Points totaux
+                XP Totale
               </CardTitle>
             </CardHeader>
             <CardContent className="flex items-center justify-center h-24">
               <p className="text-2xl font-bold text-yellow-700">
-                {stats.totalScore}
+                {stats.totalXP}
               </p>
             </CardContent>
           </Card>
@@ -126,12 +141,12 @@ export default function HomePage() {
             </CardHeader>
             <CardContent className="flex items-center justify-center h-24">
               <p className="text-2xl font-bold text-rose-700">
-                {stats.mostTestedTable}
+                {stats.mostTestedTable || "Aucune"}
               </p>
             </CardContent>
           </Card>
 
-          <Card className="col-span-2 md:col-span-1 mx-auto bg-lime-200">
+          <Card className="col-span-2 md:col-span-1 bg-lime-200">
             <CardHeader className="bg-lime-300">
               <CardTitle className="flex items-center justify-center text-lime-800">
                 <BookOpen className="mr-2" size={24} />

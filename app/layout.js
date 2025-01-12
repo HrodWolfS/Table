@@ -1,20 +1,23 @@
-import { Footer } from "./components/home/Footer";
-import Header from "./components/home/Header";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { initializeProgress } from "./utils/gameLogic/progression";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "MultiTab",
-  description: "Apprendre les tables de multiplication en s'amusant !",
+  title: "MultiTab - Les Terres des Multiplications Perdues",
+  description: "Un jeu éducatif pour apprendre les tables de multiplication",
 };
 
 export default function RootLayout({ children }) {
+  // Initialiser le progrès au chargement de l'application
+  if (typeof window !== "undefined") {
+    initializeProgress();
+  }
+
   return (
     <html lang="fr">
-      <body className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow flex flex-col">{children}</main>
-        <Footer />
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
