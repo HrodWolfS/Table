@@ -1,6 +1,6 @@
 import { Check, Trophy, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/Card";
 
 const TOTAL_QUESTIONS = 10; // Nombre total de questions par session
 const PASSING_SCORE = 80; // Score minimum pour réussir (en pourcentage)

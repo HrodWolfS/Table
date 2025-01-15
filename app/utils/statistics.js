@@ -25,18 +25,8 @@ export const calculateTotalScore = (userProgress) => {
 
 // Fonction pour calculer le temps total de jeu
 export const calculateTotalPlayTime = (userProgress) => {
-  let totalTime = 0;
-  if (!userProgress?.regions) return 0;
-
-  Object.values(userProgress.regions).forEach((region) => {
-    Object.values(region).forEach((quest) => {
-      if (quest.bestTime) {
-        totalTime += quest.bestTime;
-      }
-    });
-  });
-
-  return totalTime;
+  if (!userProgress) return 0;
+  return userProgress.totalTimeSpent || 0;
 };
 
 // Fonction pour calculer le nombre total de quêtes complétées
@@ -74,7 +64,7 @@ export const getPlayerStatistics = (userProgress) => {
     };
 
   return {
-    score: calculateTotalScore(userProgress),
+    score: userProgress.totalScore || 0,
     xp: userProgress.totalXP || 0,
     coins: userProgress.totalCoins || 0,
     timeSpent: calculateTotalPlayTime(userProgress),

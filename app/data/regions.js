@@ -94,12 +94,13 @@ export const REGIONS = {
     requiredItems: ["cle"],
     unlockedBy: ["grottes_huitra"],
   },
-  cite_celeste: {
-    id: "cite_celeste",
-    name: "La Cité Céleste",
-    description: "Une cité dans les nuages où réside l'ultime défi.",
-    image: "/images/regions/cite_celeste.svg",
-    quests: ["cite_celesteQ1", "cite_celesteQ2", "cite_celesteQ3"],
+  chateau_dividix: {
+    id: "chateau_dividix",
+    name: "Le Château de Dividix",
+    description:
+      "Le chateau de Dividix qui sera notre dernier défi, il sera nécessaire de résoudre notre plus grand défi.",
+    image: "/images/regions/chateau_dividix.svg",
+    quests: ["chateau_dividixQ1", "chateau_dividixQ2", "chateau_dividixQ3"],
     requiredItems: ["pioche"],
     unlockedBy: ["pics_neuflame"],
   },

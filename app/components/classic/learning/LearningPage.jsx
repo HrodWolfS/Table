@@ -1,11 +1,14 @@
 "use client";
 
+import NoiseFilter from "@/app/components/ui/NoiseFilter";
 import { Star } from "lucide-react";
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
+import BackButton from "../../ui/BackButton";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/Card";
+import { Footer } from "../home/Footer";
+import Header from "../home/Header";
 import ExerciseMode from "./ExerciseMode";
 import LearningNavigation from "./LearningNavigation";
-
 const LearningPage = () => {
   const [selectedTable, setSelectedTable] = useState(null);
   const [currentStep, setCurrentStep] = useState("selection"); // 'selection', 'learning' ou 'exercise'
@@ -30,16 +33,14 @@ const LearningPage = () => {
       {tables.map((number) => (
         <Card
           key={number}
-          className="cursor-pointer  hover:shadow-lg transition-all transform hover:scale-105 bg-gradient-to-r from-green-200 to-blue-200"
+          className="cursor-pointer hover:shadow-lg transition-all transform hover:scale-105 bg-gradient-to-tr from-green-200 to-blue-200 w-52 h-24"
           onClick={() => {
             setSelectedTable(number);
             setCurrentStep("learning");
           }}
         >
           <CardContent className="p-6 text-center">
-            <div className="text-3xl font-bold text-blue-600">
-              Table de <span className="text-green-500">{number}</span>
-            </div>
+            <div className="text-3xl font-bold text-blue-600">{number}</div>
           </CardContent>
         </Card>
       ))}
@@ -120,13 +121,18 @@ const LearningPage = () => {
   };
 
   return (
-    <div className="p-6 bg-gradient-to-b from-yellow-100 via-pink-100 to-blue-100 flex-grow">
-      <header className="mb-8">
-        <LearningNavigation
-          currentStep={currentStep}
-          selectedTable={selectedTable}
-          onStepClick={setCurrentStep}
-        />
+    <div className="w-full h-screen flex flex-col bg-gradient-to-b from-yellow-100 via-pink-100 to-blue-100 flex-grow">
+      <NoiseFilter />
+      <Header />
+      <header className="px-6">
+        <div className="flex justify-between items-center mb-8">
+          <LearningNavigation
+            currentStep={currentStep}
+            selectedTable={selectedTable}
+            onStepClick={setCurrentStep}
+          />
+          <BackButton href="/classic" />
+        </div>
         <h1 className="text-3xl font-bold text-blue-600 mb-2">
           {currentStep === "selection"
             ? "Choisis ta table"
@@ -141,7 +147,7 @@ const LearningPage = () => {
         </p>
       </header>
 
-      <main className="max-w-6xl mx-auto">
+      <main className=" flex flex-col flex-grow justify-center items-center ">
         {currentStep === "selection" && renderTableSelection()}
         {currentStep === "learning" && renderTableLearning()}
         {currentStep === "exercise" && (
@@ -150,6 +156,7 @@ const LearningPage = () => {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };

@@ -18,8 +18,15 @@ const QuestMode = ({ region, onBack, onComplete, userProgress }) => {
     setSelectedQuest({ ...quest, regionId: region.id });
   };
 
-  const handleExerciseComplete = (score, timeSpent) => {
-    const rewards = calculateQuestRewards(selectedQuest, score, timeSpent);
+  const handleExerciseComplete = (score, timeSpent, correctAnswers) => {
+    const rewards = calculateQuestRewards(
+      selectedQuest,
+      score,
+      timeSpent,
+      correctAnswers
+    );
+
+    console.log("Récompenses de la quête:", rewards);
     setQuestRewards(rewards);
 
     const updatedProgress = updateProgress(selectedQuest, rewards);

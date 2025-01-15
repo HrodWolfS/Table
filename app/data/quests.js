@@ -38,9 +38,10 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER, // requiredScore: 50, timeLimit: null
         objectives: {
           table: 1,
-          questionsCount: 1,
+          questionsCount: 10,
         },
         rewards: {
+          score: 10,
           xp: 100,
           coins: 50,
         },
@@ -53,10 +54,11 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE, // requiredScore: 80, timeLimit: 120
         objectives: {
           table: 1,
-          questionsCount: 1,
+          questionsCount: 4,
           timeLimit: 60,
         },
         rewards: {
+          score: 10,
           xp: 200,
           coins: 100,
         },
@@ -69,10 +71,11 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT, // requiredScore: 100, timeLimit: 60
         objectives: {
           table: 1,
-          questionsCount: 1,
+          questionsCount: 10,
           timeLimit: 60,
         },
         rewards: {
+          score: 10,
           xp: 400,
           coins: 200,
         },
@@ -89,9 +92,10 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER,
         objectives: {
           table: 2,
-          questionsCount: 1,
+          questionsCount: 2,
         },
         rewards: {
+          score: 10,
           xp: 150,
           coins: 75,
         },
@@ -104,10 +108,11 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 2,
-          questionsCount: 1,
+          questionsCount: 2,
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 300,
           coins: 150,
         },
@@ -120,10 +125,11 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 2,
-          questionsCount: 1,
+          questionsCount: 2,
           timeLimit: 60,
         },
         rewards: {
+          score: 10,
           xp: 400,
           coins: 200,
         },
@@ -140,6 +146,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 500,
           coins: 250,
         },
@@ -159,6 +166,7 @@ export const QUESTS_CONFIG = {
           questionsCount: 1,
         },
         rewards: {
+          score: 10,
           xp: 200,
           coins: 100,
         },
@@ -175,6 +183,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 300,
           coins: 150,
         },
@@ -191,6 +200,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 60,
         },
         rewards: {
+          score: 10,
           xp: 400,
           coins: 200,
         },
@@ -207,6 +217,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 500,
           coins: 250,
         },
@@ -226,6 +237,7 @@ export const QUESTS_CONFIG = {
           questionsCount: 5,
         },
         rewards: {
+          score: 10,
           xp: 250,
           coins: 125,
         },
@@ -242,6 +254,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 350,
           coins: 175,
         },
@@ -258,6 +271,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 60,
         },
         rewards: {
+          score: 10,
           xp: 450,
           coins: 225,
         },
@@ -274,6 +288,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 600,
           coins: 300,
         },
@@ -293,6 +308,7 @@ export const QUESTS_CONFIG = {
           questionsCount: 5,
         },
         rewards: {
+          score: 10,
           xp: 300,
           coins: 150,
         },
@@ -309,6 +325,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 400,
           coins: 200,
         },
@@ -325,6 +342,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 60,
         },
         rewards: {
+          score: 10,
           xp: 500,
           coins: 250,
         },
@@ -341,6 +359,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 700,
           coins: 350,
         },
@@ -360,6 +379,7 @@ export const QUESTS_CONFIG = {
           questionsCount: 5,
         },
         rewards: {
+          score: 10,
           xp: 350,
           coins: 175,
         },
@@ -376,6 +396,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 450,
           coins: 225,
         },
@@ -392,6 +413,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 60,
         },
         rewards: {
+          score: 10,
           xp: 550,
           coins: 275,
         },
@@ -408,6 +430,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 800,
           coins: 400,
         },
@@ -427,6 +450,7 @@ export const QUESTS_CONFIG = {
           questionsCount: 5,
         },
         rewards: {
+          score: 10,
           xp: 400,
           coins: 200,
         },
@@ -443,6 +467,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 500,
           coins: 250,
         },
@@ -459,6 +484,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 60,
         },
         rewards: {
+          score: 10,
           xp: 600,
           coins: 300,
         },
@@ -475,6 +501,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 900,
           coins: 450,
         },
@@ -494,6 +521,7 @@ export const QUESTS_CONFIG = {
           questionsCount: 5,
         },
         rewards: {
+          score: 10,
           xp: 450,
           coins: 225,
         },
@@ -510,6 +538,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 550,
           coins: 275,
         },
@@ -526,6 +555,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 60,
         },
         rewards: {
+          score: 10,
           xp: 650,
           coins: 325,
         },
@@ -542,6 +572,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 1000,
           coins: 500,
         },
@@ -561,6 +592,7 @@ export const QUESTS_CONFIG = {
           questionsCount: 5,
         },
         rewards: {
+          score: 10,
           xp: 500,
           coins: 250,
         },
@@ -577,6 +609,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 600,
           coins: 300,
         },
@@ -593,6 +626,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 60,
         },
         rewards: {
+          score: 10,
           xp: 700,
           coins: 350,
         },
@@ -609,6 +643,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 1100,
           coins: 550,
         },
@@ -629,6 +664,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 180,
         },
         rewards: {
+          score: 10,
           xp: 1000,
           coins: 500,
         },
@@ -646,6 +682,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 90,
         },
         rewards: {
+          score: 10,
           xp: 1500,
           coins: 750,
         },
@@ -663,6 +700,7 @@ export const QUESTS_CONFIG = {
           timeLimit: 120,
         },
         rewards: {
+          score: 10,
           xp: 2000,
           coins: 1000,
         },
@@ -679,6 +717,7 @@ export const QUESTS_CONFIG = {
           questionsCount: 50,
         },
         rewards: {
+          score: 10,
           xp: 5000,
           coins: 2500,
         },
@@ -717,15 +756,33 @@ export const isQuestUnlocked = (regionId, questId, userProgress) => {
 // Fonction pour calculer la récompense d'une quête
 export const calculateQuestRewards = (quest, score, timeSpent) => {
   const rewards = {
-    xp: quest.rewards.xp,
-    coins: quest.rewards.coins,
+    xp: 0,
+    coins: 0,
     score: score,
     timeSpent: timeSpent,
     isFirstCompletion: false,
     isRegionComplete: false,
     newRegions: [],
     item: null,
+    artifacts: [],
   };
+
+  // Vérifier si le score atteint le minimum requis
+  const requiredScore = quest.difficulty.requiredScore;
+  console.log(
+    `Score requis pour ${quest.id}: ${requiredScore}%, Score obtenu: ${score}%`
+  );
+
+  if (score < requiredScore) {
+    console.log(
+      `Score insuffisant pour valider la quête (minimum requis: ${requiredScore}%)`
+    );
+    return rewards;
+  }
+
+  // Si le score est suffisant, ajouter les récompenses
+  rewards.xp = quest.rewards.xp;
+  rewards.coins = quest.rewards.coins;
 
   // Vérifier si c'est la première complétion
   const userProgress = getProgress();
@@ -742,21 +799,36 @@ export const calculateQuestRewards = (quest, score, timeSpent) => {
 
     if (willBeCompleted.length === regionQuests.length) {
       rewards.isRegionComplete = true;
+      console.log(`La région ${quest.regionId} est complétée !`);
 
       // Ajouter l'item de la région comme récompense
       const regionItem = getItemByRegion(quest.regionId);
       if (regionItem) {
         rewards.item = regionItem;
+        console.log(`Ajout de l'item ${regionItem.name} à l'inventaire`);
+      }
+
+      // Ajouter les artefacts de la région comme récompense
+      const regionArtifacts = Object.values(ARTIFACT_PIECES)
+        .filter((artifact) => artifact.region === quest.regionId)
+        .map((artifact) => ({
+          ...artifact,
+          type: INVENTORY_TYPES.ARTIFACT.toLowerCase(),
+        }));
+
+      if (regionArtifacts.length > 0) {
+        console.log(
+          `Ajout des artefacts pour la région ${quest.regionId}:`,
+          regionArtifacts
+        );
+        rewards.artifacts = regionArtifacts;
       }
 
       // Débloquer les nouvelles régions
       const unlockedRegions = userProgress?.unlockedRegions || [];
       const newRegions = Object.entries(REGIONS)
         .filter(([regionId, region]) => {
-          // Vérifier si la région n'est pas déjà débloquée
           if (unlockedRegions.includes(regionId)) return false;
-
-          // Vérifier les prérequis
           return checkRegionUnlock(regionId, {
             ...userProgress,
             unlockedRegions: [...unlockedRegions, quest.regionId],

@@ -1,12 +1,15 @@
 "use client";
 
+import NoiseFilter from "@/app/components/ui/NoiseFilter";
 import { AlertCircle, Check, Medal, Timer, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { checkBadgeUnlock, getBadges, saveBadges } from "../../utils/badges";
-import { saveTestResult } from "../../utils/localStorage";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
-import DynamicIcon from "../ui/DynamicIcon";
-import Navigation from "../ui/Navigation";
+import { checkBadgeUnlock, getBadges, saveBadges } from "../../../utils/badges";
+import { saveTestResult } from "../../../utils/localStorage";
+import BackButton from "../../ui/BackButton";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/Card";
+import DynamicIcon from "../../ui/DynamicIcon";
+import Navigation from "../../ui/Navigation";
+import Header from "../home/Header";
 
 const TestMode = () => {
   const [testState, setTestState] = useState("config");
@@ -453,13 +456,18 @@ const TestMode = () => {
   };
 
   return (
-    <div className="p-6 bg-gradient-to-b from-yellow-50 via-pink-100 to-blue-100 min-h-screen">
-      <div className="max-w-4xl mx-auto">
-        <Navigation
-          steps={getSteps()}
-          currentStep={testState}
-          onStepClick={setTestState}
-        />
+    <div className=" bg-gradient-to-b from-yellow-50 via-pink-100 to-blue-100 min-h-screen">
+      <NoiseFilter />
+      <Header />
+      <div className="max-w-4xl mt-8 mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <Navigation
+            steps={getSteps()}
+            currentStep={testState}
+            onStepClick={setTestState}
+          />
+          <BackButton href="/classic" />
+        </div>
         {testState === "config" && renderTestConfig()}
         {testState === "running" && renderRunningTest()}
         {testState === "completed" && renderResults()}

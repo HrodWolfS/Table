@@ -1,5 +1,6 @@
 "use client";
 
+import NoiseFilter from "@/app/components/ui/NoiseFilter";
 import { BADGES, getBadges } from "@/app/utils/badges";
 import {
   clearUserTestResults,
@@ -9,8 +10,10 @@ import {
 import { Activity, Clock, Target, Trophy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
-import DynamicIcon from "../ui/DynamicIcon";
+import BackButton from "../../ui/BackButton";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/Card";
+import DynamicIcon from "../../ui/DynamicIcon";
+import Header from "../home/Header";
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -288,9 +291,14 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="p-6 bg-gradient-to-b from-yellow-50 via-pink-100 to-blue-100 min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-blue-600 mb-6">Mes Résultats</h1>
+    <div className=" bg-gradient-to-l from-yellow-50 via-pink-100 to-blue-100 min-h-screen">
+      <NoiseFilter />
+      <Header />
+      <div className="max-w-7xl p-6 mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold text-blue-600">Mes Résultats</h1>
+          <BackButton href="/classic" />
+        </div>
         {renderOverview()}
         {renderBadges()}
         {renderRecentTests()}

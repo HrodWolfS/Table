@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="py-4 mt-auto bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300">
+    <footer className="py-4 w-full mt-auto bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300 shadow-2xl border-t border-white/20">
       <div className="flex items-center justify-center text-white">
         <p className="text-sm md:text-base">
           Powered by <span className="text-yellow-400 font-bold">Hrodwolf</span>

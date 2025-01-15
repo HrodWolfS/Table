@@ -106,8 +106,8 @@ export const getGlobalStats = () => {
     completedQuests,
     totalQuests,
     completionRate: totalQuests > 0 ? (completedQuests / totalQuests) * 100 : 0,
-    totalScore,
-    bestScore,
+    totalScore: progress.totalScore || 0,
+    bestScore: progress.bestScore || 0,
     totalTests: questCount,
     mostTestedTable: mostTestedTable ? Number(mostTestedTable) : null,
   };
@@ -184,7 +184,28 @@ export const updateQuestProgress = (regionId, questId, score, timeSpent) => {
     unlockedRegions: ["vallee_debuts"],
     totalXP: 0,
     totalCoins: 0,
+    totalScore: 0,
   };
+
+  // Récupérer la quête et vérifier le score requis
+  const quest = QUESTS_CONFIG[regionId]?.quests?.find((q) => q.id === questId);
+  if (!quest) {
+    console.error(`Quête non trouvée: ${questId}`);
+    return currentProgress;
+  }
+
+  const requiredScore = quest.difficulty.requiredScore;
+  console.log(
+    `Score requis pour ${questId}: ${requiredScore}%, Score obtenu: ${score}%`
+  );
+
+  // Si le score n'atteint pas le minimum requis, ne pas marquer comme complété
+  if (score < requiredScore) {
+    console.log(
+      `Score insuffisant pour compléter la quête (minimum requis: ${requiredScore}%)`
+    );
+    return currentProgress;
+  }
 
   // Mettre à jour la progression de la région
   if (!currentProgress.regions[regionId]) {
@@ -198,10 +219,22 @@ export const updateQuestProgress = (regionId, questId, score, timeSpent) => {
   const regionProgress = currentProgress.regions[regionId];
 
   // Mettre à jour les scores et temps
+  console.log(`Mise à jour du score pour ${questId}:`, score);
+
+  // Vérifier si c'est la première fois que la quête est complétée
+  const isFirstCompletion = !regionProgress.completedQuests.includes(questId);
+
+  // Mettre à jour le meilleur score pour cette quête
   regionProgress.highScores[questId] = Math.max(
     score,
     regionProgress.highScores[questId] || 0
   );
+
+  // Si c'est la première complétion, ajouter le score au total
+  if (isFirstCompletion) {
+    currentProgress.totalScore = (currentProgress.totalScore || 0) + score;
+    console.log("Nouveau score total:", currentProgress.totalScore);
+  }
 
   if (timeSpent) {
     regionProgress.bestTimes[questId] = Math.min(
@@ -218,6 +251,7 @@ export const updateQuestProgress = (regionId, questId, score, timeSpent) => {
     }
   }
 
+  console.log("Progression mise à jour:", currentProgress);
   saveProgress(currentProgress);
   return currentProgress;
 };

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import QuestMode from "../Quests/QuestMode";
 import Region from "./Region";
 
-const WorldMap = () => {
+const WorldMap = ({ userProgress, onQuestComplete }) => {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [newRegions, setNewRegions] = useState([]);
   const [currentProgress, setCurrentProgress] = useState(() => getProgress());
@@ -29,13 +29,16 @@ const WorldMap = () => {
   };
 
   const handleQuestComplete = (updatedProgress) => {
-    console.log("Mise à jour de la progression:", updatedProgress);
-
     // Mettre à jour l'état local avec la nouvelle progression
     setCurrentProgress({ ...updatedProgress });
 
     // Sauvegarder dans le localStorage
     saveProgress(updatedProgress);
+
+    // Notifier le parent que la quête est complétée
+    if (onQuestComplete) {
+      onQuestComplete(updatedProgress);
+    }
   };
 
   if (selectedRegion) {

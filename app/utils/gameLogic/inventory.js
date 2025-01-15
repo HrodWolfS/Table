@@ -1,4 +1,4 @@
-import { ITEMS } from "@/app/data/inventory";
+import { ITEMS, ARTIFACT_PIECES, INVENTORY_TYPES } from "@/app/data/inventory";
 import { getProgress, saveProgress } from "../localStorage";
 
 export const initializeInventory = () => {
@@ -9,6 +9,40 @@ export const initializeInventory = () => {
     return true;
   }
   return false;
+};
+
+// Nouvelle fonction pour ajouter un artefact
+export const addArtifactToInventory = (regionId, table) => {
+  const progress = getProgress();
+
+  // Vérifier que l'inventaire existe
+  if (!progress.inventory) {
+    progress.inventory = [];
+  }
+
+  const artifact = Object.values(ARTIFACT_PIECES).find(
+    (piece) => piece.region === regionId && piece.table === table
+  );
+
+  if (artifact && !progress.inventory.some((item) => item.id === artifact.id)) {
+    progress.inventory.push({
+      ...artifact,
+      type: INVENTORY_TYPES.ARTIFACT,
+    });
+    saveProgress(progress);
+    console.log("Artefact ajouté:", artifact.name);
+    return true;
+  }
+  return false;
+};
+
+export const getInventoryArtifacts = () => {
+  const progress = getProgress();
+  return (
+    progress.inventory?.filter(
+      (item) => item.type === INVENTORY_TYPES.ARTIFACT
+    ) || []
+  );
 };
 
 export const addItemToInventory = (itemId) => {

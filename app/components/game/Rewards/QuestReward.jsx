@@ -48,22 +48,11 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
     const completedQuests =
       userProgress?.regions?.[quest.regionId]?.completedQuests || [];
 
-    console.log("Vérification région complète:");
-    console.log("- Région:", quest.regionId);
-    console.log("- Quêtes disponibles:", regionConfig.quests.length);
-    console.log("- Quêtes complétées:", completedQuests.length);
-    console.log("- Liste des quêtes complétées:", completedQuests);
-    console.log(
-      "- Liste des quêtes requises:",
-      regionConfig.quests.map((q) => q.id)
-    );
-
     // Vérifier que toutes les quêtes de la région sont complétées
     const allQuestsCompleted = regionConfig.quests.every((quest) =>
       completedQuests.includes(quest.id)
     );
 
-    console.log("Toutes les quêtes sont complétées:", allQuestsCompleted);
     return allQuestsCompleted;
   };
 
@@ -110,7 +99,6 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
 
   const handleContinue = () => {
     const regionComplete = isRegionComplete();
-    console.log("Region complete:", regionComplete);
     console.log("Rewards:", rewards);
 
     if (showArtifact) {
@@ -145,18 +133,12 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
     ? ARTIFACT_PIECES[`TABLE_${regionTable[0]}`]
     : null;
 
-  console.log("Sélection de l'artefact:", {
-    region: quest.regionId,
-    table: regionTable,
-    artifact: artifact?.name,
-  });
-
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-8 rounded-lg shadow-xl max-w-md w-full mx-4 text-white relative">
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-300 hover:text-white"
+          className="absolute top-2 right-2 text-blue-300 hover:text-blue-400 transition-colors"
         >
           <XMarkIcon className="h-6 w-6" />
         </button>
@@ -259,6 +241,23 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
                 <p className="text-3xl font-bold text-yellow-400">
                   {rewards.score}
                 </p>
+              </div>
+              <div className="flex justify-center ">
+                <div className="flex flex-col items-center justify-center">
+                  <span className="text-yellow-400 text-2xl font-bold">
+                    {rewards.correctAnswers}
+                  </span>
+                  <span className="text-gray-300 text-xs">réponses</span>
+                </div>
+                <p className="text-gray-300 items-start justify-start text-2xl font-bold ">
+                  {" / "}
+                </p>
+                <div className="flex flex-col items-center justify-center">
+                  <span className="text-blue-300 text-2xl font-bold">
+                    {quest.objectives.questionsCount}
+                  </span>{" "}
+                  <span className="text-gray-300 text-xs">questions</span>
+                </div>
               </div>
               {rewards.isFirstCompletion && (
                 <>

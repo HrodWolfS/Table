@@ -7,7 +7,7 @@ const StatItem = ({ icon: Icon, label, value, color }) => (
   <motion.div
     initial={{ scale: 0.8, opacity: 0 }}
     animate={{ scale: 1, opacity: 1 }}
-    className={`flex items-center gap-3 p-4 rounded-lg bg-gradient-to-br ${color} shadow-lg`}
+    className={`flex items-center gap-3 p-4 rounded-lg bg-gradient-to-br ${color} shadow-lg `}
   >
     <div className="p-2 bg-white/20 rounded-full">
       <Icon className="w-6 h-6 text-white" />
@@ -25,9 +25,11 @@ const StatItem = ({ icon: Icon, label, value, color }) => (
   </motion.div>
 );
 
-const Statistics = ({ stats }) => {
+const Statistics = ({ stats, userProgress }) => {
   const { score, xp, coins, timeSpent, questsCompleted, regionsUnlocked } =
     stats;
+
+  console.log("userProgress", userProgress);
 
   const container = {
     hidden: { opacity: 0 },
@@ -67,7 +69,9 @@ const Statistics = ({ stats }) => {
       <StatItem
         icon={Clock}
         label="Temps de jeu"
-        value={`${Math.floor(timeSpent / 60)}min ${timeSpent % 60}s`}
+        value={`${Math.floor(timeSpent / 60)}min ${Math.floor(
+          timeSpent % 60
+        )}s`}
         color="from-blue-500 to-blue-700"
       />
       <StatItem

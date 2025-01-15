@@ -32,12 +32,6 @@ const Region = ({ region, onClick, isActive, isNew, userProgress }) => {
   const handleClick = () => {
     const unlocked = isUnlocked();
     const hasItems = hasRequiredItems();
-    console.log("État de la région:", {
-      id: region.id,
-      unlocked,
-      hasItems,
-      userProgress,
-    });
 
     if (unlocked && hasItems) {
       onClick(region);

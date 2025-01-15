@@ -1,5 +1,3 @@
-import { getItemByRegion } from "@/app/data/inventory";
-import { QUESTS_CONFIG } from "@/app/data/quests";
 import { getProgress, saveProgress } from "@/app/utils/localStorage";
 import { REGIONS } from "../../data/regions";
 
@@ -86,52 +84,55 @@ export const updateProgress = (quest, rewards) => {
     userProgress.regions[quest.regionId].completedQuests.push(quest.id);
   }
 
-  // Vérifier si la région est complétée
-  const regionConfig = QUESTS_CONFIG[quest.regionId];
-  if (regionConfig) {
-    const completedQuests =
-      userProgress.regions[quest.regionId].completedQuests;
-    const allQuestsCompleted = regionConfig.quests.every((q) =>
-      completedQuests.includes(q.id)
-    );
-
-    // Si toutes les quêtes sont complétées, ajouter l'item de la région suivante
-    if (allQuestsCompleted) {
-      const nextRegionId = Object.keys(REGIONS).find((id) =>
-        REGIONS[id].unlockedBy.includes(quest.regionId)
-      );
-
-      if (nextRegionId) {
-        const nextRegionItem = getItemByRegion(nextRegionId);
-        if (nextRegionItem) {
-          if (!userProgress.inventory) {
-            userProgress.inventory = [];
-          }
-
-          // Vérifier si l'item n'est pas déjà dans l'inventaire
-          if (
-            !userProgress.inventory.some(
-              (item) => item.id === nextRegionItem.id
-            )
-          ) {
-            console.log(
-              "Ajout de l'item",
-              nextRegionItem.id,
-              "pour la région",
-              nextRegionId
-            );
-            userProgress.inventory.push(nextRegionItem);
-          }
-        }
-      }
-    }
+  // Initialiser l'inventaire s'il n'existe pas
+  if (!userProgress.inventory) {
+    userProgress.inventory = [];
   }
 
-  // Mettre à jour l'XP et les pièces si des récompenses sont fournies
+  // Mettre à jour l'XP, les pièces et le temps si des récompenses sont fournies
   if (rewards) {
     userProgress.totalXP = (userProgress.totalXP || 0) + (rewards.xp || 0);
     userProgress.totalCoins =
       (userProgress.totalCoins || 0) + (rewards.coins || 0);
+    userProgress.totalScore =
+      (userProgress.totalScore || 0) + (rewards.score || 0);
+
+    // Mettre à jour le temps total de jeu
+    if (rewards.timeSpent) {
+      userProgress.totalTimeSpent =
+        (userProgress.totalTimeSpent || 0) + rewards.timeSpent;
+
+      // Sauvegarder le meilleur temps pour cette quête si c'est la première fois ou si c'est un meilleur temps
+      const currentBestTime =
+        userProgress.regions[quest.regionId].bestTimes[quest.id];
+      if (!currentBestTime || rewards.timeSpent < currentBestTime) {
+        userProgress.regions[quest.regionId].bestTimes[quest.id] =
+          rewards.timeSpent;
+      }
+    }
+
+    // Ajouter l'item de la région si disponible
+    if (
+      rewards.item &&
+      !userProgress.inventory.some((item) => item.id === rewards.item.id)
+    ) {
+      console.log("Ajout de l'item à l'inventaire:", rewards.item.name);
+      userProgress.inventory.push(rewards.item);
+    }
+
+    // Ajouter les artefacts à l'inventaire
+    if (rewards.artifacts && rewards.artifacts.length > 0) {
+      console.log("Tentative d'ajout des artefacts:", rewards.artifacts);
+      rewards.artifacts.forEach((artifact) => {
+        if (!userProgress.inventory.some((item) => item.id === artifact.id)) {
+          console.log("Ajout de l'artefact à l'inventaire:", artifact.name);
+          userProgress.inventory.push({
+            ...artifact,
+            type: artifact.type.toLowerCase(),
+          });
+        }
+      });
+    }
   }
 
   // Sauvegarder les progrès
@@ -163,6 +164,7 @@ export const initializeProgress = () => {
       ],
       totalXP: 0,
       totalCoins: 0,
+      totalScore: 0,
       unlockedRegions: ["vallee_debuts"],
     };
     saveProgress(initialProgress);

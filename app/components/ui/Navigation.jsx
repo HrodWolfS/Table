@@ -3,7 +3,7 @@ import React from "react";
 
 const Navigation = ({ steps, currentStep, onStepClick }) => {
   return (
-    <div className="mb-8">
+    <div className="">
       <div className="flex items-center space-x-2 text-sm">
         {steps.map((step, index) => (
           <React.Fragment key={step.id}>

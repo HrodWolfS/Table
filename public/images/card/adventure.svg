@@ -1,0 +1,64 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond du parchemin avec effet vieilli -->
+  <defs>
+    <radialGradient id="parchemin" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#f4d03f" />
+      <stop offset="100%" style="stop-color:#e6b325" />
+    </radialGradient>
+    <filter id="paper-texture">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" />
+      <feDisplacementMap in="SourceGraphic" scale="5" />
+    </filter>
+  </defs>
+
+  <!-- Parchemin de base -->
+  <path d="M 20,20 
+           C 20,10 30,10 40,10 
+           L 160,10 
+           C 170,10 180,10 180,20
+           L 180,180
+           C 180,190 170,190 160,190
+           L 40,190
+           C 30,190 20,190 20,180 Z" 
+        fill="url(#parchemin)"
+        filter="url(#paper-texture)"
+        stroke="#8b4513"
+        stroke-width="2" />
+
+  <!-- Éléments de la carte -->
+  <circle cx="60" cy="60" r="15" fill="none" stroke="#8b4513" stroke-width="2" />
+  <path d="M 60,75 C 80,90 100,70 120,100" 
+        stroke="#8b4513" 
+        stroke-width="2" 
+        fill="none" 
+        stroke-dasharray="5,5" />
+  
+  <!-- X marks the spot -->
+  <path d="M 120,90 L 140,110 M 120,110 L 140,90" 
+        stroke="#c0392b" 
+        stroke-width="3" />
+
+  <!-- Boussole -->
+  <circle cx="150" cy="50" r="20" fill="none" stroke="#8b4513" stroke-width="1" />
+  <path d="M 150,30 L 150,70 M 130,50 L 170,50" 
+        stroke="#8b4513" 
+        stroke-width="1" />
+  <path d="M 150,40 L 155,55 L 150,50 L 145,55 Z" 
+        fill="#c0392b" />
+
+  <!-- Montagnes stylisées -->
+  <path d="M 40,130 L 60,100 L 80,130 M 90,130 L 110,100 L 130,130" 
+        stroke="#8b4513" 
+        stroke-width="2" 
+        fill="none" />
+
+  <!-- Texte décoratif -->
+  <text x="100" y="160" 
+        text-anchor="middle" 
+        font-family="serif" 
+        font-size="12" 
+        fill="#8b4513"
+        transform="rotate(-5,100,160)">
+    Mode Aventure
+  </text>
+</svg>

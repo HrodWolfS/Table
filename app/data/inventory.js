@@ -5,7 +5,7 @@ export const ITEMS = {
     description: "Une lampe ancienne qui éclaire les chemins les plus sombres.",
     image: "/images/items/lampe.svg",
     type: "EQUIPMENT",
-    region: "foret_multiplications",
+    region: "vallee_debuts",
     effect: "Permet d'explorer les régions sombres",
   },
   CORDE: {
@@ -14,7 +14,7 @@ export const ITEMS = {
     description: "Une corde magique qui s'allonge à volonté.",
     image: "/images/items/corde.svg",
     type: "EQUIPMENT",
-    region: "collines_multiplicateur",
+    region: "foret_multiplications",
     effect: "Permet d'accéder aux zones en hauteur",
   },
   BOTTES: {
@@ -24,7 +24,7 @@ export const ITEMS = {
       "Des bottes qui permettent de traverser les marais sans s'enliser.",
     image: "/images/items/bottes.svg",
     type: "EQUIPMENT",
-    region: "marais_quatrak",
+    region: "collines_multiplicateur",
     effect: "Permet de traverser les marais",
   },
   GOURDE: {
@@ -33,7 +33,7 @@ export const ITEMS = {
     description: "Une gourde magique qui ne se vide jamais.",
     image: "/images/items/gourde.svg",
     type: "EQUIPMENT",
-    region: "desert_infini",
+    region: "marais_quatrak",
     effect: "Permet de survivre dans le désert",
   },
   FIOLE: {
@@ -42,7 +42,7 @@ export const ITEMS = {
     description: "Une fiole contenant une eau purificatrice.",
     image: "/images/items/fiole.svg",
     type: "EQUIPMENT",
-    region: "riviere_cristalline",
+    region: "desert_infini",
     effect: "Permet de purifier l'eau contaminée",
   },
   CRISTAL: {
@@ -51,7 +51,7 @@ export const ITEMS = {
     description: "Un cristal qui révèle les passages secrets.",
     image: "/images/items/cristal.svg",
     type: "EQUIPMENT",
-    region: "cite_septoria",
+    region: "riviere_cristalline",
     effect: "Permet de voir les passages cachés",
   },
   CLE: {
@@ -60,7 +60,7 @@ export const ITEMS = {
     description: "Une clé mystérieuse qui ouvre les portes anciennes.",
     image: "/images/items/cle.svg",
     type: "EQUIPMENT",
-    region: "grottes_huitra",
+    region: "cite_septoria",
     effect: "Permet d'ouvrir les portes scellées",
   },
   PIOCHE: {
@@ -69,7 +69,7 @@ export const ITEMS = {
     description: "Une pioche enchantée capable de briser les roches magiques.",
     image: "/images/items/pioche.svg",
     type: "EQUIPMENT",
-    region: "pics_neuflame",
+    region: "grotte_huitra",
     effect: "Permet de creuser dans la roche magique",
   },
   CAPE: {
@@ -78,7 +78,7 @@ export const ITEMS = {
     description: "Une cape qui protège des effets magiques néfastes.",
     image: "/images/items/cape.svg",
     type: "EQUIPMENT",
-    region: "cite_celeste",
+    region: "pics_neuflame",
     effect: "Protège des effets magiques",
   },
   CARTE: {
@@ -87,7 +87,7 @@ export const ITEMS = {
     description: "Une carte magique qui révèle tous les chemins.",
     image: "/images/items/carte.svg",
     type: "EQUIPMENT",
-    region: "vallee_debuts",
+    region: "aucune",
     effect: "Révèle la carte complète",
   },
 };
@@ -109,6 +109,7 @@ export const ARTIFACT_PIECES = {
     image: "/images/artifact/artifact_1.svg",
     table: 1,
     region: "vallee_debuts",
+    type: "ARTIFACT",
   },
   TABLE_2: {
     id: "artifact_2",
@@ -117,7 +118,8 @@ export const ARTIFACT_PIECES = {
       "Un fragment qui pulse doucement au rythme des paires, gardien de la table de 2.",
     image: "/images/artifact/artifact_2.svg",
     table: 2,
-    region: "vallee_debuts",
+    region: "foret_multiplications",
+    type: "ARTIFACT",
   },
   TABLE_3: {
     id: "artifact_3",
@@ -126,7 +128,8 @@ export const ARTIFACT_PIECES = {
       "Ce fragment triangulaire renferme les secrets de la table de 3, sa surface reflète une harmonie parfaite.",
     image: "/images/artifact/artifact_3.svg",
     table: 3,
-    region: "foret_multiplications",
+    region: "collines_multiplicateur",
+    type: "ARTIFACT",
   },
   TABLE_4: {
     id: "artifact_4",
@@ -135,7 +138,8 @@ export const ARTIFACT_PIECES = {
       "Un fragment à quatre côtés égaux, porteur de la sagesse de la table de 4.",
     image: "/images/artifact/artifact_4.svg",
     table: 4,
-    region: "foret_multiplications",
+    region: "marais_quatrak",
+    type: "ARTIFACT",
   },
   TABLE_5: {
     id: "artifact_5",
@@ -144,7 +148,8 @@ export const ARTIFACT_PIECES = {
       "Ce fragment à cinq pointes brille d'une lumière mystérieuse, gardien de la table de 5.",
     image: "/images/artifact/artifact_5.svg",
     table: 5,
-    region: "montagne_mystique",
+    region: "desert_infini",
+    type: "ARTIFACT",
   },
   TABLE_6: {
     id: "artifact_6",
@@ -153,7 +158,8 @@ export const ARTIFACT_PIECES = {
       "Un fragment aux six faces parfaites, renfermant les secrets de la table de 6.",
     image: "/images/artifact/artifact_6.svg",
     table: 6,
-    region: "montagne_mystique",
+    region: "riviere_cristalline",
+    type: "ARTIFACT",
   },
   TABLE_7: {
     id: "artifact_7",
@@ -162,7 +168,8 @@ export const ARTIFACT_PIECES = {
       "Le septième fragment, porteur de chance et gardien de la table de 7.",
     image: "/images/artifact/artifact_7.svg",
     table: 7,
-    region: "desert_calculs",
+    region: "cite_septoria",
+    type: "ARTIFACT",
   },
   TABLE_8: {
     id: "artifact_8",
@@ -171,7 +178,8 @@ export const ARTIFACT_PIECES = {
       "Un fragment qui semble contenir l'infini, maître de la table de 8.",
     image: "/images/artifact/artifact_8.svg",
     table: 8,
-    region: "desert_calculs",
+    region: "grotte_huitra",
+    type: "ARTIFACT",
   },
   TABLE_9: {
     id: "artifact_9",
@@ -180,7 +188,8 @@ export const ARTIFACT_PIECES = {
       "Le neuvième fragment, dont la forme rappelle la spirale dorée, gardien de la table de 9.",
     image: "/images/artifact/artifact_9.svg",
     table: 9,
-    region: "cite_celeste",
+    region: "pics_neuflame",
+    type: "ARTIFACT",
   },
   TABLE_10: {
     id: "artifact_10",
@@ -190,6 +199,7 @@ export const ARTIFACT_PIECES = {
     image: "/images/artifact/artifact_10.svg",
     table: 10,
     region: "cite_celeste",
+    type: "ARTIFACT",
   },
 };
 

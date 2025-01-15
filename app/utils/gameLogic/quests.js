@@ -3,22 +3,17 @@ import { QUESTS_CONFIG } from "@/app/data/quests";
 import { REGIONS } from "@/app/data/regions";
 import { getProgress } from "@/app/utils/localStorage";
 
-export const calculateQuestRewards = (quest, score, timeSpent) => {
-  console.log("Calcul des récompenses:", {
-    questId: quest.id,
-    regionId: quest.regionId,
-    isFirstCompletion: !getProgress()?.regions?.[
-      quest.regionId
-    ]?.completedQuests?.includes(quest.id),
-    isRegionComplete: false,
-    completedQuests:
-      getProgress()?.regions?.[quest.regionId]?.completedQuests || [],
-  });
-
+export const calculateQuestRewards = (
+  quest,
+  score,
+  timeSpent,
+  correctAnswers
+) => {
   const rewards = {
     xp: quest.rewards.xp,
     coins: quest.rewards.coins,
     score: score,
+    correctAnswers: correctAnswers,
     timeSpent: timeSpent,
     isFirstCompletion: false,
     isRegionComplete: false,
