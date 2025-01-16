@@ -97,7 +97,7 @@ export const QUESTS_CONFIG = {
         rewards: {
           score: 10,
           xp: 150,
-          coins: 75,
+          coins: 75000,
         },
       },
       {
