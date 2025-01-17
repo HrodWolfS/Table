@@ -4,10 +4,10 @@ import {
   AVATAR_CONFIG,
   canPurchaseItem,
   isItemUnlocked,
-  purchaseItem,
-  getAvailableOptions,
   loadUnlockedItems,
+  purchaseItem,
 } from "@/app/utils/avatar";
+import { getProgress } from "@/app/utils/localStorage";
 import { Coins, Lock } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -18,9 +18,8 @@ export default function AvatarShop() {
 
   useEffect(() => {
     // Charger les pièces de l'utilisateur depuis userProgress
-    const userProgress = localStorage.getItem("userProgress");
-    const progress = userProgress ? JSON.parse(userProgress) : {};
-    const userCoins = progress.totalCoins || 0;
+    const progress = getProgress();
+    const userCoins = progress?.totalCoins || 0;
     setCoins(userCoins);
 
     // Charger les items débloqués

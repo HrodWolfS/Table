@@ -5,7 +5,7 @@ import { BADGES, getBadges } from "@/app/utils/badges";
 import {
   clearUserTestResults,
   getGlobalStats,
-  getUserTestResults,
+  getTestResults,
 } from "@/app/utils/localStorage";
 import { Activity, Clock, Target, Trophy } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -33,7 +33,7 @@ const ProfilePage = () => {
     setUserBadges(badges);
     const globalStats = getGlobalStats();
     setStats(globalStats);
-    const userTests = getUserTestResults();
+    const userTests = getTestResults();
     setRecentTests(userTests.slice(0, 5));
   }, []);
 
@@ -232,7 +232,7 @@ const ProfilePage = () => {
 
   const renderTableStats = () => {
     const tableStats = {};
-    const results = getUserTestResults();
+    const results = getTestResults();
 
     results.forEach((test) => {
       test.selectedTables.forEach((table) => {

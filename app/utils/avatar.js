@@ -633,9 +633,18 @@ export const getAvailableOptions = (category, unlockedItems = []) => {
   return [...baseOptions, ...unlockedOptions];
 };
 
+// Fonction utilitaire pour obtenir la clé de stockage spécifique à l'utilisateur
+const getUserStorageKey = (key) => {
+  const playerName = localStorage.getItem("playerName");
+  if (!playerName) return null;
+  return `${playerName}_${key}`;
+};
+
 export const loadUnlockedItems = () => {
   try {
-    const items = localStorage.getItem("unlockedAvatarItems");
+    const storageKey = getUserStorageKey("unlockedAvatarItems");
+    if (!storageKey) return [];
+    const items = localStorage.getItem(storageKey);
     return items ? JSON.parse(items) : [];
   } catch {
     return [];
@@ -644,7 +653,9 @@ export const loadUnlockedItems = () => {
 
 export const saveUnlockedItems = (items) => {
   try {
-    localStorage.setItem("unlockedAvatarItems", JSON.stringify(items));
+    const storageKey = getUserStorageKey("unlockedAvatarItems");
+    if (!storageKey) return false;
+    localStorage.setItem(storageKey, JSON.stringify(items));
     return true;
   } catch {
     return false;
@@ -667,7 +678,9 @@ export const loadAvatarConfig = () => {
   };
 
   try {
-    const savedConfig = localStorage.getItem("avatarConfig");
+    const storageKey = getUserStorageKey("avatarConfig");
+    if (!storageKey) return defaultConfig;
+    const savedConfig = localStorage.getItem(storageKey);
     return savedConfig ? JSON.parse(savedConfig) : defaultConfig;
   } catch {
     return defaultConfig;
@@ -676,7 +689,9 @@ export const loadAvatarConfig = () => {
 
 export const saveAvatarConfig = (config) => {
   try {
-    localStorage.setItem("avatarConfig", JSON.stringify(config));
+    const storageKey = getUserStorageKey("avatarConfig");
+    if (!storageKey) return false;
+    localStorage.setItem(storageKey, JSON.stringify(config));
     return true;
   } catch {
     return false;
@@ -686,7 +701,9 @@ export const saveAvatarConfig = (config) => {
 // Vérifier si l'utilisateur a assez de pièces
 export const canPurchaseItem = (itemPrice) => {
   try {
-    const userProgress = localStorage.getItem("userProgress");
+    const storageKey = getUserStorageKey("userProgress");
+    if (!storageKey) return false;
+    const userProgress = localStorage.getItem(storageKey);
     const progress = userProgress ? JSON.parse(userProgress) : {};
     const coins = progress.totalCoins || 0;
     return coins >= itemPrice;
@@ -698,8 +715,11 @@ export const canPurchaseItem = (itemPrice) => {
 // Effectuer un achat
 export const purchaseItem = (itemId, price) => {
   try {
+    const storageKey = getUserStorageKey("userProgress");
+    if (!storageKey) return false;
+
     // Récupérer la progression actuelle
-    const userProgress = localStorage.getItem("userProgress");
+    const userProgress = localStorage.getItem(storageKey);
     const progress = userProgress ? JSON.parse(userProgress) : {};
     const currentCoins = progress.totalCoins || 0;
 
@@ -708,7 +728,7 @@ export const purchaseItem = (itemId, price) => {
 
     // Mettre à jour le nombre de pièces
     progress.totalCoins = currentCoins - price;
-    localStorage.setItem("userProgress", JSON.stringify(progress));
+    localStorage.setItem(storageKey, JSON.stringify(progress));
 
     // Ajouter l'item à la liste des items débloqués
     const unlockedItems = loadUnlockedItems();

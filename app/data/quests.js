@@ -38,7 +38,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER, // requiredScore: 50, timeLimit: null
         objectives: {
           table: 1,
-          questionsCount: 10,
+          questionsCount: 1,
         },
         rewards: {
           score: 10,
@@ -54,7 +54,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE, // requiredScore: 80, timeLimit: 120
         objectives: {
           table: 1,
-          questionsCount: 4,
+          questionsCount: 1,
           timeLimit: 60,
         },
         rewards: {
@@ -71,7 +71,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT, // requiredScore: 100, timeLimit: 60
         objectives: {
           table: 1,
-          questionsCount: 10,
+          questionsCount: 1,
           timeLimit: 60,
         },
         rewards: {

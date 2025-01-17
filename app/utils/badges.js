@@ -1,4 +1,4 @@
-import { getCurrentUser } from "./auth";
+import { getTestResults } from "./localStorage";
 
 export const BADGES = {
   FIRST_TEST: {
@@ -75,10 +75,42 @@ export const BADGES = {
   },
 };
 
+// Fonction utilitaire pour obtenir la clé de stockage spécifique à l'utilisateur
+const getUserStorageKey = (key) => {
+  const playerName = localStorage.getItem("playerName");
+  if (!playerName) return null;
+  return `${playerName}_${key}`;
+};
+
+// Sauvegarder les badges
+export const saveBadges = (badges) => {
+  try {
+    const storageKey = getUserStorageKey("badges");
+    if (!storageKey) return false;
+    localStorage.setItem(storageKey, JSON.stringify(badges));
+    return true;
+  } catch (error) {
+    console.error("Erreur lors de la sauvegarde des badges:", error);
+    return false;
+  }
+};
+
+// Récupérer les badges
+export const getBadges = () => {
+  try {
+    const storageKey = getUserStorageKey("badges");
+    if (!storageKey) return [];
+    const badges = localStorage.getItem(storageKey);
+    return badges ? JSON.parse(badges) : [];
+  } catch (error) {
+    console.error("Erreur lors de la récupération des badges:", error);
+    return [];
+  }
+};
+
 export function checkBadgeUnlock(result, existingBadges = []) {
   const newBadges = [];
-  const allResults =
-    JSON.parse(localStorage.getItem("multiplication-test-results")) || [];
+  const allResults = getTestResults();
 
   // Premier test
   if (!existingBadges.includes("first_test")) {
@@ -111,10 +143,7 @@ export function checkBadgeUnlock(result, existingBadges = []) {
   }
 
   // Maître de la pratique (10 tests)
-  const userResults = allResults.filter(
-    (result) => result.userId === getCurrentUser().id
-  );
-  if (userResults.length >= 10 && !existingBadges.includes("practice_master")) {
+  if (allResults.length >= 10 && !existingBadges.includes("practice_master")) {
     newBadges.push(BADGES.PRACTICE_MASTER);
   }
 
@@ -171,15 +200,3 @@ export function checkBadgeUnlock(result, existingBadges = []) {
 
   return newBadges;
 }
-
-export const saveBadges = (badges) => {
-  localStorage.setItem("multiplication-badges", JSON.stringify(badges));
-};
-
-export const getBadges = () => {
-  try {
-    return JSON.parse(localStorage.getItem("multiplication-badges")) || [];
-  } catch {
-    return [];
-  }
-};

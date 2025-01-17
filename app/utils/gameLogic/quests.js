@@ -3,6 +3,37 @@ import { QUESTS_CONFIG } from "@/app/data/quests";
 import { REGIONS } from "@/app/data/regions";
 import { getProgress } from "@/app/utils/localStorage";
 
+// Fonction utilitaire pour obtenir la clé de stockage spécifique à l'utilisateur
+const getUserStorageKey = (key) => {
+  const playerName = localStorage.getItem("playerName");
+  if (!playerName) return null;
+  return `${playerName}_${key}`;
+};
+
+export const loadUserProgress = () => {
+  try {
+    const storageKey = getUserStorageKey("userProgress");
+    if (!storageKey) return {};
+    const savedProgress = localStorage.getItem(storageKey);
+    return savedProgress ? JSON.parse(savedProgress) : {};
+  } catch (error) {
+    console.error("Erreur lors du chargement de la progression:", error);
+    return {};
+  }
+};
+
+export const saveUserProgress = (progress) => {
+  try {
+    const storageKey = getUserStorageKey("userProgress");
+    if (!storageKey) return false;
+    localStorage.setItem(storageKey, JSON.stringify(progress));
+    return true;
+  } catch (error) {
+    console.error("Erreur lors de la sauvegarde de la progression:", error);
+    return false;
+  }
+};
+
 export const calculateQuestRewards = (
   quest,
   score,

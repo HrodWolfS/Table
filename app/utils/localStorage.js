@@ -1,5 +1,4 @@
 import { QUESTS_CONFIG } from "../data/quests";
-import { getCurrentUser } from "./auth";
 
 // Clé pour le localStorage
 const STORAGE_KEY = "multiplication-test-results";
@@ -8,22 +7,30 @@ const STORAGE_KEYS = {
   USER_PROGRESS: "multitab-user-progress",
 };
 
+// Fonction utilitaire pour obtenir la clé de stockage spécifique à l'utilisateur
+const getUserStorageKey = (key) => {
+  const playerName = localStorage.getItem("playerName");
+  if (!playerName) return null;
+  return `${playerName}_${key}`;
+};
+
 // Sauvegarder un nouveau résultat de test
 export const saveTestResult = (result) => {
   try {
-    const currentUser = getCurrentUser();
+    const storageKey = getUserStorageKey("test-results");
+    if (!storageKey) return false;
+
     const existingResults = getTestResults();
 
-    // Ajouter le nouveau résultat avec un timestamp et l'ID utilisateur
+    // Ajouter le nouveau résultat avec un timestamp
     const newResult = {
       ...result,
       date: new Date().toISOString(),
       id: Date.now(),
-      userId: currentUser.id, // Ajout de l'ID utilisateur
     };
 
     localStorage.setItem(
-      STORAGE_KEY,
+      storageKey,
       JSON.stringify([newResult, ...existingResults])
     );
 
@@ -34,16 +41,31 @@ export const saveTestResult = (result) => {
   }
 };
 
-// Récupérer tous les résultats d'un utilisateur spécifique
-export const getUserTestResults = () => {
+// Récupérer tous les résultats de l'utilisateur
+export const getTestResults = () => {
   try {
-    const currentUser = getCurrentUser();
-    const results = localStorage.getItem(STORAGE_KEY);
-    const allResults = results ? JSON.parse(results) : [];
-    return allResults.filter((result) => result.userId === currentUser.id);
+    const storageKey = getUserStorageKey("test-results");
+    if (!storageKey) return [];
+
+    const results = localStorage.getItem(storageKey);
+    return results ? JSON.parse(results) : [];
   } catch (error) {
     console.error("Erreur lors de la récupération des résultats:", error);
     return [];
+  }
+};
+
+// Supprimer tous les résultats de l'utilisateur
+export const clearTestResults = () => {
+  try {
+    const storageKey = getUserStorageKey("test-results");
+    if (!storageKey) return false;
+
+    localStorage.removeItem(storageKey);
+    return true;
+  } catch (error) {
+    console.error("Erreur lors de la suppression des résultats:", error);
+    return false;
   }
 };
 
@@ -63,7 +85,7 @@ export const getGlobalStats = () => {
     mostTestedTable: null,
   };
 
-  if (!progress) return defaultStats;
+  if (!progress || !progress.regions) return defaultStats;
 
   let totalQuests = 0;
   let completedQuests = 0;
@@ -72,27 +94,38 @@ export const getGlobalStats = () => {
   let bestScore = 0;
   const tableCounts = {};
 
-  Object.values(progress.regions).forEach((region) => {
-    Object.values(region.highScores).forEach((score) => {
-      totalScore += score;
-      bestScore = Math.max(bestScore, score);
-      questCount++;
-    });
-    completedQuests += region.completedQuests.length;
+  // Calculer le nombre total de quêtes disponibles
+  Object.values(QUESTS_CONFIG).forEach((region) => {
+    if (region.quests) {
+      totalQuests += region.quests.length;
+    }
   });
 
-  // Compter les tables les plus testées
-  Object.values(progress.regions).forEach((region) => {
-    region.completedQuests.forEach((questId) => {
-      const [regionId] = questId.split("Q");
-      const quest = QUESTS_CONFIG[regionId]?.quests?.find(
-        (q) => q.id === questId
-      );
-      if (quest?.objectives?.table) {
-        tableCounts[quest.objectives.table] =
-          (tableCounts[quest.objectives.table] || 0) + 1;
-      }
-    });
+  // Calculer les statistiques pour chaque région
+  Object.entries(progress.regions).forEach(([regionId, region]) => {
+    if (region.highScores) {
+      Object.values(region.highScores).forEach((score) => {
+        totalScore += score;
+        bestScore = Math.max(bestScore, score);
+        questCount++;
+      });
+    }
+
+    if (region.completedQuests) {
+      completedQuests += region.completedQuests.length;
+
+      // Compter les tables les plus testées
+      region.completedQuests.forEach((questId) => {
+        const [currentRegionId] = questId.split("Q");
+        const quest = QUESTS_CONFIG[currentRegionId]?.quests?.find(
+          (q) => q.id === questId
+        );
+        if (quest?.objectives?.table) {
+          tableCounts[quest.objectives.table] =
+            (tableCounts[quest.objectives.table] || 0) + 1;
+        }
+      });
+    }
   });
 
   const mostTestedTable = Object.entries(tableCounts).sort(
@@ -105,45 +138,22 @@ export const getGlobalStats = () => {
     averageScore: questCount > 0 ? Math.round(totalScore / questCount) : 0,
     completedQuests,
     totalQuests,
-    completionRate: totalQuests > 0 ? (completedQuests / totalQuests) * 100 : 0,
+    completionRate:
+      totalQuests > 0 ? Math.round((completedQuests / totalQuests) * 100) : 0,
     totalScore: progress.totalScore || 0,
-    bestScore: progress.bestScore || 0,
+    bestScore,
     totalTests: questCount,
     mostTestedTable: mostTestedTable ? Number(mostTestedTable) : null,
   };
 };
 
-// Fonction utilitaire pour récupérer tous les résultats (pour la rétrocompatibilité)
-export const getTestResults = () => {
-  try {
-    const results = localStorage.getItem(STORAGE_KEY);
-    return results ? JSON.parse(results) : [];
-  } catch (error) {
-    console.error("Erreur lors de la récupération des résultats:", error);
-    return [];
-  }
-};
-
-// Supprimer tous les résultats
-export const clearTestResults = () => {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-    return true;
-  } catch (error) {
-    console.error("Erreur lors de la suppression des résultats:", error);
-    return false;
-  }
-};
-
 // Nouvelle fonction pour supprimer les résultats d'un utilisateur spécifique
 export const clearUserTestResults = () => {
   try {
-    const currentUser = getCurrentUser();
-    const allResults = getTestResults();
-    const filteredResults = allResults.filter(
-      (result) => result.userId !== currentUser.id
-    );
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(filteredResults));
+    const storageKey = getUserStorageKey("test-results");
+    if (!storageKey) return false;
+
+    localStorage.removeItem(storageKey);
     return true;
   } catch (error) {
     console.error("Erreur lors de la suppression des résultats:", error);
@@ -153,22 +163,49 @@ export const clearUserTestResults = () => {
 
 export const resetProgress = () => {
   if (typeof window !== "undefined") {
-    localStorage.removeItem("userProgress");
-  }
-};
-
-export const saveProgress = (progress) => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("userProgress", JSON.stringify(progress));
+    const storageKey = getUserStorageKey("userProgress");
+    if (!storageKey) return;
+    localStorage.removeItem(storageKey);
   }
 };
 
 export const getProgress = () => {
   if (typeof window !== "undefined") {
-    const progress = localStorage.getItem("userProgress");
+    const storageKey = getUserStorageKey("userProgress");
+    if (!storageKey) return null;
+    const progress = localStorage.getItem(storageKey);
     return progress ? JSON.parse(progress) : null;
   }
   return null;
+};
+
+export const saveProgress = (progress) => {
+  if (typeof window !== "undefined") {
+    const storageKey = getUserStorageKey("userProgress");
+    if (!storageKey) return;
+    localStorage.setItem(storageKey, JSON.stringify(progress));
+  }
+};
+
+export const updateProgress = (updates) => {
+  const currentProgress = getProgress() || {
+    regions: {
+      vallee_debuts: {
+        completedQuests: [],
+        highScores: {},
+        bestTimes: {},
+      },
+    },
+    completedQuests: [],
+    unlockedRegions: ["vallee_debuts"],
+    totalXP: 0,
+    totalCoins: 0,
+    totalScore: 0,
+  };
+
+  const newProgress = { ...currentProgress, ...updates };
+  saveProgress(newProgress);
+  return newProgress;
 };
 
 export const updateQuestProgress = (regionId, questId, score, timeSpent) => {

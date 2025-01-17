@@ -76,7 +76,7 @@ export default function UserAuthButton({
       <div className="relative" ref={menuRef}>
         <button
           onClick={() => setShowMenu(!showMenu)}
-          className="flex items-center gap-3 p-2 border-2 border-cyan-400 rounded-lg  hover:bg-gray-800 transition-colors backdrop-blur-sm"
+          className="flex items-center gap-3 p-2 border border-gray-50 rounded-lg  hover:bg-gray-800/20 transition-colors backdrop-blur-sm shadow-xl"
         >
           {avatarConfig ? (
             <AvatarDisplay config={avatarConfig} className="w-10 h-10 " />
