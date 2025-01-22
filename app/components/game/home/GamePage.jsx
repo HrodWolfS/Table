@@ -1,53 +1,124 @@
-"use client";
-
-import { initializeProgress } from "@/app/utils/gameLogic/progression";
-import { getProgress } from "@/app/utils/localStorage";
-import { getPlayerStatistics } from "@/app/utils/statistics";
-import { ArchiveBoxIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import UserAuthButton from "../../auth/UserAuthButton";
-import Logo from "../../ui/Logo";
+import { NARRATIVE } from "@/app/data/story";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import Inventory from "../Inventory/Inventory";
 import WorldMap from "../Map/WorldMap";
+import StoryNarrator from "../Quests/StoryNarrator";
 import Statistics from "../Statistics/Statistics";
-import { Footer } from "./Footer";
+import DesktopNav from "./DesktopNav";
+import MobileNav from "./MobileNav";
+
 const GamePage = () => {
-  const [userProgress, setUserProgress] = useState(null);
-  const [showInventory, setShowInventory] = useState(false);
-  const [activeTab, setActiveTab] = useState("map"); // "map", "stats"
+  const [showIntro, setShowIntro] = useState(false);
+  const [introDialogues, setIntroDialogues] = useState([]);
+  const [activeTab, setActiveTab] = useState("map");
+  const [userProgress, setUserProgress] = useState({});
   const [stats, setStats] = useState({});
+  const startTimeRef = useRef(Date.now());
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const progress = initializeProgress();
-    setUserProgress(progress);
-  }, []);
-
-  useEffect(() => {
-    if (userProgress) {
-      const newStats = getPlayerStatistics(userProgress);
-      setStats(newStats);
-      console.log("newStats", newStats);
+    if (!NARRATIVE || !Array.isArray(NARRATIVE)) {
+      console.error("NARRATIVE n'est pas correctement importé:", NARRATIVE);
+      return;
     }
-  }, [userProgress]);
 
-  if (!userProgress) {
-    return <div>Chargement...</div>;
-  }
+    const playerName = localStorage.getItem("playerName");
+    console.log("Vérification du nom du joueur:", playerName);
 
-  const handleQuestComplete = () => {
-    // Mettre à jour le progrès après la complétion d'une quête
-    const updatedProgress = getProgress();
-    console.log("Progress mis à jour:", updatedProgress);
-    setUserProgress(updatedProgress);
+    if (!playerName) {
+      console.log("Redirection vers la page d'accueil - Pas de nom de joueur");
+      router.push("/");
+      return;
+    }
 
-    // Mettre à jour les statistiques immédiatement
-    const newStats = getPlayerStatistics(updatedProgress);
-    setStats(newStats);
+    // Charger les données du localStorage
+    const progress = JSON.parse(localStorage.getItem("userProgress") || "{}");
+    setUserProgress(progress);
+    setStats({
+      totalScore: progress.totalScore || 0,
+      totalXP: progress.totalXP || 0,
+      totalCoins: progress.totalCoins || 0,
+      timeSpent: progress.timeSpent || 0,
+    });
+
+    const shouldShowIntro = searchParams.get("showIntro") === "true";
+    if (shouldShowIntro) {
+      console.log("Chargement des dialogues d'introduction...");
+      const introDialogues = NARRATIVE.filter((d) =>
+        ["game_intro", "game_intro_2", "game_intro_3"].includes(d.id)
+      );
+
+      if (introDialogues.length > 0) {
+        setIntroDialogues(introDialogues);
+        setShowIntro(true);
+      }
+    }
+  }, [router, searchParams]);
+
+  // Mettre à jour le temps uniquement quand on affiche les stats
+  useEffect(() => {
+    let timer;
+    if (activeTab === "stats") {
+      timer = setInterval(() => {
+        setStats((prevStats) => ({
+          ...prevStats,
+          timeSpent:
+            Math.floor((Date.now() - startTimeRef.current) / 1000) +
+            (userProgress.timeSpent || 0),
+        }));
+      }, 1000);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [activeTab, userProgress.timeSpent]);
+
+  useEffect(() => {
+    console.log("État actuel:", {
+      showIntro,
+      introDialoguesLength: introDialogues.length,
+      dialogues: introDialogues,
+    });
+  }, [showIntro, introDialogues]);
+
+  const handleIntroComplete = () => {
+    console.log("Introduction terminée");
+    setShowIntro(false);
+    // Plus de redirection, le setShowIntro(false) est suffisant
   };
 
-  // S'assurer que l'inventaire existe
-  const inventory = userProgress?.inventory || [];
+  const handleQuestComplete = (questData) => {
+    // Logique de completion de quête
+    console.log("Quest completed:", questData);
+
+    // Calculer le temps total
+    const currentTime = Math.floor((Date.now() - startTimeRef.current) / 1000);
+    const totalTimeSpent = currentTime + (questData.timeSpent || 0);
+
+    // Mettre à jour le userProgress avec le temps total
+    const updatedQuestData = {
+      ...questData,
+      timeSpent: totalTimeSpent,
+    };
+    setUserProgress(updatedQuestData);
+    localStorage.setItem("userProgress", JSON.stringify(updatedQuestData));
+
+    // Mise à jour des stats
+    const updatedStats = {
+      totalScore: updatedQuestData.totalScore || 0,
+      totalXP: updatedQuestData.totalXP || 0,
+      totalCoins: updatedQuestData.totalCoins || 0,
+      timeSpent: totalTimeSpent,
+    };
+    setStats(updatedStats);
+  };
+
+  const handleEquipItem = (itemId) => {
+    // Logique d'équipement
+    console.log("Item equipped:", itemId);
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -59,11 +130,12 @@ const GamePage = () => {
           />
         );
       case "stats":
+        return <Statistics stats={stats} userProgress={userProgress} />;
+      case "inventory":
         return (
-          <Statistics
-            key={JSON.stringify(stats)}
-            stats={stats}
+          <Inventory
             userProgress={userProgress}
+            onEquipItem={handleEquipItem}
           />
         );
       default:
@@ -77,64 +149,26 @@ const GamePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 text-white">
-      <div className=" mx-auto pt-4">
-        <UserAuthButton />
-        <div className="flex justify-between items-center mx-6 mb-8">
-          <Link href="/">
-            <div className="flex-1 flex items-center justify-start gap-1 cursor-pointer">
-              <Logo size={48} className="text-yellow-500" />
-              <div>
-                <h1 className="text-3xl md:text-4xl font-black tracking-tight text-white font-display">
-                  MultiTab
-                  <span className="text-yellow-400">!</span>
-                </h1>
-                <p className="text-xs md:text-sm font-medium text-white tracking-wide">
-                  Apprendre en s'amusant !
-                </p>
-              </div>
-            </div>
-          </Link>
-          <div className="flex gap-4">
-            <button
-              onClick={() => setActiveTab("map")}
-              className={`px-4 py-2 rounded-full font-semibold transition-colors ${
-                activeTab === "map"
-                  ? "bg-blue-500 text-white"
-                  : "bg-blue-500/20 text-blue-300 hover:bg-blue-500/30"
-              }`}
-            >
-              Carte du Monde
-            </button>
-            <button
-              onClick={() => setActiveTab("stats")}
-              className={`px-4 py-2 rounded-full font-semibold transition-colors ${
-                activeTab === "stats"
-                  ? "bg-blue-500 text-white"
-                  : "bg-blue-500/20 text-blue-300 hover:bg-blue-500/30"
-              }`}
-            >
-              Statistiques
-            </button>
-            <button
-              onClick={() => setShowInventory(true)}
-              className="flex items-center gap-2 bg-transparenthover:bg-blue-600 text-blue-500 px-4 py-2 rounded-full font-semibold transition-colors"
-            >
-              <ArchiveBoxIcon className="h-5 w-5" />
-              Inventaire
-            </button>
+    <div className="relative min-h-screen overflow-x-hidden bg-gradient-to-br from-indigo-900 to-purple-900">
+      {showIntro && introDialogues.length > 0 ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-4 sm:p-8 rounded-lg shadow-xl max-w-4xl w-full border border-white/20">
+            <StoryNarrator
+              dialogue={introDialogues}
+              onComplete={handleIntroComplete}
+              currentRegion="intro"
+            />
           </div>
-          <div className="w-40"></div>
         </div>
-        <div className="min-h-[calc(100vh-175px)]">{renderContent()}</div>
-
-        <Inventory
-          isOpen={showInventory}
-          onClose={() => setShowInventory(false)}
-          userProgress={userProgress}
-        />
-      </div>
-      <Footer />
+      ) : (
+        <>
+          <MobileNav activeTab={activeTab} onTabChange={setActiveTab} />
+          <DesktopNav activeTab={activeTab} onTabChange={setActiveTab} />
+          <div className="relative w-full h-full pt-16 pb-16 sm:pt-20 sm:pb-0">
+            {renderContent()}
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -1,46 +1,91 @@
-"use client";
 import { REGIONS } from "@/app/data/regions";
+import { NARRATIVE } from "@/app/data/story";
 import { getProgress, saveProgress } from "@/app/utils/localStorage";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import QuestMode from "../Quests/QuestMode";
+import StoryNarrator from "../Quests/StoryNarrator";
 import Region from "./Region";
 
 const WorldMap = ({ userProgress, onQuestComplete }) => {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [newRegions, setNewRegions] = useState([]);
   const [currentProgress, setCurrentProgress] = useState(() => getProgress());
+  const [equippedItem, setEquippedItem] = useState(null);
+  const [showNarrative, setShowNarrative] = useState(false);
+  const [narrativeDialogues, setNarrativeDialogues] = useState([]);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Récupérer les nouvelles régions du localStorage
     const storedNewRegions = localStorage.getItem("newUnlockedRegions");
     if (storedNewRegions) {
       const newUnlockedRegions = JSON.parse(storedNewRegions);
       setNewRegions(newUnlockedRegions);
       localStorage.removeItem("newUnlockedRegions");
-
-      // Mettre à jour currentProgress avec les dernières données
       const latestProgress = getProgress();
       setCurrentProgress(latestProgress);
     }
   }, []);
 
+  useEffect(() => {
+    const checkEquippedItem = () => {
+      const playerName = localStorage.getItem("playerName");
+      if (playerName) {
+        const equippedItem = localStorage.getItem(`${playerName}_equippedItem`);
+        setEquippedItem(equippedItem);
+      }
+    };
+
+    checkEquippedItem();
+    window.addEventListener("storage", checkEquippedItem);
+    const interval = setInterval(checkEquippedItem, 1000);
+
+    return () => {
+      window.removeEventListener("storage", checkEquippedItem);
+      clearInterval(interval);
+    };
+  }, []);
+
   const handleRegionClick = (region) => {
-    setSelectedRegion(region);
+    // Vérifier s'il y a une narration pour cette région
+    const dialogues = NARRATIVE.filter(
+      (dialog) =>
+        dialog.regionId === region.id && !dialog.id.startsWith("intro_")
+    );
+
+    if (dialogues.length > 0) {
+      setNarrativeDialogues(dialogues);
+      setShowNarrative(true);
+      setSelectedRegion(region);
+    } else {
+      setSelectedRegion(region);
+    }
+  };
+
+  const handleNarrativeComplete = () => {
+    setShowNarrative(false);
   };
 
   const handleQuestComplete = (updatedProgress) => {
-    // Mettre à jour l'état local avec la nouvelle progression
     setCurrentProgress({ ...updatedProgress });
-
-    // Sauvegarder dans le localStorage
     saveProgress(updatedProgress);
-
-    // Notifier le parent que la quête est complétée
     if (onQuestComplete) {
       onQuestComplete(updatedProgress);
     }
   };
 
+  // Afficher la narration si elle est active
+  if (showNarrative) {
+    return (
+      <StoryNarrator
+        dialogue={narrativeDialogues}
+        onComplete={handleNarrativeComplete}
+        currentRegion={selectedRegion?.id}
+      />
+    );
+  }
+
+  // Si une région est sélectionnée, afficher les quêtes de cette région
   if (selectedRegion) {
     return (
       <QuestMode
@@ -65,6 +110,7 @@ const WorldMap = ({ userProgress, onQuestComplete }) => {
               isActive={selectedRegion?.id === region.id}
               isNew={newRegions.includes(region.id)}
               userProgress={currentProgress}
+              equippedItem={equippedItem}
             />
           ))}
         </div>

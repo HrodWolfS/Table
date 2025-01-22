@@ -3,8 +3,6 @@ import { createAvatar } from "@dicebear/core";
 
 export const generateAvatar = (config) => {
   try {
-    console.log("Configuration reçue:", config);
-
     // Logique de sélection pour top
     // Si hats est sélectionné (différent de blank), on utilise hats
     // Sinon on utilise la coiffure (top)
@@ -44,8 +42,6 @@ export const generateAvatar = (config) => {
       facialHairProbability: 100,
     };
 
-    console.log("Configuration utilisée:", safeConfig);
-
     const avatar = createAvatar(avataaars, safeConfig);
     const svg = avatar.toString();
 
@@ -53,8 +49,6 @@ export const generateAvatar = (config) => {
     if (!svg.startsWith("<svg")) {
       throw new Error("SVG invalide généré");
     }
-
-    console.log("SVG généré avec succès", svg.slice(0, 100));
     return svg;
   } catch (error) {
     console.error("Erreur lors de la génération de l'avatar:", error);

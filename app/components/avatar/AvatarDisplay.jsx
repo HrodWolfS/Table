@@ -17,7 +17,6 @@ const AvatarDisplay = ({ config, className }) => {
         if (!config) return;
 
         const svg = generateAvatar(config);
-        console.log("Config pour l'avatar:", config);
 
         if (svg) {
           setAvatarSvg(svg);

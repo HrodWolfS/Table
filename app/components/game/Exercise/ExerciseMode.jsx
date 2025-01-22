@@ -231,7 +231,7 @@ const ExerciseMode = ({ quest, onComplete, onBack }) => {
           )}
         </div>
 
-        <div className="bg-white/10 rounded-lg p-8 text-center">
+        <div className="bg-white/10 rounded-lg p-8 text-center border border-white/20">
           {!isExerciseComplete ? (
             <>
               <h2 className="text-4xl font-bold text-white mb-8">

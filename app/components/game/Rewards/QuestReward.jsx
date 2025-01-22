@@ -2,18 +2,127 @@
 
 import { ARTIFACT_PIECES } from "@/app/data/inventory";
 import { QUESTS_CONFIG } from "@/app/data/quests";
+import { NARRATIVE } from "@/app/data/story";
 import { getProgress, saveProgress } from "@/app/utils/localStorage";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ReactConfetti from "react-confetti";
+import StoryNarrator from "../../game/Quests/StoryNarrator";
 
 const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
   const [showArtifact, setShowArtifact] = useState(false);
   const [showNextRegion, setShowNextRegion] = useState(false);
+  const [showNarrator, setShowNarrator] = useState(false);
+  const [narrativeDialogues, setNarrativeDialogues] = useState([]);
+  const [showConfetti, setShowConfetti] = useState(true);
+  const [sequence, setSequence] = useState("initial"); // 'initial', 'score', 'narrative', 'item', 'artifact', 'newRegion'
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== "undefined" ? window.innerWidth : 0,
+    height: typeof window !== "undefined" ? window.innerHeight : 0,
+  });
   const router = useRouter();
 
-  // Fonction pour obtenir la table correspondant à la région
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (showConfetti) {
+      const timer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showConfetti]);
+
+  useEffect(() => {
+    const checkFirstVisit = () => {
+      const progress = getProgress();
+      const playerName = localStorage.getItem("playerName");
+      if (!playerName) return;
+
+      const visitedRegionsKey = `${playerName}_visitedRegions`;
+      const visitedRegions = JSON.parse(
+        localStorage.getItem(visitedRegionsKey) || "[]"
+      );
+
+      if (!visitedRegions.includes(quest.regionId)) {
+        let regionNumber;
+        if (quest.regionId === "vallee_debuts") regionNumber = "1";
+        else if (quest.regionId === "foret_multiplications") regionNumber = "2";
+        else if (quest.regionId === "collines_multiplicateur")
+          regionNumber = "3";
+        else if (quest.regionId === "marais_quatrak") regionNumber = "4";
+        else if (quest.regionId === "desert_infini") regionNumber = "5";
+        else if (quest.regionId === "riviere_cristalline") regionNumber = "6";
+        else if (quest.regionId === "cite_septoria") regionNumber = "7";
+        else if (quest.regionId === "grottes_huitra") regionNumber = "8";
+        else if (quest.regionId === "pics_neuflame") regionNumber = "9";
+        else if (quest.regionId === "chateau_dividix") regionNumber = "10";
+
+        if (regionNumber) {
+          const introDialogues = NARRATIVE.filter(
+            (d) =>
+              d.id === `region_${regionNumber}_intro` ||
+              d.id === `region_${regionNumber}_hint`
+          );
+
+          if (introDialogues.length > 0) {
+            setNarrativeDialogues(introDialogues);
+            setShowNarrator(true);
+
+            visitedRegions.push(quest.regionId);
+            localStorage.setItem(
+              visitedRegionsKey,
+              JSON.stringify(visitedRegions)
+            );
+          }
+        }
+      }
+    };
+
+    // Ne vérifier que si la région est complète
+    if (isRegionComplete()) {
+      checkFirstVisit();
+    }
+  }, []); // Exécuter une seule fois au montage
+
+  useEffect(() => {
+    console.log("Séquence actuelle:", sequence);
+
+    if (sequence === "initial") {
+      setShowConfetti(true);
+      // Après 2 secondes, passer à la narration
+      const timer = setTimeout(() => {
+        if (isRegionComplete() && rewards.isFirstCompletion) {
+          const regionNumber = getRegionNumber(quest.regionId);
+          if (regionNumber) {
+            const transitionDialogue = NARRATIVE.filter(
+              (d) => d.id === `region_${regionNumber}_transition`
+            );
+            if (transitionDialogue.length > 0) {
+              setNarrativeDialogues(transitionDialogue);
+              setShowNarrator(true);
+              setSequence("narrative");
+            }
+          }
+        } else {
+          setSequence("score");
+        }
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [sequence, quest.regionId, rewards.isFirstCompletion]);
+
   const getRegionTable = (regionId) => {
     switch (regionId) {
       case "vallee_debuts":
@@ -41,19 +150,56 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
     }
   };
 
+  const getRegionNumber = (regionId) => {
+    if (regionId === "vallee_debuts") return "1";
+    if (regionId === "foret_multiplications") return "2";
+    if (regionId === "collines_multiplicateur") return "3";
+    if (regionId === "marais_quatrak") return "4";
+    if (regionId === "desert_infini") return "5";
+    if (regionId === "riviere_cristalline") return "6";
+    if (regionId === "cite_septoria") return "7";
+    if (regionId === "grottes_huitra") return "8";
+    if (regionId === "pics_neuflame") return "9";
+    if (regionId === "chateau_dividix") return "10";
+    return regionId.match(/\d+/)?.[0];
+  };
+
   const isRegionComplete = () => {
     const regionConfig = QUESTS_CONFIG[quest.regionId];
     if (!regionConfig) return false;
 
     const completedQuests =
       userProgress?.regions?.[quest.regionId]?.completedQuests || [];
-
-    // Vérifier que toutes les quêtes de la région sont complétées
-    const allQuestsCompleted = regionConfig.quests.every((quest) =>
+    return regionConfig.quests.every((quest) =>
       completedQuests.includes(quest.id)
     );
+  };
 
-    return allQuestsCompleted;
+  const getEndingDialogues = () => {
+    const dialogues = NARRATIVE.filter((d) => d.id === "ending");
+
+    return dialogues.map((dialogue) => ({
+      ...dialogue,
+      character: dialogue.character || "Narrateur",
+    }));
+  };
+
+  const getNextEndingDialogues = (currentDialogueId) => {
+    const currentNumber =
+      currentDialogueId === "ending"
+        ? 1
+        : currentDialogueId === "ending_2"
+        ? 2
+        : 3;
+    const nextNumber = currentNumber + 1;
+
+    const nextDialogueId = nextNumber === 2 ? "ending_2" : "ending_3";
+    const dialogues = NARRATIVE.filter((d) => d.id === nextDialogueId);
+
+    return dialogues.map((dialogue) => ({
+      ...dialogue,
+      character: dialogue.character || "Narrateur",
+    }));
   };
 
   const unlockNewRegion = () => {
@@ -61,73 +207,124 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
       const progress = getProgress();
       const newRegionId = rewards.newRegions[0].id;
 
-      // Vérifier si la région n'est pas déjà débloquée
       if (!progress.unlockedRegions) {
         progress.unlockedRegions = [];
       }
 
-      // Si la région est déjà débloquée, ne rien faire
-      if (progress.unlockedRegions.includes(newRegionId)) {
-        console.log("La région est déjà débloquée:", newRegionId);
-        return;
+      if (!progress.unlockedRegions.includes(newRegionId)) {
+        progress.unlockedRegions.push(newRegionId);
+
+        if (!progress.regions) {
+          progress.regions = {};
+        }
+
+        if (!progress.regions[newRegionId]) {
+          progress.regions[newRegionId] = {
+            completedQuests: [],
+            highScores: {},
+            bestTimes: {},
+          };
+        }
+
+        saveProgress(progress);
+        localStorage.setItem(
+          "newUnlockedRegions",
+          JSON.stringify([newRegionId])
+        );
+
+        setShowNextRegion(true);
       }
-
-      // Ajouter la nouvelle région aux régions débloquées
-      progress.unlockedRegions.push(newRegionId);
-      console.log("Ajout de la nouvelle région:", newRegionId);
-
-      // Initialiser la progression pour la nouvelle région
-      if (!progress.regions) {
-        progress.regions = {};
-      }
-
-      if (!progress.regions[newRegionId]) {
-        progress.regions[newRegionId] = {
-          completedQuests: [],
-          highScores: {},
-          bestTimes: {},
-        };
-      }
-
-      // Sauvegarder les changements
-      saveProgress(progress);
-
-      // Stocker l'ID de la nouvelle région pour l'animation
-      localStorage.setItem("newUnlockedRegions", JSON.stringify([newRegionId]));
     }
   };
 
   const handleContinue = () => {
-    const regionComplete = isRegionComplete();
-    console.log("Rewards:", rewards);
-
-    if (showArtifact) {
-      if (rewards.newRegions?.length > 0) {
-        setShowArtifact(false);
-        setShowNextRegion(true);
-        unlockNewRegion();
-      } else {
-        router.push("/game");
-        onClose();
-      }
-    } else if (showNextRegion) {
-      router.push("/game");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    } else {
-      if (regionComplete && rewards.isFirstCompletion) {
+    // Si on montre le narrateur
+    if (showNarrator) {
+      setShowNarrator(false);
+      // Passer à l'item si disponible
+      if (rewards.item) {
+        // Ajouter l'item à l'inventaire
+        const progress = getProgress();
+        if (!progress.inventory) {
+          progress.inventory = {
+            items: ["carte"],
+            equippedItem: null,
+            artifacts: [],
+          };
+        }
+        if (!progress.inventory.items.includes(rewards.item.id)) {
+          progress.inventory.items.push(rewards.item.id);
+          saveProgress(progress);
+        }
         setShowArtifact(true);
       } else if (rewards.newRegions?.length > 0) {
-        setShowNextRegion(true);
         unlockNewRegion();
       } else {
         onClose();
       }
+      return;
     }
+
+    // Si on montre l'artefact
+    if (showArtifact) {
+      setShowArtifact(false);
+
+      // Ajouter l'artefact de table si disponible
+      const regionTable = getRegionTable(quest.regionId);
+      if (regionTable) {
+        const progress = getProgress();
+        if (!progress.inventory) {
+          progress.inventory = {
+            items: ["carte"],
+            equippedItem: null,
+            artifacts: [],
+          };
+        }
+        if (!Array.isArray(progress.inventory.artifacts)) {
+          progress.inventory.artifacts = [];
+        }
+
+        const artifactId = `TABLE_${regionTable[0]}`;
+        if (!progress.inventory.artifacts.includes(artifactId)) {
+          progress.inventory.artifacts.push(artifactId);
+          saveProgress(progress);
+        }
+      }
+
+      if (rewards.newRegions?.length > 0) {
+        unlockNewRegion();
+      } else {
+        onClose();
+      }
+      return;
+    }
+
+    // Si on montre la nouvelle région
+    if (showNextRegion) {
+      onClose();
+      window.location.href = "/game";
+      return;
+    }
+
+    // Si on arrive ici et que la région est complète, montrer la narration de transition
+    if (isRegionComplete() && rewards.isFirstCompletion) {
+      const regionNumber = getRegionNumber(quest.regionId);
+      if (regionNumber) {
+        const transitionDialogue = NARRATIVE.filter(
+          (d) => d.id === `region_${regionNumber}_transition`
+        );
+        if (transitionDialogue.length > 0) {
+          setNarrativeDialogues(transitionDialogue);
+          setShowNarrator(true);
+          return;
+        }
+      }
+    }
+
+    // Si aucun état n'est actif, fermer sans redirection
+    onClose();
   };
 
-  // Sélectionner l'artefact en fonction de la région
   const regionTable = getRegionTable(quest.regionId);
   const artifact = regionTable
     ? ARTIFACT_PIECES[`TABLE_${regionTable[0]}`]
@@ -135,73 +332,44 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-8 rounded-lg shadow-xl max-w-md w-full mx-4 text-white relative">
-        <button
+      {showConfetti && (
+        <ReactConfetti
+          width={windowSize.width}
+          height={windowSize.height}
+          recycle={false}
+          numberOfPieces={200}
+          gravity={0.3}
+          colors={["#60A5FA", "#34D399", "#F59E0B", "#EC4899"]}
+        />
+      )}
+      <div className=" max-w-4xl w-full mx-4 text-white relative">
+        {/* <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-blue-300 hover:text-blue-400 transition-colors"
+          className="absolute top-14 right-2 text-blue-300 hover:text-blue-400 transition-colors"
         >
           <XMarkIcon className="h-6 w-6" />
-        </button>
+        </button> */}
 
-        {showArtifact ? (
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="text-center"
-          >
-            <h2 className="text-2xl font-bold mb-4">Région Complétée !</h2>
-            <div className="relative mb-6">
-              <motion.img
-                src={artifact?.image}
-                alt={artifact?.name}
-                className="w-32 h-32 mx-auto"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              />
-              <div className="absolute inset-0 bg-blue-500 opacity-20 animate-pulse rounded-full"></div>
-            </div>
-            <h3 className="text-xl font-semibold mb-2">{artifact?.name}</h3>
-            <p className="text-gray-300 mb-6">{artifact?.description}</p>
-
-            {rewards.item && (
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold mb-2">Item Obtenu !</h3>
-                <div className="relative mb-4">
-                  <motion.img
-                    src={rewards.item.image}
-                    alt={rewards.item.name}
-                    className="w-24 h-24 mx-auto"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.5 }}
-                  />
-                </div>
-                <h4 className="text-lg font-medium mb-1">
-                  {rewards.item.name}
-                </h4>
-                <p className="text-sm text-gray-300 mb-2">
-                  {rewards.item.description}
-                </p>
-                <p className="text-sm font-medium text-blue-300">
-                  {rewards.item.effect}
-                </p>
-              </div>
-            )}
-
-            <button
-              onClick={handleContinue}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full font-semibold transition-colors"
-            >
-              {rewards.newRegions.length > 0
-                ? "Découvrir la suite"
-                : "Continuer"}
-            </button>
-          </motion.div>
+        {showNarrator && narrativeDialogues.length > 0 ? (
+          <StoryNarrator
+            dialogue={narrativeDialogues.map((d) => ({
+              ...d,
+              character: d.character || "Narrateur",
+              text: d.text || "...",
+              id: d.id || `dialogue_${Math.random()}`,
+            }))}
+            onComplete={handleContinue}
+            currentRegion={quest.regionId}
+            rewards={{
+              item: rewards.item,
+              artifact: artifact,
+            }}
+          />
         ) : showNextRegion ? (
           <motion.div
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            className="text-center"
+            className="text-center border border-blue-400/30 p-8 rounded-lg shadow-xl"
           >
             <h2 className="text-2xl font-bold mb-4">
               Nouvelle Région Débloquée !
@@ -220,7 +388,11 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
               {rewards.newRegions[0].description}
             </p>
             <button
-              onClick={handleContinue}
+              onClick={() => {
+                onClose();
+                // Forcer un rafraîchissement de la page
+                window.location.href = "/game";
+              }}
               className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full font-semibold transition-colors"
             >
               Commencer l'aventure
@@ -230,7 +402,7 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="text-center"
+            className="text-center border border-yellow-400/30 p-8 rounded-lg shadow-xl"
           >
             <h2 className="text-2xl font-bold mb-4">
               {rewards.isFirstCompletion ? "Félicitations !" : "Bien joué !"}
@@ -242,14 +414,14 @@ const QuestReward = ({ quest, rewards, onClose, userProgress }) => {
                   {rewards.score}
                 </p>
               </div>
-              <div className="flex justify-center ">
+              <div className="flex justify-center">
                 <div className="flex flex-col items-center justify-center">
                   <span className="text-yellow-400 text-2xl font-bold">
                     {rewards.correctAnswers}
                   </span>
                   <span className="text-gray-300 text-xs">réponses</span>
                 </div>
-                <p className="text-gray-300 items-start justify-start text-2xl font-bold ">
+                <p className="text-gray-300 items-start justify-start text-2xl font-bold">
                   {" / "}
                 </p>
                 <div className="flex flex-col items-center justify-center">

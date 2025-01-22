@@ -69,7 +69,7 @@ export const ITEMS = {
     description: "Une pioche enchantée capable de briser les roches magiques.",
     image: "/images/items/pioche.svg",
     type: "EQUIPMENT",
-    region: "grotte_huitra",
+    region: "chateau_dividix",
     effect: "Permet de creuser dans la roche magique",
   },
   CAPE: {

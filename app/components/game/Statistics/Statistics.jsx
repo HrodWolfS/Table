@@ -26,10 +26,17 @@ const StatItem = ({ icon: Icon, label, value, color }) => (
 );
 
 const Statistics = ({ stats, userProgress }) => {
-  const { score, xp, coins, timeSpent, questsCompleted, regionsUnlocked } =
-    stats;
+  // Calculer le nombre total de quêtes complétées
+  const questsCompleted = Object.values(userProgress?.regions || {}).reduce(
+    (total, region) => total + (region.completedQuests?.length || 0),
+    0
+  );
 
-  console.log("userProgress", userProgress);
+  // Calculer le nombre de régions débloquées
+  const regionsUnlocked = {
+    unlocked: userProgress?.unlockedRegions?.length || 1,
+    total: 10,
+  };
 
   const container = {
     hidden: { opacity: 0 },
@@ -50,27 +57,27 @@ const Statistics = ({ stats, userProgress }) => {
     >
       <StatItem
         icon={Trophy}
-        label="Score"
-        value={score}
+        label="Score Total"
+        value={stats.totalScore || 0}
         color="from-amber-500 to-amber-700"
       />
       <StatItem
         icon={Star}
         label="XP Total"
-        value={xp}
+        value={stats.totalXP || 0}
         color="from-purple-500 to-purple-700"
       />
       <StatItem
         icon={Zap}
         label="Pièces"
-        value={coins}
+        value={stats.totalCoins || 0}
         color="from-yellow-500 to-yellow-700"
       />
       <StatItem
         icon={Clock}
         label="Temps de jeu"
-        value={`${Math.floor(timeSpent / 60)}min ${Math.floor(
-          timeSpent % 60
+        value={`${Math.floor((stats.timeSpent || 0) / 60)}min ${Math.floor(
+          (stats.timeSpent || 0) % 60
         )}s`}
         color="from-blue-500 to-blue-700"
       />

@@ -1,4 +1,5 @@
 import { getProgress, saveProgress } from "@/app/utils/localStorage";
+import { QUESTS_CONFIG } from "../../data/quests";
 import { REGIONS } from "../../data/regions";
 
 /**
@@ -56,25 +57,46 @@ export const initialUserProgress = {
 };
 
 export const updateProgress = (quest, rewards) => {
-  const userProgress = getProgress();
+  let userProgress = getProgress();
 
-  // Assurez-vous que completedQuests existe
-  if (!userProgress.completedQuests) {
-    userProgress.completedQuests = [];
-  }
-
-  // Assurez-vous que la région existe dans userProgress
-  if (!userProgress.regions[quest.regionId]) {
-    userProgress.regions[quest.regionId] = {
+  // Si userProgress n'existe pas, l'initialiser
+  if (!userProgress) {
+    userProgress = {
+      regions: {
+        vallee_debuts: {
+          completedQuests: [],
+          highScores: {},
+          bestTimes: {},
+        },
+      },
+      inventory: {
+        items: ["carte"],
+        equippedItem: null,
+        artifacts: [],
+      },
+      totalXP: 0,
+      totalCoins: 0,
+      totalScore: 0,
+      unlockedRegions: ["vallee_debuts"],
       completedQuests: [],
-      highScores: {},
-      bestTimes: {},
     };
   }
 
-  // Ajouter l'ID de la quête aux quêtes complétées globales
-  if (!userProgress.completedQuests.includes(quest.id)) {
-    userProgress.completedQuests.push(quest.id);
+  // S'assurer que l'inventaire a la bonne structure
+  if (!userProgress.inventory || typeof userProgress.inventory !== "object") {
+    userProgress.inventory = {
+      items: ["carte"],
+      equippedItem: null,
+      artifacts: [],
+    };
+  }
+
+  // Assurez-vous que les arrays d'inventaire existent
+  if (!Array.isArray(userProgress.inventory.items)) {
+    userProgress.inventory.items = ["carte"];
+  }
+  if (!Array.isArray(userProgress.inventory.artifacts)) {
+    userProgress.inventory.artifacts = [];
   }
 
   // Ajouter l'ID de la quête aux quêtes complétées de la région
@@ -82,14 +104,52 @@ export const updateProgress = (quest, rewards) => {
     !userProgress.regions[quest.regionId].completedQuests.includes(quest.id)
   ) {
     userProgress.regions[quest.regionId].completedQuests.push(quest.id);
+
+    // Vérifier si toutes les quêtes de la région sont terminées
+    const regionConfig = QUESTS_CONFIG[quest.regionId];
+    if (regionConfig) {
+      const allQuestsCompleted = regionConfig.quests.every((q) =>
+        userProgress.regions[quest.regionId].completedQuests.includes(q.id)
+      );
+
+      if (allQuestsCompleted) {
+        // Ajouter l'artifact correspondant à la région
+        const regionNumber =
+          quest.regionId.match(/\d+/)?.[0] ||
+          (quest.regionId === "vallee_debuts"
+            ? "1"
+            : quest.regionId === "foret_multiplications"
+            ? "2"
+            : quest.regionId === "collines_multiplicateur"
+            ? "3"
+            : quest.regionId === "marais_quatrak"
+            ? "4"
+            : quest.regionId === "desert_infini"
+            ? "5"
+            : quest.regionId === "riviere_cristalline"
+            ? "6"
+            : quest.regionId === "cite_septoria"
+            ? "7"
+            : quest.regionId === "grottes_huitra"
+            ? "8"
+            : quest.regionId === "pics_neuflame"
+            ? "9"
+            : quest.regionId === "chateau_dividix"
+            ? "10"
+            : null);
+
+        if (regionNumber) {
+          const artifactId = `artifact_${regionNumber}`;
+          if (!userProgress.inventory.artifacts.includes(artifactId)) {
+            console.log("Ajout automatique de l'artifact:", artifactId);
+            userProgress.inventory.artifacts.push(artifactId);
+          }
+        }
+      }
+    }
   }
 
-  // Initialiser l'inventaire s'il n'existe pas
-  if (!userProgress.inventory) {
-    userProgress.inventory = [];
-  }
-
-  // Mettre à jour l'XP, les pièces et le temps si des récompenses sont fournies
+  // Mise à jour des récompenses
   if (rewards) {
     userProgress.totalXP = (userProgress.totalXP || 0) + (rewards.xp || 0);
     userProgress.totalCoins =
@@ -97,41 +157,22 @@ export const updateProgress = (quest, rewards) => {
     userProgress.totalScore =
       (userProgress.totalScore || 0) + (rewards.score || 0);
 
-    // Mettre à jour le temps total de jeu
-    if (rewards.timeSpent) {
-      userProgress.totalTimeSpent =
-        (userProgress.totalTimeSpent || 0) + rewards.timeSpent;
-
-      // Sauvegarder le meilleur temps pour cette quête si c'est la première fois ou si c'est un meilleur temps
-      const currentBestTime =
-        userProgress.regions[quest.regionId].bestTimes[quest.id];
-      if (!currentBestTime || rewards.timeSpent < currentBestTime) {
-        userProgress.regions[quest.regionId].bestTimes[quest.id] =
-          rewards.timeSpent;
-      }
-    }
-
     // Ajouter l'item de la région si disponible
     if (
       rewards.item &&
-      !userProgress.inventory.some((item) => item.id === rewards.item.id)
+      !userProgress.inventory.items.includes(rewards.item.id)
     ) {
-      console.log("Ajout de l'item à l'inventaire:", rewards.item.name);
-      userProgress.inventory.push(rewards.item);
+      console.log("Ajout de l'item à l'inventaire:", rewards.item.id);
+      userProgress.inventory.items.push(rewards.item.id);
     }
 
     // Ajouter les artefacts à l'inventaire
-    if (rewards.artifacts && rewards.artifacts.length > 0) {
-      console.log("Tentative d'ajout des artefacts:", rewards.artifacts);
-      rewards.artifacts.forEach((artifact) => {
-        if (!userProgress.inventory.some((item) => item.id === artifact.id)) {
-          console.log("Ajout de l'artefact à l'inventaire:", artifact.name);
-          userProgress.inventory.push({
-            ...artifact,
-            type: artifact.type.toLowerCase(),
-          });
-        }
-      });
+    if (
+      rewards.artifact &&
+      !userProgress.inventory.artifacts.includes(rewards.artifact.id)
+    ) {
+      console.log("Ajout de l'artefact à l'inventaire:", rewards.artifact.id);
+      userProgress.inventory.artifacts.push(rewards.artifact.id);
     }
   }
 

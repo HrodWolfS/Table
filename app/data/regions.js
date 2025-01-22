@@ -101,7 +101,7 @@ export const REGIONS = {
       "Le chateau de Dividix qui sera notre dernier défi, il sera nécessaire de résoudre notre plus grand défi.",
     image: "/images/regions/chateau_dividix.svg",
     quests: ["chateau_dividixQ1", "chateau_dividixQ2", "chateau_dividixQ3"],
-    requiredItems: ["pioche"],
+    requiredItems: ["cape"],
     unlockedBy: ["pics_neuflame"],
   },
 };
