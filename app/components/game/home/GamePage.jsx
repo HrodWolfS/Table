@@ -1,6 +1,6 @@
 import { NARRATIVE } from "@/app/data/story";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Inventory from "../Inventory/Inventory";
 import WorldMap from "../Map/WorldMap";
 import StoryNarrator from "../Quests/StoryNarrator";
@@ -14,7 +14,6 @@ const GamePage = () => {
   const [activeTab, setActiveTab] = useState("map");
   const [userProgress, setUserProgress] = useState({});
   const [stats, setStats] = useState({});
-  const startTimeRef = useRef(Date.now());
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -62,18 +61,19 @@ const GamePage = () => {
     let timer;
     if (activeTab === "stats") {
       timer = setInterval(() => {
+        const progress = JSON.parse(
+          localStorage.getItem("userProgress") || "{}"
+        );
         setStats((prevStats) => ({
           ...prevStats,
-          timeSpent:
-            Math.floor((Date.now() - startTimeRef.current) / 1000) +
-            (userProgress.timeSpent || 0),
+          timeSpent: progress.timeSpent || 0,
         }));
       }, 1000);
     }
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [activeTab, userProgress.timeSpent]);
+  }, [activeTab]);
 
   useEffect(() => {
     console.log("État actuel:", {
@@ -93,14 +93,10 @@ const GamePage = () => {
     // Logique de completion de quête
     console.log("Quest completed:", questData);
 
-    // Calculer le temps total
-    const currentTime = Math.floor((Date.now() - startTimeRef.current) / 1000);
-    const totalTimeSpent = currentTime + (questData.timeSpent || 0);
-
-    // Mettre à jour le userProgress avec le temps total
+    // Mettre à jour le userProgress avec le temps de l'exercice
     const updatedQuestData = {
       ...questData,
-      timeSpent: totalTimeSpent,
+      timeSpent: questData.timeSpent || 0,
     };
     setUserProgress(updatedQuestData);
     localStorage.setItem("userProgress", JSON.stringify(updatedQuestData));
@@ -110,7 +106,7 @@ const GamePage = () => {
       totalScore: updatedQuestData.totalScore || 0,
       totalXP: updatedQuestData.totalXP || 0,
       totalCoins: updatedQuestData.totalCoins || 0,
-      timeSpent: totalTimeSpent,
+      timeSpent: updatedQuestData.timeSpent || 0,
     };
     setStats(updatedStats);
   };

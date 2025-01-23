@@ -13,6 +13,8 @@ const ExerciseMode = ({ quest, onComplete, onBack }) => {
   const [feedback, setFeedback] = useState(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
   const [isExerciseComplete, setIsExerciseComplete] = useState(false);
+  const [exerciseTimeSpent, setExerciseTimeSpent] = useState(0);
+
   const inputRef = useRef(null);
   const timerRef = useRef(null);
 
@@ -50,6 +52,7 @@ const ExerciseMode = ({ quest, onComplete, onBack }) => {
     setFeedback(null);
     setIsExerciseComplete(false);
     setTimeLeft(quest.objectives.timeLimit);
+    setExerciseTimeSpent(0);
     generateQuestion();
   }, [generateQuestion, quest.objectives.timeLimit]);
 
@@ -83,12 +86,21 @@ const ExerciseMode = ({ quest, onComplete, onBack }) => {
     }
   }, [quest.objectives.timeLimit, isExerciseComplete]);
 
+  useEffect(() => {
+    if (!isExerciseComplete && startTime) {
+      const timer = setInterval(() => {
+        const currentTime = Date.now();
+        setExerciseTimeSpent(Math.floor((currentTime - startTime) / 1000));
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [isExerciseComplete, startTime]);
+
   const finishExercise = useCallback(() => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
 
-    const timeSpent = (Date.now() - startTime) / 1000;
     const finalScore = Math.round(
       (correctAnswers / quest.objectives.questionsCount) * 100
     );
@@ -114,12 +126,12 @@ const ExerciseMode = ({ quest, onComplete, onBack }) => {
       return;
     }
 
-    onComplete(finalScore, timeSpent);
+    onComplete(finalScore, exerciseTimeSpent, correctAnswers);
   }, [
     correctAnswers,
     quest.objectives.questionsCount,
     quest.difficulty.requiredScore,
-    startTime,
+    exerciseTimeSpent,
     onComplete,
   ]);
 
@@ -178,8 +190,7 @@ const ExerciseMode = ({ quest, onComplete, onBack }) => {
             return;
           }
 
-          const timeSpent = (Date.now() - startTime) / 1000;
-          onComplete(finalScore, timeSpent, newCorrectAnswers);
+          onComplete(finalScore, exerciseTimeSpent, newCorrectAnswers);
         } else {
           generateQuestion();
         }
@@ -193,7 +204,7 @@ const ExerciseMode = ({ quest, onComplete, onBack }) => {
       correctAnswers,
       quest.objectives.questionsCount,
       quest.difficulty.requiredScore,
-      startTime,
+      exerciseTimeSpent,
       generateQuestion,
       onComplete,
     ]
@@ -210,7 +221,7 @@ const ExerciseMode = ({ quest, onComplete, onBack }) => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 p-4">
+    <div className=" bg-gradient-to-br from-indigo-900 to-purple-900 p-4">
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <button

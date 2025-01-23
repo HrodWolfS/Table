@@ -77,6 +77,7 @@ export const updateProgress = (quest, rewards) => {
       totalXP: 0,
       totalCoins: 0,
       totalScore: 0,
+      timeSpent: 0,
       unlockedRegions: ["vallee_debuts"],
       completedQuests: [],
     };
@@ -156,6 +157,18 @@ export const updateProgress = (quest, rewards) => {
       (userProgress.totalCoins || 0) + (rewards.coins || 0);
     userProgress.totalScore =
       (userProgress.totalScore || 0) + (rewards.score || 0);
+
+    // Mise à jour du temps total
+    if (rewards.timeSpent) {
+      userProgress.timeSpent =
+        (userProgress.timeSpent || 0) + rewards.timeSpent;
+      console.log(
+        "Temps ajouté:",
+        rewards.timeSpent,
+        "Temps total:",
+        userProgress.timeSpent
+      );
+    }
 
     // Ajouter l'item de la région si disponible
     if (
