@@ -163,7 +163,7 @@ const QuestMode = ({ region, onBack, onComplete, userProgress }) => {
 
   if (showNarrator) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 p-4">
+      <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-4">
         {showConfetti && (
           <ReactConfetti
             width={windowSize.width}

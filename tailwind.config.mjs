@@ -11,6 +11,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        quicksand: ["var(--font-quicksand)", "sans-serif"],
+        comic: ["var(--font-comic)", "cursive"],
+      },
     },
   },
   plugins: [],

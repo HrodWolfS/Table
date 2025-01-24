@@ -24,7 +24,6 @@ const GamePage = () => {
     }
 
     const playerName = localStorage.getItem("playerName");
-    console.log("Vérification du nom du joueur:", playerName);
 
     if (!playerName) {
       console.log("Redirection vers la page d'accueil - Pas de nom de joueur");
@@ -74,14 +73,6 @@ const GamePage = () => {
       if (timer) clearInterval(timer);
     };
   }, [activeTab]);
-
-  useEffect(() => {
-    console.log("État actuel:", {
-      showIntro,
-      introDialoguesLength: introDialogues.length,
-      dialogues: introDialogues,
-    });
-  }, [showIntro, introDialogues]);
 
   const handleIntroComplete = () => {
     console.log("Introduction terminée");

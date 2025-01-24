@@ -81,10 +81,10 @@ export default function Home() {
             <div className="flex items-center justify-center gap-2 pt-16 sm:pt-8">
               <Logo size={40} className="text-cyan-400" />
               <div>
-                <h1 className="text-3xl font-black tracking-tight text-white font-display">
+                <h1 className="text-3xl font-black tracking-tight text-white font-comic">
                   MultiTab<span className="text-cyan-400">!</span>
                 </h1>
-                <p className="text-xs font-medium text-gray-400 tracking-wider">
+                <p className="text-xs font-medium text-gray-400 tracking-wider font-quicksand">
                   Apprendre en s&apos;amusant !
                 </p>
               </div>
@@ -94,11 +94,11 @@ export default function Home() {
 
         {/* Contenu principal */}
         <div className="flex flex-col items-center justify-center flex-grow w-full max-w-4xl mx-auto px-4 py-8 relative z-10">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 font-display mb-4 text-center">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 font-comic mb-4 text-center">
             Bienvenue dans le Monde des Multiplications
             <span className="text-cyan-400">!</span>
           </h1>
-          <p className="text-base sm:text-lg mb-8 sm:mb-12 text-gray-400 font-medium tracking-wide text-center px-4">
+          <p className="text-base sm:text-lg mb-8 sm:mb-12 text-gray-400 font-medium tracking-wide text-center px-4 font-quicksand">
             Choisissez un mode pour débuter votre apprentissage :
           </p>
 
@@ -109,10 +109,10 @@ export default function Home() {
               className="w-full cursor-pointer"
             >
               <div className="bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300 rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-xl hover:scale-105 transition-all duration-300 text-center border border-white/20 backdrop-blur-sm">
-                <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-white">
+                <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-white font-comic">
                   Mode Classique
                 </h2>
-                <p className="text-sm sm:text-base text-white font-medium">
+                <p className="text-sm sm:text-base text-white font-medium font-quicksand">
                   Entraînez-vous librement avec les tables. Visualisez vos
                   progrès et devenez plus fort à votre rythme.
                 </p>
@@ -125,10 +125,10 @@ export default function Home() {
               className="w-full cursor-pointer"
             >
               <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-xl hover:scale-105 transition-all duration-300 text-center border border-indigo-700 backdrop-blur-sm">
-                <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-white">
+                <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-white font-comic">
                   Mode Aventure
                 </h2>
-                <p className="text-sm sm:text-base text-white font-medium">
+                <p className="text-sm sm:text-base text-white font-medium font-quicksand">
                   Explorez un monde fantastique, relevez des missions, et
                   débloquez des artefacts en maîtrisant vos tables !
                 </p>

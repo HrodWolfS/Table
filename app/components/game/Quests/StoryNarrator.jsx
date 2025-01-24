@@ -131,10 +131,8 @@ const StoryNarrator = ({
           {/* Image du personnage */}
           <div className="relative w-32 h-32 md:w-48 md:h-48 flex-shrink-0">
             <Image
-              src={`/images/story/${dialogue[
-                currentDialogueIndex
-              ].character.toLowerCase()}.png`}
-              alt={dialogue[currentDialogueIndex].character}
+              src={`/images/story/multiplicus.png`}
+              alt="multiplicus"
               layout="fill"
               objectFit="contain"
               className="rounded-full"

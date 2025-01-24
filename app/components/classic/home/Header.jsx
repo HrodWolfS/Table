@@ -1,82 +1,173 @@
 "use client";
-import { getCurrentUser, logout } from "@/app/utils/auth";
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/app/components/ui/Card";
+import DynamicIcon from "@/app/components/ui/DynamicIcon";
+import NoiseFilter from "@/app/components/ui/NoiseFilter";
+import { BADGES, getBadges } from "@/app/utils/badges";
+import { getGlobalStats } from "@/app/utils/localStorage";
+import { BookOpen, Brain, Star, Trophy, User } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import UserAuthButton from "../../auth/UserAuthButton";
-import Logo from "../../ui/Logo";
+import { useEffect, useState } from "react";
+import { Footer } from "./Footer";
+import Header from "./Header";
 
-const USER_KEY = "multiTabUser";
+export default function HomePage() {
+  const [stats, setStats] = useState({
+    totalXP: 0,
+    totalCoins: 0,
+    averageScore: 0,
+    completedQuests: 0,
+    totalQuests: 0,
+    completionRate: 0,
+    totalScore: 0,
+    bestScore: 0,
+    totalTests: 0,
+    mostTestedTable: null,
+  });
 
-const Header = () => {
-  const router = useRouter();
-  const [user, setUser] = useState(null);
-  const [showMenu, setShowMenu] = useState(false);
-  const menuRef = useRef(null);
-  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [lastBadge, setLastBadge] = useState(null);
 
   useEffect(() => {
-    // Vérifier l'utilisateur au chargement
-    const checkUser = () => {
-      const currentUser = getCurrentUser();
-      setUser(currentUser);
-    };
-
-    checkUser();
-
-    // Ajouter un écouteur pour les changements de localStorage
-    const handleStorageChange = (e) => {
-      if (e.key === "playerName" || e.key === USER_KEY) {
-        checkUser();
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    // Fermer le menu si on clique en dehors
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setShowMenu(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    const globalStats = getGlobalStats();
+    setStats(globalStats);
+    const badges = getBadges();
+    if (badges?.length > 0) {
+      const lastBadgeId = badges[badges.length - 1];
+      const badge = Object.values(BADGES).find((b) => b.id === lastBadgeId);
+      setLastBadge(badge);
+    }
   }, []);
 
-  const handleLogout = () => {
-    logout();
-    router.push("/");
-  };
-
   return (
-    <header className="shadow-sm border-b border-white/20 w-full p-4 bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300">
-      <div className=" mx-auto">
-        <div className=" flex justify-between items-center">
-          {/* Logo et titre */}
-          <Link href="/">
-            <div className="flex-1 flex items-center justify-start gap-1 cursor-pointer">
-              <Logo size={48} className="text-yellow-500" />
-              <div>
-                <h1 className="text-3xl md:text-4xl font-black tracking-tight text-white font-display">
-                  MultiTab
-                  <span className="text-yellow-400">!</span>
-                </h1>
-                <p className="text-xs md:text-sm font-medium text-white tracking-wide">
-                  Apprendre en s'amusant !
-                </p>
-              </div>
-            </div>
-          </Link>
-        </div>
-        <UserAuthButton setShowAuthModal={setShowAuthModal} />
-      </div>
-    </header>
-  );
-};
+    <div className="flex flex-col min-h-screen w-full bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300">
+      <NoiseFilter />
+      <Header />
+      <main className="flex-1 px-4 py-6 md:py-8 mt-24">
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* Main navigation cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Link href="/learn" className="block">
+              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer bg-green-200">
+                <CardHeader className="bg-green-300">
+                  <CardTitle className="flex items-center justify-center text-green-800 text-lg md:text-xl">
+                    <BookOpen className="mr-2" size={20} />
+                    Apprentissage
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-green-700 text-sm md:text-base">
+                    Découvre et pratique les tables à ton rythme
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
 
-export default Header;
+            <Link href="/test" className="block">
+              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer bg-blue-200">
+                <CardHeader className="bg-blue-300">
+                  <CardTitle className="flex items-center justify-center text-blue-800 text-lg md:text-xl">
+                    <Brain className="mr-2" size={20} />
+                    Test
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-blue-700 text-sm md:text-base">
+                    Vérifie tes connaissances avec des exercices
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link
+              href="/statistics"
+              className="block sm:col-span-2 lg:col-span-1"
+            >
+              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer bg-purple-200">
+                <CardHeader className="bg-purple-300">
+                  <CardTitle className="flex items-center justify-center text-purple-800 text-lg md:text-xl">
+                    <User className="mr-2" size={20} />
+                    Mes Résultats
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-purple-700 text-sm md:text-base">
+                    Consulte ta progression et tes statistiques
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
+
+          {/* Progress section */}
+          <section>
+            <h2 className="text-xl md:text-2xl font-semibold mb-4 text-pink-600 px-2">
+              Tes progrès
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Card className="bg-yellow-200">
+                <CardHeader className="bg-yellow-300">
+                  <CardTitle className="flex items-center justify-center text-yellow-800 text-base md:text-lg">
+                    <Trophy className="mr-2" size={18} />
+                    XP Totale
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex items-center justify-center h-16 md:h-20">
+                  <p className="text-xl md:text-2xl font-bold text-yellow-700">
+                    {stats.totalXP}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-rose-200">
+                <CardHeader className="bg-rose-300">
+                  <CardTitle className="flex items-center justify-center text-rose-800 text-base md:text-lg">
+                    <Star className="mr-2" size={18} />
+                    Table préférée
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex items-center justify-center h-16 md:h-20">
+                  <p className="text-xl md:text-2xl font-bold text-rose-700">
+                    {stats.mostTestedTable || "Aucune"}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="sm:col-span-2 lg:col-span-1 bg-lime-200">
+                <CardHeader className="bg-lime-300">
+                  <CardTitle className="flex items-center justify-center text-lime-800 text-base md:text-lg">
+                    <BookOpen className="mr-2" size={18} />
+                    Dernier badge
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex items-center justify-center h-16 md:h-20">
+                  {lastBadge ? (
+                    <>
+                      <DynamicIcon
+                        name={lastBadge.icon}
+                        size={24}
+                        className="text-yellow-500 mr-2"
+                      />
+                      <p className="font-bold text-lime-700 text-base md:text-lg">
+                        {lastBadge.name}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-gray-600 text-base md:text-lg">
+                      Aucun badge gagné
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
