@@ -102,7 +102,9 @@ export default function AuthModal({ isOpen, onClose, onLogin }) {
               type="submit"
               className="w-full px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg transform transition-all duration-200 hover:scale-105 hover:from-cyan-400 hover:to-blue-500 active:scale-95 shadow-lg"
             >
-              Commencer l'aventure
+              {savedProfiles.includes(playerName)
+                ? "Reprendre l'aventure"
+                : "Commencer l'aventure"}
             </button>
           </form>
         </div>

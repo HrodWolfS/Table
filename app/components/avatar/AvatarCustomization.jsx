@@ -99,18 +99,18 @@ export default function AvatarCustomization() {
   const currentCategory = AVATAR_CONFIG.categories[selectedCategory];
 
   return (
-    <div className="flex gap-6 p-4">
-      <div className="w-1/2 flex flex-col items-center space-y-4">
-        <AvatarDisplay config={config} className="w-96 h-96" />
-        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
+    <div className="flex flex-col lg:flex-row gap-6 p-4">
+      <div className="w-full lg:w-1/2 flex flex-col items-center space-y-4">
+        <AvatarDisplay config={config} className="w-64 h-64 lg:w-96 lg:h-96" />
+        <h2 className="text-xl lg:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
           Personnalisation de l'Avatar
         </h2>
       </div>
 
-      <div className="w-1/2 space-y-6">
+      <div className="w-full lg:w-1/2 space-y-4 lg:space-y-6">
         {message && (
           <div
-            className={`p-4 rounded-lg ${
+            className={`p-3 lg:p-4 rounded-lg ${
               message.isError
                 ? "bg-red-500/10 text-red-400"
                 : "bg-green-500/10 text-green-400"
@@ -128,7 +128,7 @@ export default function AvatarCustomization() {
                 setSelectedCategory(key);
                 setSelectedOption(category.options[0]);
               }}
-              className={`px-4 py-2 rounded-lg text-sm transition-colors ${
+              className={`px-3 py-1.5 lg:px-4 lg:py-2 rounded-lg text-xs lg:text-sm transition-colors ${
                 selectedCategory === key
                   ? "bg-cyan-400/20 text-cyan-400 border border-cyan-400/40"
                   : "bg-gray-800 text-gray-400 hover:bg-gray-700"
@@ -145,7 +145,7 @@ export default function AvatarCustomization() {
               <button
                 key={option}
                 onClick={() => setSelectedOption(option)}
-                className={`px-4 py-2 rounded-lg text-sm transition-colors ${
+                className={`px-3 py-1.5 lg:px-4 lg:py-2 rounded-lg text-xs lg:text-sm transition-colors ${
                   selectedOption === option
                     ? "bg-cyan-400/20 text-cyan-400 border border-cyan-400/40"
                     : "bg-gray-800 text-gray-400 hover:bg-gray-700"
@@ -158,11 +158,11 @@ export default function AvatarCustomization() {
         )}
 
         {selectedOption && (
-          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-cyan-400/20">
-            <h3 className="text-lg font-medium text-gray-200 mb-3">
+          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-3 lg:p-4 border border-cyan-400/20">
+            <h3 className="text-base lg:text-lg font-medium text-gray-200 mb-2 lg:mb-3">
               {FRENCH_LABELS[selectedOption]?.label || selectedOption}
             </h3>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2">
               {getAvailableOptions(selectedOption, unlockedItems).map(
                 (value) => {
                   const isColor = value.match(/^[0-9a-f]{6}$/i);
@@ -171,7 +171,7 @@ export default function AvatarCustomization() {
                     <button
                       key={value}
                       onClick={() => handleOptionChange(selectedOption, value)}
-                      className={`relative px-4 py-2 rounded-lg text-sm transition-colors ${
+                      className={`relative px-3 py-1.5 lg:px-4 lg:py-2 rounded-lg text-xs lg:text-sm transition-colors ${
                         config[selectedOption] === value
                           ? "bg-cyan-400/20 text-cyan-400 border border-cyan-400/40"
                           : "bg-gray-800 text-gray-400 hover:bg-gray-700"
@@ -180,17 +180,17 @@ export default function AvatarCustomization() {
                       <div className="flex items-center gap-2">
                         {isColor && (
                           <div
-                            className="w-4 h-4 rounded-full border border-gray-600"
+                            className="w-3 h-3 lg:w-4 lg:h-4 rounded-full border border-gray-600"
                             style={{ backgroundColor: `#${value}` }}
                           />
                         )}
-                        <span>
+                        <span className="truncate">
                           {FRENCH_LABELS[selectedOption]?.options[value] ||
                             value}
                         </span>
                       </div>
                       {isNew && (
-                        <div className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs px-2 py-0.5 rounded-full font-bold">
+                        <div className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs px-1.5 py-0.5 lg:px-2 rounded-full font-bold">
                           Nouveau
                         </div>
                       )}

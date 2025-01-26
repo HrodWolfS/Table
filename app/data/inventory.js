@@ -57,7 +57,8 @@ export const ITEMS = {
   CLE: {
     id: "cle",
     name: "Clé des Anciens",
-    description: "Une clé mystérieuse qui ouvre les portes anciennes.",
+    description:
+      "Une clé mystérieuse qui ouvre des portes dissimulées dans la roche.",
     image: "/images/items/cle.svg",
     type: "EQUIPMENT",
     region: "cite_septoria",
@@ -69,7 +70,7 @@ export const ITEMS = {
     description: "Une pioche enchantée capable de briser les roches magiques.",
     image: "/images/items/pioche.svg",
     type: "EQUIPMENT",
-    region: "chateau_dividix",
+    region: "grotte_huitra",
     effect: "Permet de creuser dans la roche magique",
   },
   CAPE: {

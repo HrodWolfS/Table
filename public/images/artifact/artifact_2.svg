@@ -14,31 +14,33 @@
     </filter>
   </defs>
   
-  <!-- Fragment de base -->
+  <!-- Fragment principal -->
   <path d="M100 20C140 20 180 60 180 100C180 140 140 180 100 180C60 180 20 140 20 100C20 60 60 20 100 20Z" 
         fill="url(#grad2)" 
         stroke="#5b21b6" 
         stroke-width="2"
         filter="url(#glow2)"/>
   
-  <!-- Motif Yin-Yang modifié -->
-  <path d="M100 40C120 40 140 60 140 80C140 100 120 120 100 120C80 120 60 100 60 80C60 60 80 40 100 40Z" 
-        fill="#5b21b6" 
-        opacity="0.2"/>
-  <path d="M100 120C120 120 140 140 140 160C140 180 120 200 100 200C80 200 60 180 60 160C60 140 80 120 100 120Z" 
-        fill="#5b21b6" 
-        opacity="0.2"/>
-  
-  <!-- Symbole du chiffre 2 -->
-  <path d="M85 70C85 60 95 55 100 55C105 55 115 60 115 70C115 85 85 100 85 115C85 120 90 125 100 125C110 125 115 120 115 115" 
+  <!-- Lignes de duo -->
+  <path d="M60 80L140 80M60 120L140 120" 
         stroke="#5b21b6" 
-        stroke-width="3" 
-        stroke-linecap="round" 
-        fill="none"/>
+        stroke-width="2" 
+        stroke-linecap="round"
+        opacity="0.3"/>
   
-  <!-- Points lumineux -->
+  <!-- Symboles de duo -->
+  <circle cx="80" cy="100" r="15" fill="#5b21b6" opacity="0.2"/>
+  <circle cx="120" cy="100" r="15" fill="#5b21b6" opacity="0.2"/>
+  
+  <!-- Points d'énergie -->
   <circle cx="100" cy="40" r="3" fill="white" filter="url(#glow2)"/>
   <circle cx="160" cy="100" r="3" fill="white" filter="url(#glow2)"/>
   <circle cx="100" cy="160" r="3" fill="white" filter="url(#glow2)"/>
   <circle cx="40" cy="100" r="3" fill="white" filter="url(#glow2)"/>
-</svg> 
+  
+  <!-- Symbole de connexion -->
+  <path d="M90 100C90 95 95 90 100 90C105 90 110 95 110 100C110 105 105 110 100 110C95 110 90 105 90 100Z"
+        stroke="#5b21b6"
+        stroke-width="2"
+        fill="none"/>
+</svg>

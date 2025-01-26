@@ -29,7 +29,7 @@
         transform="rotate(45 100 100)"/>
   
   <!-- Symbole du chiffre 9 -->
-  <path d="M115 90C115 75 85 75 85 90C85 105 115 105 115 120C115 135 85 135 85 120" 
+  <path d="M115 80C115 65 85 65 85 80C85 95 115 95 115 140" 
         stroke="#1e40af" 
         stroke-width="3" 
         stroke-linecap="round" 
@@ -45,4 +45,7 @@
   <circle cx="100" cy="180" r="3" fill="white" filter="url(#glow9)"/>
   <circle cx="65" cy="175" r="3" fill="white" filter="url(#glow9)"/>
   <circle cx="30" cy="150" r="3" fill="white" filter="url(#glow9)"/>
-</svg> 
+  <circle cx="16" cy="114" r="3" fill="white" filter="url(#glow9)"/>
+  <circle cx="25" cy="74" r="3" fill="white" filter="url(#glow9)"/>
+  <circle cx="53" cy="40" r="3" fill="white" filter="url(#glow9)"/>
+</svg>

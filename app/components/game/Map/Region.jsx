@@ -138,7 +138,7 @@ const Region = ({
   return (
     <motion.div
       whileHover={regionUnlocked && hasItems ? { scale: 1.05 } : undefined}
-      className={`relative rounded-lg overflow-hidden cursor-pointer transition-transform ${
+      className={`relative rounded-lg overflow-hidden z-0 cursor-pointer transition-transform ${
         regionUnlocked && hasItems
           ? "hover:shadow-lg"
           : "cursor-not-allowed opacity-75"
@@ -150,7 +150,7 @@ const Region = ({
         alt={region.name}
         className="w-full h-48 object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 
       {isNew && (
         <div className="absolute top-2 right-2">
@@ -159,14 +159,26 @@ const Region = ({
           </span>
         </div>
       )}
-
+      {showLockedMessage && (
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ zIndex: 2 }}
+        >
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 text-gray-200 px-3 py-4 rounded-lg shadow-xl max-w-lg mx-auto border border-yellow-500/30">
+            <div className="text-lg text-center font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
+              {lockedMessage}
+            </div>
+          </div>
+        </div>
+      )}
       <div className="absolute bottom-0 left-0 right-0 p-4">
         <h3 className="text-white text-lg font-bold mb-1">{region.name}</h3>
         <p className="text-gray-200 text-sm">{region.description}</p>
       </div>
 
       {!regionUnlocked && mounted && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div className="absolute inset-0 z-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="text-center p-4">
             <LockClosedIcon className="h-12 w-12 text-white/80 mx-auto mb-2" />
             <p className="text-white font-medium">
@@ -209,17 +221,6 @@ const Region = ({
                   </div>
                 );
               })()}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showLockedMessage && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999]">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
-          <div className="relative bg-gradient-to-r from-gray-600 to-gray-800 text-white px-8 py-6 rounded-xl shadow-2xl max-w-xl mx-auto border-2 border-red-400">
-            <div className="text-xl text-center font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-tl from-red-400 to-red-600 font-display">
-              {lockedMessage}
             </div>
           </div>
         </div>

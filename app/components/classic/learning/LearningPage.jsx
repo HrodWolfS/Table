@@ -29,11 +29,11 @@ const LearningPage = () => {
   };
 
   const renderTableSelection = () => (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
       {tables.map((number) => (
         <Card
           key={number}
-          className="cursor-pointer hover:shadow-lg transition-all transform hover:scale-105 bg-gradient-to-tr from-green-200 to-blue-200 w-52 h-24"
+          className="cursor-pointer hover:shadow-lg transition-all transform hover:scale-105 bg-gradient-to-tr from-green-200 to-blue-200 w-40 h-24"
           onClick={() => {
             setSelectedTable(number);
             setCurrentStep("learning");
@@ -55,7 +55,7 @@ const LearningPage = () => {
     }));
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 p-4">
         <Card className="bg-gradient-to-r from-blue-200 to-purple-200">
           <CardHeader className="bg-blue-500">
             <CardTitle className="flex items-center justify-between text-white">
@@ -121,7 +121,7 @@ const LearningPage = () => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col bg-gradient-to-b from-yellow-100 via-pink-100 to-blue-100 flex-grow">
+    <div className="w-full min-h-screen flex flex-col bg-gradient-to-b from-yellow-100 via-pink-100 to-blue-100 flex-grow">
       <NoiseFilter />
       <Header />
       <header className="px-6">

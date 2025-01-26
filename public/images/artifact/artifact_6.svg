@@ -32,7 +32,7 @@
         stroke-width="2"/>
   
   <!-- Symbole du chiffre 6 -->
-  <path d="M115 70C115 55 85 55 85 70C85 85 115 85 115 100C115 115 85 115 85 100C85 85 115 85 115 70" 
+  <path d="M115 90C115 75 85 75 85 90V120C85 135 115 135 115 120C115 105 85 105 85 120" 
         stroke="#7f1d1d" 
         stroke-width="3" 
         stroke-linecap="round" 
@@ -45,4 +45,4 @@
   <circle cx="100" cy="170" r="3" fill="white" filter="url(#glow6)"/>
   <circle cx="40" cy="140" r="3" fill="white" filter="url(#glow6)"/>
   <circle cx="40" cy="60" r="3" fill="white" filter="url(#glow6)"/>
-</svg> 
+</svg>

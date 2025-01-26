@@ -456,10 +456,10 @@ const TestMode = () => {
   };
 
   return (
-    <div className=" bg-gradient-to-b from-yellow-50 via-pink-100 to-blue-100 min-h-screen">
+    <div className=" bg-gradient-to-r from-yellow-50 via-pink-100 to-blue-100 min-h-screen h-full">
       <NoiseFilter />
       <Header />
-      <div className="max-w-4xl mt-8 mx-auto">
+      <div className="max-w-4xl mt-8 mx-auto h-full">
         <div className="flex justify-between items-center mb-8">
           <Navigation
             steps={getSteps()}

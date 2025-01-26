@@ -3,44 +3,27 @@ export const NARRATIVE = [
   {
     id: "game_intro",
     character: "Multiplicus",
-    text: "Bienvenue dans le Royaume des Multiplications ! Je suis Multiplicus, le gardien des Tables Sacrées. Notre royaume est menacé par le terrible Dividix qui a volé et dispersé les artefacts magiques dans tout le royaume.",
+    text: "Bienvenue dans le Royaume des Multiplications, jeune héros ! Je suis Multiplicus, le Sage Gardien des Tables Sacrées. Notre royaume est en danger : le terrible Dividix a dérobé les Artefacts Magiques qui maintenaient l'harmonie des nombres et les a dispersés dans tout le royaume !",
   },
   {
     id: "game_intro_2",
     character: "Multiplicus",
-    text: "Pour restaurer l'harmonie, tu devras maîtriser les tables de multiplication et récupérer les artefacts dans chaque région. Commence ton aventure dans la Vallée des Débuts, où tu apprendras les bases avec la table de 1.",
+    text: "Pour sauver notre monde, tu devras explorer différentes régions magiques, chacune protégée par un Gardien. Ces Gardiens ne te laisseront passer qu'après avoir prouvé ta maîtrise des tables de multiplication.",
   },
   {
     id: "game_intro_3",
     character: "Multiplicus",
-    text: "Chaque région te réserve des défis et des récompenses. En progressant, tu débloqueras de nouvelles régions et collecteras des objets magiques qui t'aideront dans ta quête. Es-tu prêt à devenir le héros dont notre royaume a besoin ?",
-  },
-
-  // Introduction générale
-  {
-    id: "intro_1",
-    character: "Multiplicus",
-    text: "Bienvenue, jeune aventurier ! Tu es sur le point de commencer une quête extraordinaire dans le monde des Multiplications.",
+    text: "À chaque victoire, tu recevras un objet magique qui te permettra d'accéder à la région suivante. Ton aventure commence dans la Vallée des Débuts, où tu découvriras la table de 1.",
   },
   {
-    id: "intro_2",
+    id: "game_intro_4",
     character: "Multiplicus",
-    text: "Ton rôle est de restaurer l'équilibre des chiffres en maîtrisant les tables de multiplication et en collectant des artefacts puissants volés par Dividix.",
+    text: "Tiens ! Voici ta première récompense : la Carte Mystique des Régions. Elle t'aidera à te repérer dans ta quête. Je la place dans ton inventaire.",
   },
   {
-    id: "intro_3",
+    id: "game_intro_5",
     character: "Multiplicus",
-    text: "Chaque région que tu visiteras est protégée par un gardien. Mais attention, ils ne te laisseront pas passer sans prouver ta valeur.",
-  },
-  {
-    id: "intro_4",
-    character: "Multiplicus",
-    text: "Tu devras résoudre des défis, débloquer des trésors, et récupérer les artefacts pour restaurer l'ordre dans le monde des Multiplications. Es-tu prêt à commencer ?",
-  },
-  {
-    id: "intro_5",
-    character: "Multiplicus",
-    text: "Pour commencer, Voici un objet qui te sera utile : carte des régions. Elle te permettra de naviguer entre les différentes régions. Je la range dans ton inventaire.",
+    text: "Es-tu prêt à devenir le héros des multiplications et à restaurer l'harmonie dans notre royaume ? Ton aventure extraordinaire commence maintenant !",
   },
 
   // Niveau 1 : Vallée des Débuts
@@ -52,12 +35,12 @@ export const NARRATIVE = [
   {
     id: "region_1_hint",
     character: "Multiplicus",
-    text: "Souviens-toi, la table de 1 est simple : chaque nombre reste identique lorsqu’il est multiplié par 1. Bonne chance !",
+    text: "La table de 1 est magique : tout nombre multiplié par 1 reste lui-même ! C'est comme le reflet dans un miroir.",
   },
   {
     id: "region_1_transition",
     character: "Multiplicus",
-    text: "Bravo ! Tu as maîtrisé la table de 1. Voici une « Lampe Mystique » pour t’aider à explorer les chemins sombres de la Forêt des Multiplications. En plus, tu as récupéré le premier artefact : le « Fragment de Lumière », qui restaure une partie de l'équilibre du monde.",
+    text: "Félicitations ! Tu as maîtrisé la table de 1. La « Lampe Mystique » est tienne - elle éclairera ton chemin dans la Forêt des Multiplications. Tu as aussi récupéré le « Fragment de Lumière », premier des artefacts sacrés.",
   },
 
   // Niveau 2 : Forêt des Multiplications
@@ -69,12 +52,12 @@ export const NARRATIVE = [
   {
     id: "region_2_hint",
     character: "Multiplicus",
-    text: "Astuce : la table de 2 double chaque nombre. Imagine que tu partages deux pommes avec chaque ami. Facile, non ?",
+    text: "Pour la table de 2, imagine que tu doubles tout : deux yeux, deux mains... C'est comme faire des paires !",
   },
   {
     id: "region_2_transition",
     character: "Multiplicus",
-    text: "Bien joué ! La table de 2 est à toi. Voici une « Corde Enchantée » qui s’allonge à volonté pour t’aider à atteindre les hauteurs des Collines du Multiplicateur. De plus, tu as récupéré l'artefact : le « Fragment de Force ».",
+    text: "La table de 2 n'a plus de secrets pour toi ! Voici la « Corde Enchantée » pour gravir les Collines du Multiplicateur. Le « Fragment de Force » est maintenant en sécurité.",
   },
 
   // Niveau 3 : Collines du Multiplicateur
@@ -86,12 +69,12 @@ export const NARRATIVE = [
   {
     id: "region_3_hint",
     character: "Multiplicus",
-    text: "Astuce : Pense aux groupes de trois objets, comme des trios d’amis ou des tricycles. Cela t’aidera à visualiser la table.",
+    text: "La table de 3 a un secret : regarde la suite des unités (3,6,9,2,5,8,1,4,7,0). Elle se répète comme une danse !",
   },
   {
     id: "region_3_transition",
     character: "Multiplicus",
-    text: "Excellent travail ! Tu as conquis la table de 3. Prends ces « Bottes de Passage » pour traverser les marais sans t’enliser dans le Marais de Quatrak. Tu as également récupéré l'artefact : le « Fragment de Stabillité ».",
+    text: "La table de 3 est conquise ! Prends ces « Bottes de Passage » pour traverser le Marais de Quatrak. Le « Fragment de Stabilité » brille à nouveau parmi nous.",
   },
 
   // Niveau 4 : Marais de Quatrak
@@ -103,12 +86,12 @@ export const NARRATIVE = [
   {
     id: "region_4_hint",
     character: "Multiplicus",
-    text: "Astuce : Multiplier par 4, c’est comme doubler deux fois. Essaie et tu verras que ça marche à chaque fois !",
+    text: "Pour la table de 4, c'est simple : c'est deux fois la table de 2 ! Si 2×3=6, alors 4×3 sera le double : 12.",
   },
   {
     id: "region_4_transition",
     character: "Multiplicus",
-    text: "Impressionnant ! Tu maîtris la table de 4. Voici une « Gourde Infinie » qui ne se vide jamais pour survivre dans le Désert Infini. En plus, tu as récupéré l'artefact : le « Fragment de Pureté ».",
+    text: "La table de 4 est désormais tienne ! La « Gourde Infinie » t'aidera dans le Désert Infini. Le « Fragment de Pureté » retrouve sa place.",
   },
 
   // Niveau 5 : Désert Infini
@@ -120,12 +103,12 @@ export const NARRATIVE = [
   {
     id: "region_5_hint",
     character: "Multiplicus",
-    text: "Astuce : Tous les nombres multipliés par 5 finissent par 5 ou 0. Garde cela en tête !",
+    text: "La table de 5 est facile : les résultats finissent toujours par 0 ou 5. C'est comme compter les doigts d'une main !",
   },
   {
     id: "region_5_transition",
     character: "Multiplicus",
-    text: "Magnifique ! Tu as conquis la table de 5. Voici une « Fiole de Pureté » pour purifier les eaux troubles de la Rivière Cristalline. Tu as aussi récupéré l'artefact : le « Fragment d'Équilibre ».",
+    text: "Tu as dominé la table de 5 ! La « Fiole de Pureté » t'attend pour purifier la Rivière Cristalline. Le « Fragment d'Équilibre » renforce notre monde.",
   },
 
   // Niveau 6 : Rivière Cristalline
@@ -137,12 +120,12 @@ export const NARRATIVE = [
   {
     id: "region_6_hint",
     character: "Multiplicus",
-    text: "Astuce : La table de 6 peut être décomposée en 5 + 1 pour chaque multiplication. Essaye cette méthode.",
+    text: "Pour la table de 6, utilise la table de 3 et double le résultat. 6×4 c'est pareil que 3×4 puis multiplié par 2 !",
   },
   {
     id: "region_6_transition",
     character: "Multiplicus",
-    text: "Bravo ! La table de 6 est tienne. Prends ce « Cristal de Vision » pour révéler les passages cachés de la Cité de Septoria. En plus, tu as récupéré l'artefact : le « Fragment de Clarté ».",
+    text: "La table de 6 est maîtrisée ! Le « Cristal de Vision » révélera les secrets de la Cité de Septoria. Le « Fragment de Clarté » illumine notre royaume.",
   },
 
   // Niveau 7 : Cité de Septoria
@@ -154,12 +137,12 @@ export const NARRATIVE = [
   {
     id: "region_7_hint",
     character: "Multiplicus",
-    text: "Astuce : Pense à une semaine avec 7 jours. Chaque multiplication ajoute une semaine supplémentaire. Cela te permettra de mieux visualiser les résultats.",
+    text: "La table de 7 peut sembler difficile, mais décompose-la : 7×8 c'est (5×8)+(2×8) = 40+16 = 56.",
   },
   {
     id: "region_7_transition",
     character: "Multiplicus",
-    text: "Incroyable ! Tu as restauré la table de 7. Voici une « Fiole d'Énergie » pour illuminer les passages sombres des Grottes d'Huitra. En plus, tu as récupéré l'artefact : le « Fragment de Sagesse ».",
+    text: "La table de 7 n'a pas résisté ! La « Fiole d'Énergie » éclairera les Grottes d'Huitra. Le « Fragment de Sagesse » renforce notre pouvoir.",
   },
 
   // Niveau 8 : Grottes d'Huitra
@@ -171,12 +154,12 @@ export const NARRATIVE = [
   {
     id: "region_8_hint",
     character: "Multiplicus",
-    text: "Astuce : Multiplier par 8, c'est comme doubler trois fois. Imagine construire une tour avec des blocs pour t'aider à comprendre !",
+    text: "La table de 8 c'est simple : prends la table de 4 et double encore ! 8×7 c'est comme 4×7 deux fois !",
   },
   {
     id: "region_8_transition",
     character: "Multiplicus",
-    text: "Bravo ! La table de 8 est à toi. Voici une « Clé de Cristal » pour déverrouiller les portes gelées des Pics de Neuflame. Tu as également récupéré l'artefact : le « Fragment de Puissance ».",
+    text: "La table de 8 est vaincue ! La « Pioche des Profondeurs » vous permettra de creuser les Pics de Neuflame. Le « Fragment de Puissance » amplifie notre force.",
   },
 
   // Niveau 9 : Pics de Neuflame
@@ -186,14 +169,14 @@ export const NARRATIVE = [
     text: "Les Pics de Neuflame s'élèvent devant toi, couverts de neige éternelle. C'est ici que la table de 9 t'attend.",
   },
   {
-    id: "region_9_hint",
+    id: "region_8_hint",
     character: "Multiplicus",
-    text: "Astuce : La table de 9 a un secret magique : la somme des chiffres de chaque résultat est toujours 9. Essaie et tu verras !",
+    text: "La table de 8 c'est simple : prends la table de 4 et double encore ! 8×7 c'est comme 4×7 deux fois !",
   },
   {
     id: "region_9_transition",
     character: "Multiplicus",
-    text: "Magnifique ! Tu as maîtrisé la table de 9. Voici une « Pioche Runique » pour briser les barrières du Château de Dividix. En plus, tu as récupéré l'artefact : le « Fragment de Résistance ».",
+    text: "La table de 9 est domptée ! La « Cape de Protection » te protège des effets magiques néfastes. Le « Fragment de Résistance » nous protège.",
   },
 
   // Niveau 10 : Château de Dividix
@@ -210,7 +193,7 @@ export const NARRATIVE = [
   {
     id: "region_10_transition",
     character: "Multiplicus",
-    text: "Félicitations ! Tu as vaincu Dividix et restauré la table de 10. Tu as récupéré l'artefact final : le « Fragment d'Harmonie », rétablissant ainsi l'équilibre dans le monde des Multiplications.",
+    text: "La table de 10 et Dividix sont vaincus ! Le « Fragment d'Harmonie » complète notre collection. L'équilibre est restauré dans le royaume !",
   },
 
   // Messages de verrouillage des régions

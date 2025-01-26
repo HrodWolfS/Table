@@ -13,6 +13,10 @@ const comicNeue = Comic_Neue({
   variable: "--font-comic",
 });
 
+export const viewport = {
+  themeColor: "#3B82F6",
+};
+
 export const metadata = {
   title: "MultiTab - Les Terres des Multiplications Perdues",
   description: "Un jeu éducatif pour apprendre les tables de multiplication",
@@ -39,7 +43,6 @@ export const metadata = {
     ],
   },
   manifest: "/site.webmanifest",
-  themeColor: "#3B82F6",
   appleWebApp: {
     title: "MultiTab",
     statusBarStyle: "default",

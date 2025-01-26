@@ -13,10 +13,10 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
-      <div className=" mx-auto px-4 py-8">
-        <div className="flex gap-4 mb-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <Link href="/">
-            <div className="flex-1 flex items-center justify-start gap-1 cursor-pointer">
+            <div className="flex items-center gap-1 cursor-pointer">
               <Logo size={48} className="text-yellow-500" />
               <div>
                 <h1 className="text-3xl md:text-4xl font-black tracking-tight text-white font-display">
@@ -29,31 +29,37 @@ export default function ProfilePage() {
               </div>
             </div>
           </Link>
-          {/* Navigation des onglets */}
-          <button
-            onClick={() => setActiveTab("customization")}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
-              activeTab === "customization"
-                ? "bg-cyan-400/20 text-cyan-400 border border-cyan-400/40"
-                : "bg-gray-900/50 text-gray-400 hover:bg-gray-800"
-            }`}
-          >
-            <Palette size={20} />
-            Personnalisation
-          </button>
-          <button
-            onClick={() => setActiveTab("shop")}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
-              activeTab === "shop"
-                ? "bg-cyan-400/20 text-cyan-400 border border-cyan-400/40"
-                : "bg-gray-900/50 text-gray-400 hover:bg-gray-800"
-            }`}
-          >
-            <ShoppingBag size={20} />
-            Boutique
-          </button>
+
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            {/* Navigation des onglets */}
+            <div className="flex w-full sm:w-auto gap-2">
+              <button
+                onClick={() => setActiveTab("customization")}
+                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all ${
+                  activeTab === "customization"
+                    ? "bg-cyan-400/20 text-cyan-400 border border-cyan-400/40"
+                    : "bg-gray-900/50 text-gray-400 hover:bg-gray-800"
+                }`}
+              >
+                <Palette size={20} className="hidden sm:block" />
+                <span className="text-sm sm:text-base">Personnalisation</span>
+              </button>
+              <button
+                onClick={() => setActiveTab("shop")}
+                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all ${
+                  activeTab === "shop"
+                    ? "bg-cyan-400/20 text-cyan-400 border border-cyan-400/40"
+                    : "bg-gray-900/50 text-gray-400 hover:bg-gray-800"
+                }`}
+              >
+                <ShoppingBag size={20} className="hidden sm:block" />
+                <span className="text-sm sm:text-base">Boutique</span>
+              </button>
+            </div>
+            <UserAuthButton />
+          </div>
         </div>
-        <UserAuthButton />
+
         {/* Contenu de l'onglet actif */}
         <div className="bg-gray-900/50 backdrop-blur-sm rounded-xl border border-cyan-400/20">
           {activeTab === "customization" ? (

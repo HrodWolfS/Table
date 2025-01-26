@@ -39,11 +39,12 @@
         fill="none"/>
   
   <!-- Points lumineux -->
-  <circle cx="100" cy="30" r="3" fill="white" filter="url(#glow7)"/>
+  <circle cx="100" cy="27" r="3" fill="white" filter="url(#glow7)"/>
   <circle cx="155" cy="50" r="3" fill="white" filter="url(#glow7)"/>
   <circle cx="175" cy="100" r="3" fill="white" filter="url(#glow7)"/>
   <circle cx="155" cy="150" r="3" fill="white" filter="url(#glow7)"/>
-  <circle cx="100" cy="170" r="3" fill="white" filter="url(#glow7)"/>
+  <circle cx="100" cy="174" r="3" fill="white" filter="url(#glow7)"/>
   <circle cx="45" cy="150" r="3" fill="white" filter="url(#glow7)"/>
   <circle cx="25" cy="100" r="3" fill="white" filter="url(#glow7)"/>
+  <circle cx="44" cy="49" r="3" fill="white" filter="url(#glow7)"/>
 </svg> 

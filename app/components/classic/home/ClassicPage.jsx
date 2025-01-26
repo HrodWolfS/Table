@@ -33,25 +33,58 @@ export default function HomePage() {
   const [lastBadge, setLastBadge] = useState(null);
 
   useEffect(() => {
-    const globalStats = getGlobalStats();
-    setStats(globalStats);
-    const badges = getBadges();
-    if (badges?.length > 0) {
-      const lastBadgeId = badges[badges.length - 1];
-      const badge = Object.values(BADGES).find((b) => b.id === lastBadgeId);
-      setLastBadge(badge);
+    try {
+      const globalStats = getGlobalStats() || {
+        totalXP: 0,
+        totalCoins: 0,
+        averageScore: 0,
+        completedQuests: 0,
+        totalQuests: 0,
+        completionRate: 0,
+        totalScore: 0,
+        bestScore: 0,
+        totalTests: 0,
+        mostTestedTable: null,
+      };
+      setStats(globalStats);
+
+      const badges = getBadges() || [];
+
+      if (badges?.length > 0) {
+        const lastBadgeId = badges[badges.length - 1];
+
+        const badge = Object.values(BADGES).find((b) => b.id === lastBadgeId);
+
+        setLastBadge(badge);
+      }
+    } catch (error) {
+      console.error("Erreur lors du chargement des données :", error);
+
+      // Initialiser avec des valeurs par défaut en cas d'erreur
+
+      setStats({
+        totalXP: 0,
+        totalCoins: 0,
+        averageScore: 0,
+        completedQuests: 0,
+        totalQuests: 0,
+        completionRate: 0,
+        totalScore: 0,
+        bestScore: 0,
+        totalTests: 0,
+        mostTestedTable: null,
+      });
     }
   }, []);
-
   return (
-    <div className="flex flex-col min-h-screen w-full bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300">
+    <div className="flex flex-col min-h-screen h-full w-full bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300">
       <NoiseFilter />
       <Header />
       <main className="flex-1 px-4 py-6 md:py-8">
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Main navigation cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Link href="/learn" className="block">
+            <Link href="/classic/learn" className="block">
               <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer bg-green-200">
                 <CardHeader className="bg-green-300">
                   <CardTitle className="flex items-center justify-center text-green-800 text-lg md:text-xl">
@@ -67,7 +100,7 @@ export default function HomePage() {
               </Card>
             </Link>
 
-            <Link href="/test" className="block">
+            <Link href="/classic/test" className="block">
               <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer bg-blue-200">
                 <CardHeader className="bg-blue-300">
                   <CardTitle className="flex items-center justify-center text-blue-800 text-lg md:text-xl">
@@ -75,6 +108,7 @@ export default function HomePage() {
                     Test
                   </CardTitle>
                 </CardHeader>
+
                 <CardContent>
                   <p className="text-blue-700 text-sm md:text-base">
                     Vérifie tes connaissances avec des exercices
@@ -84,7 +118,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/statistics"
+              href="/classic/statistics"
               className="block sm:col-span-2 lg:col-span-1"
             >
               <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer bg-purple-200">
@@ -94,6 +128,7 @@ export default function HomePage() {
                     Mes Résultats
                   </CardTitle>
                 </CardHeader>
+
                 <CardContent>
                   <p className="text-purple-700 text-sm md:text-base">
                     Consulte ta progression et tes statistiques
@@ -104,10 +139,12 @@ export default function HomePage() {
           </div>
 
           {/* Progress section */}
+
           <section>
             <h2 className="text-xl md:text-2xl font-semibold mb-4 text-pink-600 px-2">
               Tes progrès
             </h2>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <Card className="bg-yellow-200">
                 <CardHeader className="bg-yellow-300">
@@ -116,6 +153,7 @@ export default function HomePage() {
                     XP Totale
                   </CardTitle>
                 </CardHeader>
+
                 <CardContent className="flex items-center justify-center h-16 md:h-20">
                   <p className="text-xl md:text-2xl font-bold text-yellow-700">
                     {stats.totalXP}
@@ -130,6 +168,7 @@ export default function HomePage() {
                     Table préférée
                   </CardTitle>
                 </CardHeader>
+
                 <CardContent className="flex items-center justify-center h-16 md:h-20">
                   <p className="text-xl md:text-2xl font-bold text-rose-700">
                     {stats.mostTestedTable || "Aucune"}
@@ -144,6 +183,7 @@ export default function HomePage() {
                     Dernier badge
                   </CardTitle>
                 </CardHeader>
+
                 <CardContent className="flex items-center justify-center h-16 md:h-20">
                   {lastBadge ? (
                     <>
@@ -152,6 +192,7 @@ export default function HomePage() {
                         size={24}
                         className="text-yellow-500 mr-2"
                       />
+
                       <p className="font-bold text-lime-700 text-base md:text-lg">
                         {lastBadge.name}
                       </p>
@@ -167,6 +208,7 @@ export default function HomePage() {
           </section>
         </div>
       </main>
+
       <Footer />
     </div>
   );

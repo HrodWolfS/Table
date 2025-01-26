@@ -9,20 +9,20 @@ export const QUEST_TYPES = {
 // Niveaux de difficulté
 export const DIFFICULTY = {
   BEGINNER: {
-    requiredScore: 50,
-    timeLimit: null,
+    requiredScore: 60, // Plus accessible pour encourager
+    timeLimit: null, // Pas de limite pour s'habituer
   },
   INTERMEDIATE: {
-    requiredScore: 80,
-    timeLimit: 120,
+    requiredScore: 70,
+    timeLimit: 180, // 3 minutes - temps confortable
   },
   ADVANCED: {
-    requiredScore: 90,
-    timeLimit: 90,
+    requiredScore: 80,
+    timeLimit: 150, // 2.5 minutes
   },
   EXPERT: {
-    requiredScore: 100,
-    timeLimit: 60,
+    requiredScore: 85, // Challengeant mais atteignable
+    timeLimit: 120, // 2 minutes
   },
 };
 
@@ -35,10 +35,10 @@ export const QUESTS_CONFIG = {
         title: "Premier pas",
         description: "Familiarisez-vous avec la table de 1",
         type: QUEST_TYPES.PRACTICE,
-        difficulty: DIFFICULTY.BEGINNER, // requiredScore: 50, timeLimit: null
+        difficulty: DIFFICULTY.BEGINNER,
         objectives: {
           table: 1,
-          questionsCount: 1,
+          questionsCount: 10,
         },
         rewards: {
           score: 10,
@@ -51,11 +51,11 @@ export const QUESTS_CONFIG = {
         title: "Course contre la montre",
         description: "Testez votre rapidité avec la table de 1",
         type: QUEST_TYPES.SPEED,
-        difficulty: DIFFICULTY.INTERMEDIATE, // requiredScore: 80, timeLimit: 120
+        difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 1,
-          questionsCount: 1,
-          timeLimit: 60,
+          questionsCount: 12,
+          timeLimit: 180,
         },
         rewards: {
           score: 10,
@@ -68,11 +68,11 @@ export const QUESTS_CONFIG = {
         title: "Le défi du multiplicateur",
         description: "Trouvez le bon multiplicateur pour chaque résultat",
         type: QUEST_TYPES.REVERSE,
-        difficulty: DIFFICULTY.EXPERT, // requiredScore: 100, timeLimit: 60
+        difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 1,
-          questionsCount: 1,
-          timeLimit: 60,
+          questionsCount: 15,
+          timeLimit: 120,
         },
         rewards: {
           score: 10,
@@ -97,7 +97,7 @@ export const QUESTS_CONFIG = {
         rewards: {
           score: 10,
           xp: 150,
-          coins: 75000,
+          coins: 75,
         },
       },
       {
@@ -108,8 +108,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 2,
-          questionsCount: 10,
-          timeLimit: 120,
+          questionsCount: 12,
+          timeLimit: 180,
         },
         rewards: {
           score: 10,
@@ -125,8 +125,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 2,
-          questionsCount: 10,
-          timeLimit: 60,
+          questionsCount: 15,
+          timeLimit: 120,
         },
         rewards: {
           score: 10,
@@ -163,7 +163,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER,
         objectives: {
           table: 3,
-          questionsCount: 1,
+          questionsCount: 10,
         },
         rewards: {
           score: 10,
@@ -179,8 +179,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 3,
-          questionsCount: 1,
-          timeLimit: 120,
+          questionsCount: 12,
+          timeLimit: 180,
         },
         rewards: {
           score: 10,
@@ -196,8 +196,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 3,
-          questionsCount: 1,
-          timeLimit: 60,
+          questionsCount: 15,
+          timeLimit: 120,
         },
         rewards: {
           score: 10,
@@ -213,7 +213,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           tables: [1, 2, 3],
-          questionsCount: 1,
+          questionsCount: 20,
           timeLimit: 120,
         },
         rewards: {
@@ -234,7 +234,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER,
         objectives: {
           table: 4,
-          questionsCount: 1,
+          questionsCount: 10,
         },
         rewards: {
           score: 10,
@@ -250,8 +250,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 4,
-          questionsCount: 1,
-          timeLimit: 120,
+          questionsCount: 12,
+          timeLimit: 180,
         },
         rewards: {
           score: 10,
@@ -267,8 +267,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 4,
-          questionsCount: 1,
-          timeLimit: 60,
+          questionsCount: 15,
+          timeLimit: 120,
         },
         rewards: {
           score: 10,
@@ -284,7 +284,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           tables: [1, 2, 3, 4],
-          questionsCount: 1,
+          questionsCount: 20,
           timeLimit: 120,
         },
         rewards: {
@@ -305,7 +305,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER,
         objectives: {
           table: 5,
-          questionsCount: 1,
+          questionsCount: 10,
         },
         rewards: {
           score: 10,
@@ -321,8 +321,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 5,
-          questionsCount: 1,
-          timeLimit: 120,
+          questionsCount: 12,
+          timeLimit: 180,
         },
         rewards: {
           score: 10,
@@ -338,8 +338,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 5,
-          questionsCount: 1,
-          timeLimit: 60,
+          questionsCount: 15,
+          timeLimit: 120,
         },
         rewards: {
           score: 10,
@@ -355,7 +355,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           tables: [1, 2, 3, 4, 5],
-          questionsCount: 1,
+          questionsCount: 20,
           timeLimit: 120,
         },
         rewards: {
@@ -376,7 +376,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER,
         objectives: {
           table: 6,
-          questionsCount: 1,
+          questionsCount: 10,
         },
         rewards: {
           score: 10,
@@ -392,8 +392,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 6,
-          questionsCount: 1,
-          timeLimit: 120,
+          questionsCount: 12,
+          timeLimit: 180,
         },
         rewards: {
           score: 10,
@@ -409,8 +409,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 6,
-          questionsCount: 1,
-          timeLimit: 60,
+          questionsCount: 15,
+          timeLimit: 120,
         },
         rewards: {
           score: 10,
@@ -426,7 +426,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           tables: [1, 2, 3, 4, 5, 6],
-          questionsCount: 1,
+          questionsCount: 20,
           timeLimit: 120,
         },
         rewards: {
@@ -447,7 +447,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER,
         objectives: {
           table: 7,
-          questionsCount: 1,
+          questionsCount: 10,
         },
         rewards: {
           score: 10,
@@ -463,8 +463,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 7,
-          questionsCount: 1,
-          timeLimit: 120,
+          questionsCount: 12,
+          timeLimit: 180,
         },
         rewards: {
           score: 10,
@@ -480,8 +480,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 7,
-          questionsCount: 1,
-          timeLimit: 60,
+          questionsCount: 15,
+          timeLimit: 120,
         },
         rewards: {
           score: 10,
@@ -497,7 +497,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           tables: [1, 2, 3, 4, 5, 6, 7],
-          questionsCount: 1,
+          questionsCount: 20,
           timeLimit: 120,
         },
         rewards: {
@@ -518,7 +518,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER,
         objectives: {
           table: 8,
-          questionsCount: 1,
+          questionsCount: 10,
         },
         rewards: {
           score: 10,
@@ -534,8 +534,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 8,
-          questionsCount: 1,
-          timeLimit: 120,
+          questionsCount: 12,
+          timeLimit: 180,
         },
         rewards: {
           score: 10,
@@ -551,8 +551,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 8,
-          questionsCount: 1,
-          timeLimit: 60,
+          questionsCount: 15,
+          timeLimit: 120,
         },
         rewards: {
           score: 10,
@@ -568,7 +568,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           tables: [1, 2, 3, 4, 5, 6, 7, 8],
-          questionsCount: 1,
+          questionsCount: 20,
           timeLimit: 120,
         },
         rewards: {
@@ -589,7 +589,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.BEGINNER,
         objectives: {
           table: 9,
-          questionsCount: 1,
+          questionsCount: 10,
         },
         rewards: {
           score: 10,
@@ -605,8 +605,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           table: 9,
-          questionsCount: 1,
-          timeLimit: 120,
+          questionsCount: 12,
+          timeLimit: 180,
         },
         rewards: {
           score: 10,
@@ -622,8 +622,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           table: 9,
-          questionsCount: 1,
-          timeLimit: 60,
+          questionsCount: 15,
+          timeLimit: 120,
         },
         rewards: {
           score: 10,
@@ -639,7 +639,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           tables: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-          questionsCount: 1,
+          questionsCount: 20,
           timeLimit: 120,
         },
         rewards: {
@@ -660,7 +660,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.INTERMEDIATE,
         objectives: {
           tables: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-          questionsCount: 1,
+          questionsCount: 15,
           timeLimit: 180,
         },
         rewards: {
@@ -678,8 +678,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.ADVANCED,
         objectives: {
           tables: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-          questionsCount: 1,
-          timeLimit: 90,
+          questionsCount: 15,
+          timeLimit: 150,
         },
         rewards: {
           score: 10,
@@ -696,7 +696,7 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           tables: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-          questionsCount: 1,
+          questionsCount: 15,
           timeLimit: 120,
         },
         rewards: {
@@ -714,7 +714,8 @@ export const QUESTS_CONFIG = {
         difficulty: DIFFICULTY.EXPERT,
         objectives: {
           tables: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-          questionsCount: 1,
+          questionsCount: 20,
+          timeLimit: 120,
         },
         rewards: {
           score: 10,

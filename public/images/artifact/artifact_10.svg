@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="grad10" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#93c5fd;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    <linearGradient id="gradP" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
     </linearGradient>
-    <filter id="glow10">
+    <filter id="glowP">
       <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
       <feMerge>
         <feMergeNode in="coloredBlur"/>
@@ -14,36 +14,31 @@
     </filter>
   </defs>
   
-  <!-- Fragment de base (décagone) -->
-  <path d="M100 20L145 30L180 60L195 100L190 140L165 170L125 185L75 185L35 170L10 140L5 100L20 60L55 30L100 20Z" 
-        fill="url(#grad10)" 
-        stroke="#1e3a8a" 
+  <!-- Fragment de base (cercle parfait) -->
+  <circle cx="100" cy="100" r="80"
+        fill="url(#gradP)" 
+        stroke="#92400e" 
         stroke-width="2"
-        filter="url(#glow10)"/>
+        filter="url(#glowP)"/>
   
-  <!-- Étoile à dix branches -->
-  <path d="M100 40L110 70L140 70L115 90L125 120L100 105L75 120L85 90L60 70L90 70L100 40Z" 
+  <!-- Motif de l'infini -->
+  <path d="M60 100C60 85 75 85 75 100C75 115 60 115 60 100M140 100C140 85 125 85 125 100C125 115 140 115 140 100M75 100L125 100"
         fill="none" 
-        stroke="#1e3a8a" 
+        stroke="#92400e" 
+        stroke-width="2"/>
+  
+  <!-- Symbole de perfection (spirale) -->
+  <path d="M100 100C100 90 110 90 110 100C110 120 90 120 90 100C90 70 120 70 120 100C120 140 80 140 80 100"
+        fill="none" 
+        stroke="#92400e" 
         stroke-width="2"
-        transform="scale(1.2) translate(-20 -20)"/>
+        transform="rotate(45 100 100)"/>
   
-  <!-- Symbole du chiffre 10 -->
-  <path d="M85 70L85 130M115 70C115 55 85 55 85 70C85 85 115 85 115 100C115 115 85 115 85 100" 
-        stroke="#1e3a8a" 
-        stroke-width="3" 
-        stroke-linecap="round" 
-        fill="none"/>
-  
-  <!-- Points lumineux -->
-  <circle cx="100" cy="30" r="3" fill="white" filter="url(#glow10)"/>
-  <circle cx="140" cy="40" r="3" fill="white" filter="url(#glow10)"/>
-  <circle cx="175" cy="65" r="3" fill="white" filter="url(#glow10)"/>
-  <circle cx="190" cy="100" r="3" fill="white" filter="url(#glow10)"/>
-  <circle cx="185" cy="135" r="3" fill="white" filter="url(#glow10)"/>
-  <circle cx="160" cy="165" r="3" fill="white" filter="url(#glow10)"/>
-  <circle cx="120" cy="180" r="3" fill="white" filter="url(#glow10)"/>
-  <circle cx="80" cy="180" r="3" fill="white" filter="url(#glow10)"/>
-  <circle cx="40" cy="165" r="3" fill="white" filter="url(#glow10)"/>
-  <circle cx="15" cy="135" r="3" fill="white" filter="url(#glow10)"/>
-</svg> 
+  <!-- Points lumineux en hexagone -->
+  <circle cx="100" cy="26" r="3" fill="white" filter="url(#glowP)"/>
+  <circle cx="160" cy="60" r="3" fill="white" filter="url(#glowP)"/>
+  <circle cx="160" cy="140" r="3" fill="white" filter="url(#glowP)"/>
+  <circle cx="100" cy="175" r="3" fill="white" filter="url(#glowP)"/>
+  <circle cx="39" cy="140" r="3" fill="white" filter="url(#glowP)"/>
+  <circle cx="36" cy="62" r="3" fill="white" filter="url(#glowP)"/>
+</svg>
