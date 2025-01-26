@@ -7,8 +7,12 @@ const STORAGE_KEYS = {
   USER_PROGRESS: "multitab-user-progress",
 };
 
+// Fonction utilitaire pour vérifier si on est côté client
+const isClient = () => typeof window !== "undefined";
+
 // Fonction utilitaire pour obtenir la clé de stockage spécifique à l'utilisateur
 const getUserStorageKey = (key) => {
+  if (!isClient()) return null;
   const playerName = localStorage.getItem("playerName");
   if (!playerName) return null;
   return `${playerName}_${key}`;
@@ -16,6 +20,7 @@ const getUserStorageKey = (key) => {
 
 // Sauvegarder un nouveau résultat de test
 export const saveTestResult = (result) => {
+  if (!isClient()) return false;
   try {
     const storageKey = getUserStorageKey("test-results");
     if (!storageKey) return false;
@@ -43,6 +48,7 @@ export const saveTestResult = (result) => {
 
 // Récupérer tous les résultats de l'utilisateur
 export const getTestResults = () => {
+  if (!isClient()) return [];
   try {
     const storageKey = getUserStorageKey("test-results");
     if (!storageKey) return [];
@@ -170,20 +176,26 @@ export const resetProgress = () => {
 };
 
 export const getProgress = () => {
-  if (typeof window !== "undefined") {
+  if (!isClient()) return null;
+  try {
     const storageKey = getUserStorageKey("userProgress");
     if (!storageKey) return null;
     const progress = localStorage.getItem(storageKey);
     return progress ? JSON.parse(progress) : null;
+  } catch (error) {
+    console.error("Erreur lors de la récupération de la progression:", error);
+    return null;
   }
-  return null;
 };
 
 export const saveProgress = (progress) => {
-  if (typeof window !== "undefined") {
+  if (!isClient()) return;
+  try {
     const storageKey = getUserStorageKey("userProgress");
     if (!storageKey) return;
     localStorage.setItem(storageKey, JSON.stringify(progress));
+  } catch (error) {
+    console.error("Erreur lors de la sauvegarde de la progression:", error);
   }
 };
 
